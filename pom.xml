@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.rubypaper</groupId>
-	<artifactId>SampleWeb</artifactId>
+	<artifactId>swExample</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0</version>
-	<name>SampleWeb</name>
+	<name>swExample</name>
 	<url>http://www.egovframe.go.kr</url>
 
 	<licenses>

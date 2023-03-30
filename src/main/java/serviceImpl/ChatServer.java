@@ -24,7 +24,7 @@ public class ChatServer {
 	
 	@OnOpen
 	public void handleOpen(Session session) {
-		print("클라이언트 연결");
+		print("[" + session + "] Connect");
 		list.add(session); // 접속자 관리(****)
 	}
 	
@@ -85,13 +85,25 @@ public class ChatServer {
 	}
 	
 	@OnClose
-	public void handleClose() {
-		
+	public void handleClose(Session session) {
+		print("[" + session + "] Close");
+		for (Session s : list) {
+			
+			if (s != session) { // 현재 접속자가 아닌 나머지 사람들
+				try {
+					s.getBasicRemote().sendText("3#" + "나감");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		list.remove(session);
 	}
 	
 	@OnError
 	public void handleError(Throwable t) {
-		
+		System.out.println(t);
 	}
 	
 
