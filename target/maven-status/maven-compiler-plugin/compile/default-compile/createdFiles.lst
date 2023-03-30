@@ -1,0 +1,12 @@
+config\DatabaseConfig.class
+controller\LoginController.class
+config\ModelConfig.class
+config\ControllerConfig.class
+serviceImpl\LoginServiceImpl.class
+serviceImpl\ChatServer.class
+dao\UserDao.class
+service\LoginService.class
+controller\ChatController.class
+config\MvcConfig.class
+model\Club.class
+model\User.class
