@@ -36,10 +36,10 @@
 	<br> 이메일 : ${userInfo.userEmail }
 	<br> 전화번호 : ${userInfo.userPhoneNumber }
 	<br> 가입한 동아리 :
-
+	<br> <a href="/createclub">동아리 개설</a>
 	<c:forEach var="cc" items="${club}">
-${cc }
-</c:forEach>
+		${cc }
+	</c:forEach>
 
 	<div class="container">
 		<h1 class="page-header">Chat</h1>
