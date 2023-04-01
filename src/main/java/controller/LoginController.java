@@ -4,12 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.User;
@@ -24,8 +21,6 @@ public class LoginController {
 	//로그인 페이지
 	@RequestMapping("/login")
 	public String loginPage() {
-		//return "/WEB-INF/view/Login";
-		System.out.println("aa");
 		return "login";
 	}
 	
@@ -72,10 +67,18 @@ public class LoginController {
 			
 			
 			
-		}catch(Exception e) {//아이디나 비밀번호가 달라 예외가 발생한 경우 다시 로그인 페이지로 리다이렉트(틀렸다는 메세지가 필요할 듯)
-			//return "redirect:/login";
-			System.out.println("redirect");
-			mav.setViewName("redirect:/login");
+		} catch(Exception e) {//아이디나 비밀번호가 달라 예외가 발생한 경우 다시 로그인 페이지로 리다이렉트(틀렸다는 메세지가 필요할 듯)
+			/*
+			 * System.out.println("redirect"); mav.setViewName("redirect:/login");
+			 */			
+			System.out.println("Login Exception");
+			
+			String alert = "";
+			alert = "<script>alert('로그인에 실패했습니다 !');</script>";
+			
+			mav.addObject("alert", alert);
+			mav.addObject("user", user);
+			mav.setViewName("login");
 			return mav;
 		}
 	}

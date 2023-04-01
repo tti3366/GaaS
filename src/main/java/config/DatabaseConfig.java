@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class DatabaseConfig {
 	
 	//mysql 설정
-	@Bean
 	public DataSource dataSource() {
 		DataSource ds=new DataSource();
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
@@ -26,16 +25,28 @@ public class DatabaseConfig {
 	}
 	
 	//오라클 설정
-	@Bean
-	public DataSource dataSource2() {		
+	@Bean(destroyMethod = "close")
+	public DataSource dataSource2() {
 		DataSource ds=new DataSource();
 		ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=C:/Wallet_gaasDB");
 		//ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=/home/ubuntu/Wallet_gaasDB");
 		ds.setUsername("admin");
 		ds.setPassword("Qwer1234!@#$");
-		ds.setInitialSize(10);
+		//ds.setInitialSize(10);
 		ds.setMaxActive(20);
+		ds.setMaxIdle(20);
+    		
+		ds.setTestOnBorrow(true);
+		ds.setTestOnReturn(false);
+		ds.setMaxWait(3000);
+		ds.setValidationQuery("SELECT 1 FROM DUAL");
+    		
+		ds.setTestWhileIdle(true);
+		ds.setTimeBetweenEvictionRunsMillis(150000);
+		ds.setNumTestsPerEvictionRun(4);
+		ds.setMinEvictableIdleTimeMillis(-1);
+    		
 		
 		System.out.println("db연결");
 		return ds;

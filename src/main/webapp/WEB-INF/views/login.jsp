@@ -14,13 +14,15 @@
 <!-- 스프링 폼 사용 -->
 <form:form modelAttribute="test" action="/loginCheck" method="post">
 
-	<label>ID : <input type="text" name="userId" value="${user.userId }"/></label>
+	<label>ID : <input type="text" name="userId" value="${user.userId}"/></label>
 	<br>
 	
 	<label>PW : <input type="password" name="userPw"/></label>
 	<br>
 	
 	<input type="submit" value="로그인"/><br>
+	
+	${alert} <!-- 로그인 실패 알림 메시지 -->
 </form:form>
 
 
