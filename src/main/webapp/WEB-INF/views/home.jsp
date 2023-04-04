@@ -66,15 +66,15 @@
 		<!-- 유저 정보  -->
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>UserName</h6>
-              <span>MemberId</span>
+              <h6>${userInfo.userName}</h6>
+              <span>${userInfo.userId}</span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="/mypage">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -104,7 +104,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="/logoutProc">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
