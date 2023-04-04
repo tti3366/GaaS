@@ -43,7 +43,7 @@ function info(){
 	if(clubName=="" || managerId=="" || division==""){
 		//하나라도 비었으면 버튼 비활성화
 		document.getElementById("subBtn").disabled=true;
-	}else{
+	} else{
 		document.getElementById("subBtn").disabled=false;
 	}
 	

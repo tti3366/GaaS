@@ -31,7 +31,7 @@ public class MvcConfig implements WebMvcConfigurer{
 		registry
 		.addInterceptor(new MvcConfig.RequestHandler()) //핸들러를 지정
 		.addPathPatterns("/**") //인터셉트할 기본 패턴을 지정
-		.excludePathPatterns("", "/", "/login", "/loginCheck", "/logoutProc", "/signup", "/signupCheck", 
+		.excludePathPatterns("", "/", "/login", "/loginProc", "/logoutProc", "/signup", "/signupProc", 
 				"/validation", "/error", "/assets/**", "/css/**");	
 		// 인터럽트 제외
 	}
