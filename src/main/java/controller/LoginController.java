@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.User;
+import service.ClubService;
 import service.LoginService;
 
 @Controller
@@ -17,6 +18,8 @@ public class LoginController {
 	
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private ClubService clubService;
 	
 	//로그인 페이지
 	@RequestMapping("/login")
@@ -54,13 +57,13 @@ public class LoginController {
 			System.out.println(result.getUserId());
 			System.out.println(result.getUserPw());
 			
-			
 			//사용자가 가입한 동아리가 있는지
 			List<String> clubName=loginService.selectClub(result.getUserId());//학번을 이용해 가입한 동아리의 이름을 가져옴
-				
+			
 			System.out.println(clubName);
 			mav.addObject("userInfo",result);
 			mav.addObject("club",clubName);
+			mav.addObject("clubs", clubService.getAllClubNames());//현재 존재하는 동아리들을 조회
 			mav.setViewName("main");
 			
 			return mav;
