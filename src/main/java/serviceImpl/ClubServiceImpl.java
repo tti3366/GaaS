@@ -1,5 +1,7 @@
 package serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import dao.ClubDao;
@@ -13,5 +15,13 @@ public class ClubServiceImpl implements ClubService{
 	
 	public int insertClub(Club club) {
 		return clubDao.intsertClub(club);
+	}
+	
+	public List<String> getAllClubNames() {
+		return clubDao.getAllClubNames();
+	}
+	
+	public List<String> getClubNamesByNum(int num) {
+		return clubDao.getClubNamesByNum(num);
 	}
 }
