@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import controller.ChatController;
 import controller.LoginController;
+import controller.PostController;
 import controller.ClubController;
 import controller.IndexController;
 
@@ -20,6 +21,11 @@ public class ControllerConfig {
 	@Bean
 	public ChatController chatController() {
 		return new ChatController();
+	}
+	
+	@Bean
+	public PostController postController() {
+		return new PostController();
 	}
 	
 	@Bean ClubController clubController() {
