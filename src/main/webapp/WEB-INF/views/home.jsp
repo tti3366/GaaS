@@ -44,7 +44,6 @@
 </head>
 
 <body>
-
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -141,100 +140,26 @@
       </li><!-- End Login Page Nav -->
 
       <li class="nav-heading">Major</li>
-
-	<!-- 학과 -->
-	  <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#ME">
-          <i class="bi bi-menu-button-wide"></i><span>Mechanical Engineering</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="ME" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <!--  동아리 -->
-        <!-- c:foreach로 CLUB 테이블에서 가져와서 해당하는 번호만큼 생성 ex) 전기 - 1번 -->
-          <c:forEach items="${clubSW}" var="club">
-             <li>
-               <a href="#" onclick="selectClubAndView(${clubId});">
-                 <i class="bi bi-circle"></i>
-                    <span>${club}</span>
-               </a>
-             </li>
-          </c:forEach>
-        </ul>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#E">
-          <i class="bi bi-menu-button-wide"></i><span>Electrical Engineering</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="E" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <!--  동아리 -->
-        <!-- c:foreach로 CLUB 테이블에서 가져와서 해당하는 번호만큼 생성 ex) 전기 - 1번 -->
-          <c:forEach items="${clubSW}" var="club">
-             <li>
-               <a href="/${club}">
-                 <i class="bi bi-circle"></i>
-                    <span>${club}</span>
-               </a>
-             </li>
-          </c:forEach>
-        </ul>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#SW">
-          <i class="bi bi-menu-button-wide"></i><span>Smart Software</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="SW" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <!--  동아리 -->
-        <!-- c:foreach로 CLUB 테이블에서 가져와서 해당하는 번호만큼 생성 ex) 전기 - 1번 -->
-          <c:forEach items="${clubSW}" var="club">
-             <li>
-               <a href="/${club}">
-                 <i class="bi bi-circle"></i>
-                    <span>${club}</span>
-               </a>
-             </li>
-          </c:forEach>
-        </ul>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#SE">
-          <i class="bi bi-menu-button-wide"></i><span>Smart Mechanical Engineering</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="SE" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <!--  동아리 -->
-        <!-- c:foreach로 CLUB 테이블에서 가져와서 해당하는 번호만큼 생성 ex) 전기 - 1번 -->
-          <c:forEach items="${clubSW}" var="club">
-             <li>
-               <a href="/${club}">
-                 <i class="bi bi-circle"></i>
-                    <span>${club}</span>
-               </a>
-             </li>
-          </c:forEach>
-        </ul>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-toggle="collapse" href="#EE">
-          <i class="bi bi-menu-button-wide"></i><span>Electrical Electronic Engineering</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="EE" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <!--  동아리 -->
-        <!-- c:foreach로 CLUB 테이블에서 가져와서 해당하는 번호만큼 생성 ex) 전기 - 1번 -->
-          <c:forEach items="${clubSW}" var="club">
-             <li>
-               <a href="/${club}">
-                 <i class="bi bi-circle"></i>
-                    <span>${club}</span>
-               </a>
-             </li>
-          </c:forEach>
-        </ul>
-      </li>
-      <!-- 전공 동아리 끝 -->
-
-      
+      <!-- 학과 배열 선언 -->
+      <c:forEach items="${depts}" var="dept">
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-toggle="collapse" href="#${dept.nameEn}">
+            <i class="bi bi-menu-button-wide"></i><span>${dept.nameEn}</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="${dept.nameEn}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <c:forEach items="${clubs}" var="club">
+              <c:if test="${club.deptNameEn == dept.nameEn}">
+                <li>
+                  <a href="/${club.clubName}">
+                    <i class="bi bi-circle"></i>
+                    <span>${club.clubName}</span>
+                  </a>
+                </li>
+              </c:if>
+            </c:forEach>
+          </ul>
+        </li>
+      </c:forEach>
 
       <li class="nav-heading">Common</li>
 

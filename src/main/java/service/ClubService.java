@@ -11,5 +11,7 @@ public interface ClubService {
 	public List<String> getAllClubNames();
 	
 	public List<String> getClubNamesByNum(int num);
+	
+	public List<Club> getAllClubs();
 
 }
