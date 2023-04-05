@@ -10,7 +10,7 @@ public interface ClubService {
 	
 	public List<String> getAllClubNames();
 	
-	public List<String> getClubNamesByNum(int num);
+	public Club getClubNamesByNum(String clubId);
 	
 	public List<Club> getAllClubs();
 
