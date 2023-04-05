@@ -57,8 +57,8 @@ public class ChatServer {
 			for (Session s : list) {
 				
 				if (s != session) { // 현재 접속자가 아닌 나머지 사람들
-					try {
-						s.getBasicRemote().sendText("2#ㅋㅋ" + user + ":" + txt+"test");
+					try {				
+						s.getBasicRemote().sendText("2#" + user + "#" + txt);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -91,7 +91,7 @@ public class ChatServer {
 			
 			if (s != session) { // 현재 접속자가 아닌 나머지 사람들
 				try {
-					s.getBasicRemote().sendText("3#" + "나감");
+					s.getBasicRemote().sendText("3#dd나감");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
