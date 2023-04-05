@@ -24,4 +24,8 @@ public class ClubServiceImpl implements ClubService{
 	public List<String> getClubNamesByNum(int num) {
 		return clubDao.getClubNamesByNum(num);
 	}
+	
+	public List<Club> getAllClubs() {
+		return clubDao.getAllClubs();
+	}
 }

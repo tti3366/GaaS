@@ -1,16 +1,18 @@
 package model;
 
 public class Club {
-	public static int clubId;
 	
+	private String clubId;
 	private int managerId;
 	private String clubName;
 	private String division;
+	private String deptNameKr;
+	private String deptNameEn;
 	
-	public int getClubId() {
+	public String getClubId() {
 		return clubId;
 	}
-	public void setClubId(int clubId) {
+	public void setClubId(String clubId) {
 		this.clubId = clubId;
 	}
 	public int getManagerId() {
@@ -31,4 +33,17 @@ public class Club {
 	public void setDivision(String division) {
 		this.division = division;
 	}
+	public String getDeptNameKr() {
+		return deptNameKr;
+	}
+	public void setDeptNameKr(String deptNameKr) {
+		this.deptNameKr = deptNameKr;
+	}
+	public String getDeptNameEn() {
+		return deptNameEn;
+	}
+	public void setDeptNameEn(String deptNameEn) {
+		this.deptNameEn = deptNameEn;
+	}
+	
 }

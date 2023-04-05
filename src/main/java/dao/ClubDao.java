@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import model.Club;
+import model.Department;
 
 public class ClubDao {
 	@Autowired
@@ -14,9 +16,9 @@ public class ClubDao {
 	
 	public int intsertClub(Club club) {
 		System.out.println("insertClub");
-		String sql="insert into club values(?,?,?,?)";
+		String sql="insert into club values(?,?,?,?,?,?)";
 		
-		int result=jdbcTemplate.update(sql,String.valueOf(++Club.clubId),club.getManagerId(),club.getClubName(),club.getDivision());
+		int result=jdbcTemplate.update(sql,club.getClubId(),club.getManagerId(),club.getClubName(),club.getDivision(),club.getDeptNameKr(),club.getDeptNameEn());
 		return result;
 	}
 	//현재 존재하는 동아리를 조회
@@ -34,5 +36,19 @@ public class ClubDao {
 			System.out.println("일치하는 데이터가 없습니다.");
 		}
 		return list;
+	}
+	public List<Club> getAllClubs() {
+		String sql = "select * from club";
+		RowMapper<Club> rowMapper = (rs, rowNum) -> {
+            Club club = new Club();
+            club.setClubId(rs.getString("club_id"));
+            club.setManagerId(rs.getInt("manager_id"));
+            club.setClubName(rs.getString("club_name"));
+            club.setDivision(rs.getString("division"));
+            club.setDeptNameKr(rs.getString("dept_name_kr"));
+            club.setDeptNameEn(rs.getString("dept_name_en"));
+            return club;
+        };
+        return jdbcTemplate.query(sql, rowMapper);
 	}
 }
