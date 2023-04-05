@@ -32,16 +32,12 @@ public class IndexController {
 		
 		User userInfo = (User)request.getSession().getAttribute("SESSION");
 		
-		System.out.println("컨트롤러 호출 성공");
 		List<Department> depts = deptService.getAllDepartments();
 		List<Club> clubs = clubService.getAllClubs();
-		System.out.println(clubs.get(0).getClubId());
-
 		
 		mav.addObject("depts", depts);
 		mav.addObject("clubs", clubs);
 		mav.addObject("userInfo", userInfo);
-		mav.addObject("clubId", 2);
 		
 		mav.setViewName("home");
 		return mav;
@@ -52,8 +48,6 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView();  
 		
 		Club club = clubService.getClubNamesByNum(clubId);
-
-		//int id = Integer.parseInt(clubId);
 
 		mav.addObject("clubObj", club);
 

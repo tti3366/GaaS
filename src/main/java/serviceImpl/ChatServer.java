@@ -16,22 +16,21 @@ import javax.websocket.server.ServerEndpoint;
 public class ChatServer {
 	
 	private static List<Session> list=new ArrayList<Session>();
-	
 
-	private void print(String msg) {
+	private void print(String msg) {	// TimeStamp Print
 		System.out.printf("[%tT] %s\n",Calendar.getInstance(),msg);
 	}
 	
 	@OnOpen
 	public void handleOpen(Session session) {
 		print("[" + session + "] Connect");
-		list.add(session); // 접속자 관리(****)
+		list.add(session);	// 접속자 관리(****)
 	}
 	
 	@OnMessage
 	public void handleMessage(String msg, Session session) {
 		System.out.println(msg);
-		// 로그인할 때: 1#유저명
+		// 로그인 할 때: 1#유저명
 		// 대화  할 때: 2유저명#메세지		
 		int index = msg.indexOf("#", 2);
 		String no = msg.substring(0, 1); 
@@ -91,7 +90,7 @@ public class ChatServer {
 			
 			if (s != session) { // 현재 접속자가 아닌 나머지 사람들
 				try {
-					s.getBasicRemote().sendText("3#dd나감");
+					s.getBasicRemote().sendText("3#나감");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
