@@ -2,6 +2,9 @@ package controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,8 +38,8 @@ public class LoginController {
 	
 	
 	//회원가입
-	@RequestMapping("/signUpCheck")
-	public String signUpCheck(@ModelAttribute("signupTest") User user) {
+	@RequestMapping("/signupProc")
+	public String signupProc(@ModelAttribute("signupTest") User user) {
 		
 		int result=loginService.insertUser(user);
 		System.out.println(result);
@@ -44,36 +47,19 @@ public class LoginController {
 	}
 
 	//사용자가 입력한 아이디와 비밀번호를 받아 커맨드 객체로 생성
-	//검증 필요?
-	@PostMapping("/loginCheck")
-	public ModelAndView loginCheck(@ModelAttribute("test") User user) {
+	@PostMapping(value = "/loginProc")
+	public ModelAndView loginProc(@ModelAttribute("test") User user, HttpSession session, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
 		
-		ModelAndView mav=new ModelAndView();
-		
-		//사용자가 입력한 id,pw에 맞는 db정보가 있는지 확인(로그인 정보 확인)
 		try {
-			User result=loginService.selectUser(user);
+			User userInfo = loginService.selectUser(user);
 			
-			System.out.println(result.getUserId());
-			System.out.println(result.getUserPw());
-			
-			//사용자가 가입한 동아리가 있는지
-			List<String> clubName=loginService.selectClub(result.getUserId());//학번을 이용해 가입한 동아리의 이름을 가져옴
-			
-			System.out.println(clubName);
-			mav.addObject("userInfo",result);
-			mav.addObject("club",clubName);
-			mav.addObject("clubs", clubService.getAllClubNames());//현재 존재하는 동아리들을 조회
-			mav.setViewName("main");
+			session.setAttribute("SESSION", userInfo);
+			System.out.println("session : " + request.getSession().getAttribute("SESSION"));
+			mav.setViewName("redirect:/home");
 			
 			return mav;
-			
-			
-			
-		} catch(Exception e) {//아이디나 비밀번호가 달라 예외가 발생한 경우 다시 로그인 페이지로 리다이렉트(틀렸다는 메세지가 필요할 듯)
-			/*
-			 * System.out.println("redirect"); mav.setViewName("redirect:/login");
-			 */			
+		} catch(Exception e) {
 			System.out.println("Login Exception");
 			
 			String alert = "";
@@ -84,6 +70,27 @@ public class LoginController {
 			mav.setViewName("login");
 			return mav;
 		}
+	}
+	
+	@RequestMapping("/logoutProc")
+	public String logoutProc(HttpSession session) {
+		session.invalidate();
+		return "redirect:/home";
+	}
+	
+	@RequestMapping("/mypage")
+	public ModelAndView myPage(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User userInfo = (User)request.getSession().getAttribute("SESSION");
+		
+		List<String> clubName = loginService.selectClub(userInfo.getUserId()); //학번을 이용해 가입한 동아리의 이름을 가져옴
+		
+		mav.addObject("userInfo", userInfo);
+		mav.addObject("club", clubName);
+		mav.addObject("clubs", clubService.getAllClubNames()); //현재 존재하는 동아리들을 조회
+		mav.setViewName("mypage");
+		
+		return mav;
 	}
 }
 

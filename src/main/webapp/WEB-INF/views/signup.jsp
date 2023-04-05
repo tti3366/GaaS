@@ -13,7 +13,7 @@
 
 
 <!-- 스프링 폼 사용 -->
-<form:form modelAttribute="signupTest" action="/signUpCheck" method="post">
+<form:form modelAttribute="signupTest" action="/signupProc" method="post">
 
     
     
@@ -32,7 +32,7 @@
 	<label>전화번호 : <input type="text" id="userPhoneNumber" name="userPhoneNumber" placeholder="하이픈(-)을 제외하고 입력하세요" value="${user.userPhoneNumber }" onchange="info()"/></label>
 	<br>
 	<input type="submit" id="subBtn" value="가입" disabled/><br>
-	<input type="button" id="btn" value="가입" onclick="location.href='/signUpCheck'" disabled /><br>
+	<input type="button" id="btn" value="가입" onclick="location.href='/signupProc'" disabled /><br>
 </form:form>
 
 <script type="text/javascript">

@@ -15,24 +15,24 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/logo.png" rel="icon">
-  <link href="assets/img/logo.png" rel="apple-touch-icon">
+  <link href="/assets/img/logo.png" rel="icon">
+  <link href="/assets/img/logo.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -49,7 +49,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
+        <img src="/assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FHAK</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -59,7 +59,7 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <span class="d-none d-md-block dropdown-toggle ps-2">UserName</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
           </a>
 
 		<!-- 유저 정보  -->
@@ -161,9 +161,6 @@
         </li>
       </c:forEach>
 
-
-      
-
       <li class="nav-heading">Common</li>
 
       <li class="nav-item">
@@ -229,32 +226,10 @@
 
                 <div class="card-body" style="height:500px" >
                   <h5 class="card-title">게시판 성격에 따라 변하게</h5>
-
-                  <table class="table table-borderless" >
-                    <thead>
-                      <tr style="text-align:center">
-                        <th scope="col">게시글 번호</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">작성자</th>
-                        <th scope="col">작성일자</th>
-                        <th scope="col">조회수</th>
-                      </tr>
-                    </thead>
-                    <% 
-                    	Date date = new Date();
-                    	SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-                    	String str = sd.format(date);
-                    %>
-                    <tbody>
-	                        <tr>
-	                            <th scope="row" style="text-align:center">1</th>
-	                            <td><a href="#" class="text-primary fw-bold">Test</a></td>
-	                            <td style="text-align:center">고명준</td>
-	                            <td style="text-align:center"><%=str  %></td>
-	                            <td class="fw-bold" style="text-align:center">124</td>
-	                        </tr>
-                    </tbody>
-                  </table>
+                  	
+                  	<div id="clubView"></div>	<!-- 게시판 뷰 -->
+                  	
+                  </script>
                 </div>
               </div>
             </div><!-- 게시판 끝-->
@@ -433,17 +408,19 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/assets/vendor/quill/quill.min.js"></script>
+  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="/assets/js/jquery-1.10.2.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/additionalFunc.js"></script>
 
 </body>
 
