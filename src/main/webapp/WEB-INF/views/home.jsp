@@ -48,7 +48,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="/home" class="logo d-flex align-items-center">
         <img src="/assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FHAK</span>
       </a>
@@ -126,31 +126,38 @@
 
 	<!--  MAIN PAGE -->
       <li class="nav-item">
-        <a class="nav-link " href="home.jsp">
+        <a class="nav-link " href="/mypage">
           <i class="bi bi-grid"></i>
-          <span>HOME</span>
+          <span>MY PAGE</span>
         </a>
       </li>
       
       <li class="nav-item">
         <a class="nav-link collapsed" href="/login">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
+          <span>LOGIN</span>
         </a>
       </li><!-- End Login Page Nav -->
 
-      <li class="nav-heading">Major</li>
+      <li class="nav-heading">DEPARTMENT</li>
+      
       <!-- 학과 배열 선언 -->
       <c:forEach items="${depts}" var="dept">
+      	
+      	<script>console.log('${dept.nameEn}');</script>
+      	
         <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-toggle="collapse" href="#${dept.nameEn}">
+          <a class="nav-link collapsed" data-bs-toggle="collapse" href="#${dept.nameKr}">
             <i class="bi bi-menu-button-wide"></i><span>${dept.nameEn}</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="${dept.nameEn}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <ul id="${dept.nameKr}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <c:forEach items="${clubs}" var="club">
               <c:if test="${club.deptNameEn == dept.nameEn}">
+              
+              	<script>console.log('-> ${club.clubName}');</script>
+              	
                 <li>
-                  <a href="/${club.clubName}">
+                  <a href="#" onclick="selectClubAndView(${club.clubId})">
                     <i class="bi bi-circle"></i>
                     <span>${club.clubName}</span>
                   </a>
@@ -160,22 +167,10 @@
           </ul>
         </li>
       </c:forEach>
-
-      <li class="nav-heading">Common</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i><!-- 아이콘 모양 설정 -->
-          <span>Futsal</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
-          <i class="bi bi-question-circle"></i>
-          <span>Basketball</span>
-        </a>
-      </li><!-- 교양 동아리 끝 -->
+<!--  
+      <i class="bi bi-person"></i>
+      <i class="bi bi-question-circle"></i>
+-->
 
     </ul>
 
@@ -225,11 +220,7 @@
                 </div>
 
                 <div class="card-body" style="height:500px" >
-                  <h5 class="card-title">게시판 성격에 따라 변하게</h5>
-                  	
                   	<div id="clubView"></div>	<!-- 게시판 뷰 -->
-                  	
-                  </script>
                 </div>
               </div>
             </div><!-- 게시판 끝-->

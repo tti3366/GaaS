@@ -12,7 +12,9 @@ import model.Department;
 public class ClubDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
 	public List<String> list;
+	public Club club;
 	
 	public int intsertClub(Club club) {
 		System.out.println("insertClub");
@@ -26,17 +28,32 @@ public class ClubDao {
 		String sql = "SELECT club_name FROM club";
 		return jdbcTemplate.queryForList(sql, String.class);
 	}
-	//특정 학과 번호로 시작하는 CLUB_ID 가지는 동아리 이름 조회
-	public List<String> getClubNamesByNum(int num) {		
+
+	public Club getClubNamesByNum(String clubId) {
+		RowMapper<Club> rowMapper = (rs, rowNum) -> {
+            Club club = new Club();
+            club.setClubId(rs.getString("club_id"));
+            club.setManagerId(rs.getInt("manager_id"));
+            club.setClubName(rs.getString("club_name"));
+            club.setDivision(rs.getString("division"));
+            club.setDeptNameKr(rs.getString("dept_name_kr"));
+            club.setDeptNameEn(rs.getString("dept_name_en"));
+            return club;
+        };
+        
 		try {
-			String sql = "SELECT club_name FROM club WHERE club_id LIKE ?";
-			String param = num + "%";
-			list = jdbcTemplate.queryForList(sql, String.class, param);
+			int id = Integer.parseInt(clubId.substring(0, 2));
+			
+			String sql = "SELECT * FROM club WHERE club_id LIKE ?";
+			String param = id + "%";
+			
+			club = jdbcTemplate.queryForObject(sql, rowMapper, param);
 		} catch (NullPointerException e) {
 			System.out.println("일치하는 데이터가 없습니다.");
 		}
-		return list;
+		return club;
 	}
+	
 	public List<Club> getAllClubs() {
 		String sql = "select * from club";
 		RowMapper<Club> rowMapper = (rs, rowNum) -> {
