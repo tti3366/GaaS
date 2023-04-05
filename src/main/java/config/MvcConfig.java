@@ -43,7 +43,7 @@ public class MvcConfig implements WebMvcConfigurer{
 		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 			Object session = request.getSession().getAttribute(SESSION_KEY);
 			if(session == null) {
-				System.out.println("session null");
+				System.out.println("SESSION NULL");
 				response.sendRedirect("/login"); // 세션 정보가 없을 경우, 로그인 필요
 				return false;
 			}

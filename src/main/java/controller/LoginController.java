@@ -39,31 +39,36 @@ public class LoginController {
 	
 	//회원가입
 	@RequestMapping("/signupProc")
-	public String signupProc(@ModelAttribute("signupTest") User user) {
+	public String signupProc(@ModelAttribute("signupData") User user) {
 		
-		int result=loginService.insertUser(user);
-		System.out.println(result);
+		int result = loginService.insertUser(user);
+		
+		if(result > 0) 
+			System.out.println("SUCCESS SIGNUP");
+		
 		return "success_signup";
 	}
 
 	//사용자가 입력한 아이디와 비밀번호를 받아 커맨드 객체로 생성
 	@PostMapping(value = "/loginProc")
-	public ModelAndView loginProc(@ModelAttribute("test") User user, HttpSession session, HttpServletRequest request) {
+	public ModelAndView loginProc(@ModelAttribute("loginData") User user, HttpSession session, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		
 		try {
 			User userInfo = loginService.selectUser(user);
 			
-			session.setAttribute("SESSION", userInfo);
-			System.out.println("session : " + request.getSession().getAttribute("SESSION"));
+			session.setAttribute("SESSION", userInfo);	// 로그인 유저 Session 등록
+			
+			System.out.println("SESSION : " + request.getSession().getAttribute("SESSION")
+								+ " [" + userInfo.getUserName() + "(" + userInfo.getUserId()+ ")]");
 			mav.setViewName("redirect:/home");
 			
 			return mav;
 		} catch(Exception e) {
-			System.out.println("Login Exception");
+			System.out.println("LOGIN EXCEPTION");
 			
 			String alert = "";
-			alert = "<script>alert('로그인에 실패했습니다 !');</script>";
+			alert = "<script>alert('로그인에 실패했습니다.');</script>";
 			
 			mav.addObject("alert", alert);
 			mav.addObject("user", user);

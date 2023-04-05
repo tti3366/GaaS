@@ -12,7 +12,7 @@
 잘못입력시 메세지 출력이 필요할듯<br>
 로그인 유지 설정 필요
 <!-- 스프링 폼 사용 -->
-<form:form modelAttribute="test" action="/loginProc" method="post">
+<form:form modelAttribute="loginData" action="/loginProc" method="post">
 
 	<label>ID : <input type="text" name="userId" value="${user.userId}"/></label>
 	<br>

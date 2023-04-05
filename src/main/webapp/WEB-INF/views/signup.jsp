@@ -13,7 +13,7 @@
 
 
 <!-- 스프링 폼 사용 -->
-<form:form modelAttribute="signupTest" action="/signupProc" method="post">
+<form:form modelAttribute="signupData" action="/signupProc" method="post">
 
     
     
