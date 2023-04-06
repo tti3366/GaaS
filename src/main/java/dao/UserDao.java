@@ -66,6 +66,27 @@ public class UserDao {
 		
 	}
 	
+	public User selectUserByUserId(String userId) {
+		String sql = "SELECT * FROM MEMBER WHERE member_id = ?";
+		
+		try {
+			User result = jdbcTemplate.queryForObject(sql,
+					(ResultSet rs, int rowNum)->{
+						User userInfo=new User();
+						userInfo.setUserId(String.valueOf(rs.getInt("member_id")));
+						userInfo.setUserPw(rs.getString("password"));
+						userInfo.setUserName(rs.getString("name"));
+						userInfo.setUserEmail(rs.getString("email"));
+						userInfo.setUserPhoneNumber(rs.getString("phone_number"));
+						return userInfo;
+					}, userId);
+			return result;
+					
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	
 	
 	//사용자가 가입한 동아리 있는지
 	public List<String> selectClub(String userId) {

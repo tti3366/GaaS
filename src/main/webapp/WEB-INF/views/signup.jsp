@@ -17,7 +17,7 @@
 
     
     
-	<label>학번 : <input type="text" id="userId" name="userId" value="${user.userId }" onchange="info()"/></label>
+	<label>학번 : <input type="text" id="userId" name="userId" value="${user.userId }" onchange="info()"/>${error}</label> 
 	<br>
 	
 	<label>비밀번호 : <input type="password" id="userPw" name="userPw" value="${user.userPw }" onchange="info()"/></label>
