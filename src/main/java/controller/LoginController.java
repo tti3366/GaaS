@@ -62,6 +62,7 @@ public class LoginController {
 			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
 			
 			mav.addObject("alert", alert);
+			mav.addObject("error", " 중복된 학번이 있습니다.");
 			mav.setViewName("signup");
 			return mav;
 		}

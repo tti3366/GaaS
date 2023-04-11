@@ -7,7 +7,6 @@
 
 <head>
 
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -31,6 +30,28 @@
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
 
+  <!-- 롤링배너 style -->
+  <style>
+
+	.block{
+	    display:inline-block;
+	    margin-right: 60px;
+	}
+	.sliderImg{
+		width: 400px;
+		height: 200px;
+		
+	}
+  </style>
+
+  <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  
 </head>
 
 <body>
@@ -333,17 +354,44 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
-      Designed by <a href="#" onclick="test()">BootstrapMade</a>
-    </div>
-  </footer><!-- End Footer -->
+	<div class="marquee_text">
+		<div class="block">
+        	<img class="sliderImg" src="https://cdn.pixabay.com/photo/2018/05/26/18/06/dog-3431913__340.jpg" onclick="location.href='https://www.naver.com'">
+    	</div>
+	    <div class="block">
+	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2013/07/18/10/56/lion-163542__340.jpg" onclick="location.href='https://www.naver.com'">
+	    </div>
+	    <div class="block">
+	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2014/10/04/22/29/monkey-474147__340.png" onclick="location.href='https://www.naver.com'">
+	    </div>
+	    <div class="block">
+	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/panda-309548__340.png" onclick="location.href='https://www.naver.com'">
+	    </div>
+	    <div class="block">
+	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2018/03/21/05/55/pig-3245668__340.png" onclick="location.href='https://www.naver.com'">
+	    </div>
+	    <div class="block">
+	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2017/07/19/17/16/bee-2519769__340.png" onclick="location.href='https://www.naver.com'">
+	    </div>
+	</div>
+ 	
+ 	<script>
+	 	$(function() {
+	 		$('.marquee_text').marquee({
+	 	    	speed: 60,//속도
+	 	        direction: 'left',//방향
+	 	        duration: 50000,
+	 	        gap: 50,//간격
+	 	        delayBeforeStart: 0,//시작 delay값
+	 	        duplicated: true,//선택 영역 복제
+	 	        startVisible: true,
+	 	        pauseOnHover: true//hover시 일시중지
+	 	    	
+	 	    });
+	 	});
+
+ 	</script>
+  </footer><!-- End Foo ter -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -356,9 +404,13 @@
   <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+	<script src="/assets/js/jquery.marquee.js"></script>
 
   <!-- Template Main JS File -->
+  <!-- 
   <script src="/assets/js/jquery-1.10.2.js"></script>
+   -->
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/additionalFunc.js"></script>
 </body>
