@@ -7,6 +7,8 @@ public class User {
 	private String userName;
 	private String userEmail;
 	private String userPhoneNumber;
+	private String authority;
+	
 	
 	public String getUserId() {
 		return userId;
@@ -38,9 +40,17 @@ public class User {
 	public void setUserPhoneNumber(String userPhoneNumber) {
 		this.userPhoneNumber = userPhoneNumber;
 	}
+	public String getAuthority() {
+		return authority;
+	}
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
 	
-
-	
-	
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail=" + userEmail
+				+ ", userPhoneNumber=" + userPhoneNumber + ", authority=" + authority + "]";
+	}
 	
 }

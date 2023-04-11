@@ -8,4 +8,5 @@ public interface DeptService {
 	
 	public List<Department> getAllDepartments();
 
+	public Department getDepartmentsByUserId(String userId);
 }

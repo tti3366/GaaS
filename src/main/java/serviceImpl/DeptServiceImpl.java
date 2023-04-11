@@ -16,5 +16,9 @@ public class DeptServiceImpl implements DeptService {
 	public List<Department> getAllDepartments() {
 		return deptDao.getAllDepartments();
 	}
-
+	
+	public Department getDepartmentsByUserId(String userId) {
+		return deptDao.getDepartmentsByUserId(userId);
+	}
+	
 }
