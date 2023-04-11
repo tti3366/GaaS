@@ -49,6 +49,7 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="/assets/img/${userInfo.authority}.png" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
           </a>
 
@@ -58,6 +59,7 @@
               <h6>${userInfo.userName}</h6>
               <span>${userInfo.userId}</span>
             </li>
+            
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -95,7 +97,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="/logoutProc">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>Logout</span>
               </a>
             </li>
 
@@ -123,9 +125,9 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/login">
+        <a class="nav-link collapsed" href="/logoutProc">
           <i class="bi bi-box-arrow-in-right"></i>
-          <span>LOGIN</span>
+          <span>LOGOUT</span>
         </a>
       </li><!-- End Login Page Nav -->
 
@@ -157,10 +159,6 @@
           </ul>
         </li>
       </c:forEach>
-<!--  
-      <i class="bi bi-person"></i>
-      <i class="bi bi-question-circle"></i>
--->
 
     </ul>
 
@@ -173,7 +171,6 @@
         <div class="col-lg-8">
           <div class="row">
           
-          <% for(int i = 0 ; i<3; i++){ %>
            <!-- 회원 게시판-->
             <div class="col-xxl-4 col-md-6">
               <div class="card info-card">
@@ -183,13 +180,42 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6><%= i %> Button</h6>
+                      <h6>Public</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-			<%} %>
+            
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center" style="margin-top : 30px">
+                    <!-- <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cart"></i>
+                    </div> -->
+                    <div class="ps-3">
+                      <h6>Private</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card">
+                <div class="card-body">
+                  <div class="d-flex align-items-center" style="margin-top : 30px">
+                    <!-- <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cart"></i>
+                    </div> -->
+                    <div class="ps-3">
+                      <h6>QnA</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           
           <!-- 게시판 -->
             <div class="col-md-12" style="height:500px">
@@ -200,12 +226,11 @@
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
+                      <h6>CRUD</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">ADD</a></li>
                     <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
                   </ul>
                 </div>
 
@@ -223,12 +248,14 @@
 
           
           <div class="card-body" style="height:50px; margin-bottom:0;">
-          	<h1>hello</h1>
+          	<h1>Chat</h1>
           </div>
           <div class="card" style="height : 200px; margin-bottom:0;" id="chatTable">
             <!-- 채팅 페이지 include -->
             <jsp:include page="chat.jsp"/>	
             
+            
+            <!-- 추후 랭킹 페이지 -->
             <div class="card" style="height : 200px;">
             	<div class="filter">
               		<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>

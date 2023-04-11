@@ -18,7 +18,7 @@ public class UserDao {
 	//회원 가입
 	public int insertUser(User user) {
 		System.out.println("insertUser");
-		String sql="insert into member values(?,?,?,?,?)";
+		String sql="insert into member(MEMBER_ID, PASSWORD, NAME, EMAIL, PHONE_NUMBER) values (?,?,?,?,?)";
 		
 		int result=jdbcTemplate.update(sql,Integer.parseInt(user.getUserId()),user.getUserPw(),user.getUserName(),user.getUserEmail(),user.getUserPhoneNumber());
 		return result;
@@ -57,13 +57,12 @@ public class UserDao {
 					userInfo.setUserName(rs.getString("name"));
 					userInfo.setUserEmail(rs.getString("email"));
 					userInfo.setUserPhoneNumber(rs.getString("phone_number"));
+					userInfo.setAuthority(rs.getString("authority"));
 					return userInfo;
 				},
 				Integer.parseInt(user.getUserId()),user.getUserPw());
 		
 		return result;
-		
-		
 	}
 	
 	

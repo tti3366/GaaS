@@ -4,252 +4,422 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.container {
-	width: 500px;
-}
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-#list {
-	height: 300px;
-	padding: 15px;
-	overflow: auto;
-}
-</style>
+  <title>FHAK</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+  <!-- Favicons -->
+  <link href="/assets/img/logo.png" rel="icon">
+  <link href="/assets/img/logo.png" rel="apple-touch-icon">
 
-<meta charset="UTF-8">
-<title>Insert title here</title>
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+
+<title>MyPage</title>
 </head>
 <body>
-	학번을 통해 소속학과 출력
-	<br> 학번을 통해 동아리 있는지 출력
-	<br> 동아리 있으면 동아리 출력
-	<br>
-	<br> 학번을 substring해서 나온값을 학과 프로퍼티파일에서 찾아서 출력-->일일히 비교해서 하기엔 귀찮다
-	<br> 소속 동아리,권한에 따라 다르게 동작할 수 있도록
-	<br> 웹 소켓을 이용해서 채팅기능 구현
-	<br>
-	<br> 학번 : ${userInfo.userId }
-	<br> 비밀번호 : ${userInfo.userPw }
-	<br> 이름 : ${userInfo.userName }
-	<br> 이메일 : ${userInfo.userEmail }
-	<br> 전화번호 : ${userInfo.userPhoneNumber }
-	<br> 가입한 동아리 :
-	<br> 현재 개설된 동아리 목록 :
-	<c:forEach items="${clubs}" var="club">
-        ${club}
-    </c:forEach>
-	<c:forEach var="cc" items="${club}">
-		${cc }
-	</c:forEach>
-	<br> <a href="/createclub">동아리 개설</a>
-	<div class="container">
-		<h1 class="page-header">Chat</h1>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
 
-		<table class="table table-bordered">
-			<tr>
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="/home" class="logo d-flex align-items-center">
+        <img src="/assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">FHAK</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <img src="/assets/img/${userInfo.authority}.png" alt="Profile" class="rounded-circle">
+            <span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
+          </a>
+
+		<!-- 유저 정보  -->
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>${userInfo.userName}</h6>
+              <span>${userInfo.userId}</span>
+            </li>
+            
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/mypage">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/logoutProc">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+    
+      <li class="nav-heading">Main</li>
+
+	<!--  MAIN PAGE -->
+      <li class="nav-item">
+        <a class="nav-link " href="/home">
+          <i class="bi bi-grid"></i>
+          <span>HOME</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/logoutProc">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>LOGOUT</span>
+        </a>
+      </li><!-- End Login Page Nav -->
 
 
-				<td><input type="text" name="user" id="user"
-					class="form-control" placeholder="유저명"></td>
+    </ul>
+
+  </aside><!-- 사이드바 끝 -->
 
 
-				<td>
-					<button type="button" class="btn btn-default" id="btnConnect">연결</button>
-					<button type="button" class="btn btn-default" id="btnDisconnect"
-						disabled>종료</button>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2"><div id="list"></div></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="text" name="msg" id="msg"
-					placeholder="대화 내용을 입력하세요." class="form-control" disabled></td>
-			</tr>
-		</table>
+<main id="main" class="main">
 
-	</div>
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/home">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
 
+    <section class="section profile">
+      <div class="row">
 
-	<script>
-		let userId = '${userInfo.userId }'; //학번
-		let userName = '${userInfo.userName}';//이름
+        <div class="col-xl-12">
 
-		let USER = userName + "(" + userId + ")";//이름 + 학번
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered">
 
-		let url = "ws://146.56.165.103:8080/chatserver"; //채팅 서버 146.56.165.103
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
 
-		//웹 소켓
-		let ws;
-		//연결하기
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
 
-		//연결 버튼 클릭 시	
-		$('#btnConnect').click(function() {
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
+                
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-deletion">Account Deletion</button>
+                </li>
 
-			// 연결
-			ws = new WebSocket(url);
+              </ul>
+              <div class="tab-content pt-2">
 
-			// 소켓 이벤트 매핑
-			// 웹 소켓 연결이 될때(소켓 만들자 마자 메세지 전송하면 실패하기 쉬워서 연결이 되었는지 onopen으로 확인하고 메세지 전송 시작)
-			ws.onopen = function(evt) {
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">Profile Details</h5>
 
-				//1. 내 채팅 창에 접속했음을 알림
-				printMe(USER, '님이 입장했습니다.');
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Name</div>
+                    <div class="col-lg-9 col-md-8">${userInfo.userName}</div>
+                  </div>
 
-				//2. 다른 사람 채팅 창에 내가 접속했음을 알림
-				ws.send('1#' + USER + '#');//처음 접속해서 send하면 ws.onmessage가 받아서 처리
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">User ID</div>
+                    <div class="col-lg-9 col-md-8">${userInfo.userId}</div>
+                  </div>
 
-				//print(userName+"("+userId+")", '님이 입장했습니다.');// 입장할 때 유저명+"입장했습니다" 출력
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Department</div>
+                    <div class="col-lg-9 col-md-8">${deptByUser.nameEn}</div>
+                  </div>
 
-				// 현재 사용자가 입장했다고 서버에게 통지(유저명 전달)
-				// -> 1#유저명
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                    <div class="col-lg-9 col-md-8">${userInfo.userPhoneNumber}</div>
+                  </div>
 
-				//속성
-				$('#user').attr('readonly', true);
-				$('#btnConnect').attr('disabled', true);
-				$('#btnDisconnect').attr('disabled', false);
-				$('#msg').attr('disabled', false);
-				$('#msg').focus();
-			};
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8">${userInfo.userEmail}</div>
+                  </div>
 
-			//send하면 얘가 받아서 처리
-			ws.onmessage = function(evt) {
-				print('', evt.data + "abc");
+                </div>
 
-				//evt.data--> 1#김가영(22371004)# (처음 접속할 때), 1#김가영(22371004)#메세지 (메세지 전송할때)
-				let index = evt.data.indexOf("#", 2); // #을 2번 인덱스 부터 찾으면 맨끝의 #이 찾아짐
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
-				let no = evt.data.substring(0, 1); //1
+                  <!-- Profile Edit Form -->
+                  <form>
+                    <div class="row mb-3">
+                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                      <div class="col-md-8 col-lg-9">
+                        <img src="assets/img/profile-img.jpg" alt="Profile">
+                        <div class="pt-2">
+                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                        </div>
+                      </div>
+                    </div>
 
-				let user = evt.data.substring(2, index);// 유저이름 뽑기
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson">
+                      </div>
+                    </div>
 
-				let txt = evt.data.substring(index + 1);//전할 메세지
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                      <div class="col-md-8 col-lg-9">
+                        <textarea name="about" class="form-control" id="about" style="height: 100px">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</textarea>
+                      </div>
+                    </div>
 
-				if (no == '1') {
-					print2(user);//다른 클라이언트한테 내가 접속했음을 알림
-				} else if (no == '2') {
-					print(user, txt);//메세지 전송
-				} else if (no == '3') {
-					print3(user);//클라이언트 접속 해제 알림
-				}
+                    <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="company" type="text" class="form-control" id="company" value="Lueilwitz, Wisoky and Leuschke">
+                      </div>
+                    </div>
 
-				$('#list').scrollTop($('#list').prop('scrollHeight'));
-			};
+                    <div class="row mb-3">
+                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="job" type="text" class="form-control" id="Job" value="Web Designer">
+                      </div>
+                    </div>
 
-			//소켓이 닫힐 때
-			ws.onclose = function(evt) {
-				console.log('소켓이 닫힙니다.');
-			};
+                    <div class="row mb-3">
+                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="country" type="text" class="form-control" id="Country" value="USA">
+                      </div>
+                    </div>
 
-			//소켓 에러 날 때
-			ws.onerror = function(evt) {
-				console.log(evt.data);
-			};
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022">
+                      </div>
+                    </div>
 
-		});
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="phone" type="text" class="form-control" id="Phone" value="(436) 486-3538 x29071">
+                      </div>
+                    </div>
 
-		//align="right" 
-		// 접속했을 때 내 채팅방에 보일 메세지
-		function printMe(user, txt) {
-			let temp = '';
-			temp += '<div align="center" style="margin-bottom:3px;">';
-			temp += '[' + user + '] ';
-			temp += txt;
-			temp += ' <span style="font-size:11px;color:#777;"> </span>';
-			temp += '</div>';
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="email" type="email" class="form-control" id="Email" value="k.anderson@example.com">
+                      </div>
+                    </div>
 
-			$('#list').append(temp);//채팅창에 추가
-		}
+                    <div class="row mb-3">
+                      <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="twitter" type="text" class="form-control" id="Twitter" value="https://twitter.com/#">
+                      </div>
+                    </div>
 
-		//메세지 전송할 때 내 채팅방에 보일 메세지
-		function printMe2(user, txt) {
-			let temp = '';
+                    <div class="row mb-3">
+                      <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#">
+                      </div>
+                    </div>
 
-			temp += '<div align="right" style="width:500px; margin-bottom:3px; word-break:break-all;">';
-			temp += ' <span style="font-size:11px;color:#777;">'
-					+ new Date().toLocaleTimeString() + '</span>';
-			temp += " " + txt;
-			//temp += '[' + user + '] ';
+                    <div class="row mb-3">
+                      <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#">
+                      </div>
+                    </div>
 
-			temp += '</div>';
+                    <div class="row mb-3">
+                      <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#">
+                      </div>
+                    </div>
 
-			$('#list').append(temp);//채팅창에 추가
-		}
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
 
-		//메세지 전송할 때 다른 클라이언트 한테 보일 메세지
-		function print(user, txt) {
-			let temp = '';
-			temp += '<div style="width: 500px; margin-bottom:3px; word-break:break-all;">';
-			temp += '[' + user + '] : ';
-			temp += txt;
-			temp += ' <span style="font-size:11px;color:#777;">'
-					+ new Date().toLocaleTimeString() + '</span>';
-			temp += '</div>';
+                </div>
 
-			$('#list').append(temp);//채팅창에 추가
-		}
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  <form>
 
-		// 클라이언트가 접속했다는 것을 다른 클라이언트에 알림		
-		function print2(user) {
-			let temp = '';
-			temp += '<div align="center" style="margin-bottom:3px;">';
-			temp += "[" + user + "] 님이 입장했습니다.";
-			temp += ' <span style="font-size:11px;color:#777;"> </span>';
-			temp += '</div>';
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="password" type="password" class="form-control" id="currentPassword">
+                      </div>
+                    </div>
 
-			$('#list').append(temp);
-		}
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="newpassword" type="password" class="form-control" id="newPassword">
+                      </div>
+                    </div>
 
-		// client 접속 종료
-		function print3(user) {
-			let temp = '';
-			temp += '<div style="margin-bottom:3px;">';
-			temp += "'" + user + "' 이(가) 종료했습니다.";
-			temp += ' <span style="font-size:11px;color:#777;">'
-					+ new Date().toLocaleTimeString() + '</span>';
-			temp += '</div>';
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="renewpassword" type="password" class="form-control" id="renewPassword">
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
+                </div>
+                
+                <div class="tab-pane fade pt-3" id="profile-deletion">
 
-			$('#list').append(temp);
-		}
+                  <!-- Settings Form -->
+                  <form>
 
-		//유저명 입력하고 엔터치면 웹 소켓 연결해서 통신할 수 있게
-		$('#user').keydown(function() {
-			if (event.keyCode == 13) {
-				$('#btnConnect').click();
-			}
-		});
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="changesMade" checked>
+                          <label class="form-check-label" for="changesMade">
+                            Changes made to your account
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="newProducts" checked>
+                          <label class="form-check-label" for="newProducts">
+                            Information on new products and services
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="proOffers">
+                          <label class="form-check-label" for="proOffers">
+                            Marketing and promo offers
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
+                          <label class="form-check-label" for="securityNotify">
+                            Security alerts
+                          </label>
+                        </div>
+                      </div>
+                    </div>
 
-		//보낼 메세지 입력하고 엔터치면 메세지 전송
-		$('#msg').keydown(function() {
-			if (event.keyCode == 13) {
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End settings Form -->
 
-				//서버에게 메시지 전달
-				//2#유저명#메시지
+                </div>
+                
+              </div><!-- End Bordered Tabs -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+    <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+      Designed by <a href="#" onclick="test()">BootstrapMade</a>
+    </div>
+  </footer><!-- End Footer -->
 
-				ws.send('2#' + USER + '#' + $(this).val()); //다른 클라이언트에 메세지 전송
-				printMe2(USER, $(this).val()); //본인 대화창에 메세지 출력
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-				$('#msg').val('');
-				$('#msg').focus();
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="/assets/vendor/quill/quill.min.js"></script>
+  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
 
-			}
-		});
+  <!-- Template Main JS File -->
+  <script src="/assets/js/jquery-1.10.2.js"></script>
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/additionalFunc.js"></script>
 
-		$('#btnDisconnect').click(function() {
-			ws.send('3#' + userName + "(" + userId + ")" + '#');
-			ws.close();
-
-			$('#user').attr('readonly', false);
-			$('#user').val('');
-
-			$('#btnConnect').attr('disabled', false);
-			$('#btnDisconnect').attr('disabled', true);
-
-			$('#msg').val('');
-			$('#msg').attr('disabled', true);
-		});
-	</script>
 </body>
 </html>
