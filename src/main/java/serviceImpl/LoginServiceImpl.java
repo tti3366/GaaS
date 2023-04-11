@@ -33,4 +33,8 @@ public class LoginServiceImpl implements LoginService{
 	public List<String> selectClub(String userId) {
 		return userDao.selectClub(userId);
 	}
+	
+	public User selectUserByUserId(String userId) {
+		return userDao.selectUserByUserId(userId);
+	}
 }

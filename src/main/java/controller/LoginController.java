@@ -39,14 +39,28 @@ public class LoginController {
 	
 	//회원가입
 	@RequestMapping("/signupProc")
-	public String signupProc(@ModelAttribute("signupData") User user) {
+	public ModelAndView signupProc(@ModelAttribute("signupData") User user) {
+		ModelAndView mav = new ModelAndView();
 		
-		int result = loginService.insertUser(user);
-		
-		if(result > 0) 
+		try {
+			loginService.insertUser(user);
 			System.out.println("SUCCESS SIGNUP");
-		
-		return "success_signup";
+			
+			String alert = "<script>alert('회원가입에 성공하였습니다.');</script>";
+			mav.addObject("alert", alert);
+			mav.setViewName("login");
+			
+			return mav;
+		} catch(Exception e) {
+			System.out.println("LOGIN EXCEPTION");
+			
+			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
+			
+			mav.addObject("alert", alert);
+			mav.addObject("error", " 중복된 학번이 있습니다.");
+			mav.setViewName("signup");
+			return mav;
+		}
 	}
 
 	//사용자가 입력한 아이디와 비밀번호를 받아 커맨드 객체로 생성
