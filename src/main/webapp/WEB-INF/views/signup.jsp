@@ -31,7 +31,6 @@
 
 </head>
 <body>
-
   <main>
     <div class="container">
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -63,7 +62,7 @@
                  	<!-- 학번 입력란 -->
                     <div class="col-12">
                       <label for="userId" class="form-label">Your Student ID</label>
-                      <input type="text" id="userId" name="userId" value="${user.userId }" class="form-control" required>
+                      <input type="text" id="userId" name="userId" value="${user.userId }" class="form-control" required>   ${error}
                       <div class="invalid-feedback">Please, enter your Student ID!</div>
                     </div>
                     
