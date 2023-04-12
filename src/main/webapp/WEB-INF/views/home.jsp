@@ -354,24 +354,44 @@
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
+  
+  	<!-- 
+  		이미지 슬라이드
+  		동아리 이미지주소나 jpg파일을 db에 넣고 가져오면 좋지 않을까
+  		
+  		밑에는 임시로 갖다 넣은거
+  	 -->
+  	 
 	<div class="marquee_text">
 		<div class="block">
-        	<img class="sliderImg" src="https://cdn.pixabay.com/photo/2018/05/26/18/06/dog-3431913__340.jpg" onclick="location.href='https://www.naver.com'">
+        	<img class="sliderImg" src="https://www.yc.ac.kr/site/smartsw/img/sub/sub3_5_img01.jpg" onclick="location.href='https://www.naver.com'">
+        	<br>
+        	소프트웨어 triple S
     	</div>
 	    <div class="block">
-	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2013/07/18/10/56/lion-163542__340.jpg" onclick="location.href='https://www.naver.com'">
+	       <img class="sliderImg" src="/assets/img/Advanced Smart Software.png" onclick="location.href='https://www.naver.com'">
+	       <br>
+	       스마트전기전자-ECO
 	    </div>
 	    <div class="block">
-	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2014/10/04/22/29/monkey-474147__340.png" onclick="location.href='https://www.naver.com'">
+	       <img class="sliderImg" src="/assets/img/Electrical Electronic Engineering.png" onclick="location.href='https://www.naver.com'">
+	       <br>
+	       전기전자-스마트그리드 연구회
 	    </div>
 	    <div class="block">
-	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2014/04/03/10/00/panda-309548__340.png" onclick="location.href='https://www.naver.com'">
+	       <img class="sliderImg" src="https://www.yc.ac.kr/site/smartsw/img/sub/sub3_5_img02.jpg" onclick="location.href='https://www.naver.com'">
+	       <br>
+	       소프트웨어 Yonam Ingenuity
 	    </div>
 	    <div class="block">
-	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2018/03/21/05/55/pig-3245668__340.png" onclick="location.href='https://www.naver.com'">
+	       <img class="sliderImg" src="https://www.yc.ac.kr/site/smartsw/img/sub/sub3_5_img03.jpg" onclick="location.href='https://www.naver.com'">
+	       <br>
+	       소프트웨어 Open AI
 	    </div>
 	    <div class="block">
-	       <img class="sliderImg" src="https://cdn.pixabay.com/photo/2017/07/19/17/16/bee-2519769__340.png" onclick="location.href='https://www.naver.com'">
+	       <img class="sliderImg" src="/assets/img/Advanced Smart Software2.png" onclick="location.href='https://www.naver.com'">
+	       <br>
+	       스마트전기전자 EPL
 	    </div>
 	</div>
  	
@@ -391,6 +411,11 @@
 	 	});
 
  	</script>
+ 	
+ 	<div class="copyright" style="display:block;">
+    	<br>
+      	&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+    </div>
   </footer><!-- End Foo ter -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
