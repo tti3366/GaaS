@@ -364,7 +364,7 @@
  	
  	<div class="copyright" style="display:block;">
     	<br>
-      	&copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+      	&copy; Copyright <strong><span>Nice Admin</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Foo ter -->
 
