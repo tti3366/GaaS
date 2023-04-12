@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
 import service.ClubService;
@@ -26,5 +28,17 @@ public class ClubController {
 		System.out.println(result);
 		
 		return "";
+	}
+	
+	@RequestMapping("/viewclub")
+	public ModelAndView testA(@RequestParam("id") String clubId) {
+		ModelAndView mav = new ModelAndView();  
+		
+		Club club = clubService.getClubNamesByNum(clubId);
+
+		mav.addObject("clubObj", club);
+
+		mav.setViewName("test");
+		return mav;
 	}
 }

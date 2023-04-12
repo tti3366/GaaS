@@ -46,4 +46,10 @@ public class Club {
 		this.deptNameEn = deptNameEn;
 	}
 	
+	@Override
+	public String toString() {
+		return "Club [clubId=" + clubId + ", managerId=" + managerId + ", clubName=" + clubName + ", division="
+				+ division + ", deptNameKr=" + deptNameKr + ", deptNameEn=" + deptNameEn + "]";
+	}
+	
 }
