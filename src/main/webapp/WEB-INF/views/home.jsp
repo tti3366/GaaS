@@ -29,7 +29,15 @@
 
   <!-- Template Main CSS File -->
   <link href="/css/style.css" rel="stylesheet">
-
+  <style>
+	.block {
+		display: inline-block; margin-right: 60px;
+	}
+	
+	.sliderImg {
+		width: 400px; height: 200px;
+	}
+  </style>
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -343,8 +351,16 @@
   <footer id="footer" class="footer">
   
   	<!-- 이미지 슬라이드 페이지 불러오기 -->
-  	<jsp:include page="imageSlider.jsp"/>	
-
+	<div class="marquee_text">
+		<c:forEach items="${clubs}" var="club">
+		<div class="block">
+			<a href="#" onclick="selectClubAndView(${club.clubId})">
+				<img class="sliderImg" src="/assets/img/clubs/${club.clubId}.jpg"><br>
+			</a>
+			<center><span><b>[${club.deptNameEn}]<br>${club.clubName}</b></span></center>
+		</div>
+		</c:forEach>
+	</div>
  	
  	<div class="copyright" style="display:block;">
     	<br>
@@ -375,6 +391,23 @@
    -->
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/additionalFunc.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/assets/js/jquery.marquee.js"></script>
+  <script>
+	$(function() {
+		$('.marquee_text').marquee({
+	    	speed: 60,//속도
+	        direction: 'left',//방향
+	        duration: 50000,
+	        gap: 50,//간격
+	        delayBeforeStart: 0,//시작 delay값
+	        duplicated: true,//선택 영역 복제
+	        startVisible: true,
+	        pauseOnHover: true//hover시 일시중지
+	    	
+	    });
+	});
+  </script>
 </body>
 
 </html>

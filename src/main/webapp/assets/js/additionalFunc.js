@@ -1,6 +1,6 @@
 var selectClubAndView = function(clubId){
 	$.ajax({
-		url : "/test",
+		url : "/viewclub",
 		type : "post",
 		data : {id : clubId},
 		traditional : true,

@@ -42,16 +42,4 @@ public class IndexController {
 		mav.setViewName("home");
 		return mav;
 	}
-
-	@RequestMapping("/test")
-	public ModelAndView testA(@RequestParam("id") String clubId) {
-		ModelAndView mav = new ModelAndView();  
-		
-		Club club = clubService.getClubNamesByNum(clubId);
-
-		mav.addObject("clubObj", club);
-
-		mav.setViewName("test");
-		return mav;
-	}
 }
