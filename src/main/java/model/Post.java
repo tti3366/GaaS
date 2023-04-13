@@ -75,4 +75,11 @@ public class Post {
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
+
+	@Override
+	public String toString() {
+		return "Post [postId=" + postId + ", writerId=" + writerId + ", clubId=" + clubId + ", boardId=" + boardId
+				+ ", title=" + title + ", content=" + content + ", postDate=" + postDate + ", statusCode=" + statusCode
+				+ "]";
+	}
 }

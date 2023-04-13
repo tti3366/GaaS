@@ -9,7 +9,6 @@ public class User {
 	private String userPhoneNumber;
 	private String authority;
 	
-	
 	public String getUserId() {
 		return userId;
 	}

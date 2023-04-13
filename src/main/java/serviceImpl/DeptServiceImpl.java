@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import dao.DeptDao;
-import model.Department;
+import model.Dept;
 import service.DeptService;
 
 public class DeptServiceImpl implements DeptService {
@@ -13,12 +13,12 @@ public class DeptServiceImpl implements DeptService {
 	@Autowired
 	DeptDao deptDao;
 	
-	public List<Department> getAllDepartments() {
-		return deptDao.getAllDepartments();
+	public List<Dept> getAllDeparts() {
+		return deptDao.getAllDeparts();
 	}
 	
-	public Department getDepartmentsByUserId(String userId) {
-		return deptDao.getDepartmentsByUserId(userId);
+	public Dept getDepartsByUserId(String userId) {
+		return deptDao.getDepartsByUserId(userId);
 	}
 	
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
-import model.Department;
+import model.Dept;
 import model.User;
 import service.ClubService;
 import service.DeptService;
@@ -107,7 +107,7 @@ public class LoginController {
 		User userInfo = (User)request.getSession().getAttribute("SESSION");
 		
 		List<String> clubName = loginService.selectClub(userInfo.getUserId()); //학번을 이용해 가입한 동아리의 이름을 가져옴
-		Department deptByUser = deptService.getDepartmentsByUserId(userInfo.getUserId()); // 학번을 이용하여 학과 정보 추출
+		Dept deptByUser = deptService.getDepartsByUserId(userInfo.getUserId()); // 학번을 이용하여 학과 정보 추출
 		
 		mav.addObject("userInfo", userInfo);
 		mav.addObject("deptByUser",deptByUser);
