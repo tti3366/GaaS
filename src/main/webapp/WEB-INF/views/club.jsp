@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="/assets/js/additionalFunc.js"></script>
 </head>
 <body>
 	<h1 class="card-title">${clubObj.clubName}</h1>
@@ -27,7 +28,7 @@
 		<tbody>
 			<tr>
 				<th scope="row" style="text-align: center">1</th>
-				<td><a href="/mypage" class="text-primary fw-bold">Test</a></td>
+				<td><a href="#" class="text-primary fw-bold" onclick="changeMainBoard('post', '${clubObj.clubName}')">Test</a></td>
 				<td style="text-align: center">고명준</td>
 				<td style="text-align: center"><%=str%></td>
 				<td class="fw-bold" style="text-align: center">${abc}</td>

@@ -16,13 +16,13 @@ public class DeptDao {
 	private RowMapper<Dept> rowMapper = BeanPropertyRowMapper.newInstance(Dept.class);
 	
 	public List<Dept> getAllDeparts() {
-		String sql = "SELECT * FROM DEPART";
+		String sql = "SELECT * FROM DEPT";
 		
         return jdbcTemplate.query(sql, rowMapper);
 	}
 	
 	public Dept getDepartsByUserId(String userId) {
-		String sql = "SELECT * FROM DEPART where dept_id = ?";
+		String sql = "SELECT * FROM DEPT where dept_id = ?";
 		String param = userId.substring(3, 5);
 		
 		/*

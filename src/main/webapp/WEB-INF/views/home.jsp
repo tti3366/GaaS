@@ -165,7 +165,7 @@
               	<script>console.log('-> ${club.clubName}');</script>
               	
                 <li>
-                  <a href="#" onclick="selectClubAndView(${club.clubId})">
+                  <a href="#" onclick="changeMainBoard('club', '${club.clubId}')">
                     <i class="bi bi-circle"></i>
                     <span>${club.clubName}</span>
                   </a>
@@ -251,7 +251,7 @@
                 </div>
 
                 <div class="card-body" style="height:500px" >
-                  	<div id="clubView"></div>	<!-- 게시판 뷰 -->
+                  	<div id="mainBoard"></div>	<!-- 게시판 뷰 -->
                 </div>
               </div>
             </div><!-- 게시판 끝-->
