@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
-import model.Department;
+import model.Dept;
 import model.User;
 
 import service.ClubService;
@@ -32,7 +32,7 @@ public class IndexController {
 		
 		User userInfo = (User)request.getSession().getAttribute("SESSION");
 		
-		List<Department> depts = deptService.getAllDepartments();
+		List<Dept> depts = deptService.getAllDeparts();
 		List<Club> clubs = clubService.getAllClubs();
 		
 		mav.addObject("depts", depts);
