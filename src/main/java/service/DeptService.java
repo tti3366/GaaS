@@ -2,11 +2,11 @@ package service;
 
 import java.util.List;
 
-import model.Department;
+import model.Dept;
 
 public interface DeptService {
 	
-	public List<Department> getAllDepartments();
+	public List<Dept> getAllDeparts();
 
-	public Department getDepartmentsByUserId(String userId);
+	public Dept getDepartsByUserId(String userId);
 }

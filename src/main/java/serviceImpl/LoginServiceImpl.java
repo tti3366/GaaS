@@ -19,12 +19,7 @@ public class LoginServiceImpl implements LoginService{
 	
 	public int insertUser(User user) {
 		return userDao.insertUser(user);
-	}
-	
-	public void selectAllUser() {
-		userDao.selectAllUser();
-	}
-	
+	}	
 	
 	public User selectUser(User user) throws Exception {
 		return userDao.selectUser(user);

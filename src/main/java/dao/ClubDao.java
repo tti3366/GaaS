@@ -3,48 +3,41 @@ package dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import model.Club;
-import model.Department;
 
 public class ClubDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	private RowMapper<Club> rowMapper = BeanPropertyRowMapper.newInstance(Club.class);
 	
-	public List<String> list;
-	public Club club;
+	private Club club;
 	
 	public int intsertClub(Club club) {
 		System.out.println("insertClub");
-		String sql="insert into club values(?,?,?,?,?,?)";
 		
-		int result=jdbcTemplate.update(sql,club.getClubId(),club.getManagerId(),club.getClubName(),club.getDivision(),club.getDeptNameKr(),club.getDeptNameEn());
+		String sql = "INSERT INTO CLUB VALUES (?, ?, ?, ?, ?, ?)";
+		
+		int result = jdbcTemplate.update(sql,club.getClubId(),club.getManagerId(),club.getClubName(),club.getDivision(),club.getDeptNameKr(),club.getDeptNameEn());
 		return result;
 	}
-	//현재 존재하는 동아리를 조회
+	
+	// 동아리 테이블에 존재하는 동아리명 전체 조회
 	public List<String> getAllClubNames() {
-		String sql = "SELECT club_name FROM club";
+		String sql = "SELECT club_name FROM CLUB";
+		
 		return jdbcTemplate.queryForList(sql, String.class);
 	}
 
+	// 동아리 코드로 동아리 정보 조회
 	public Club getClubNamesByNum(String clubId) {
-		RowMapper<Club> rowMapper = (rs, rowNum) -> {
-            Club club = new Club();
-            club.setClubId(rs.getString("club_id"));
-            club.setManagerId(rs.getInt("manager_id"));
-            club.setClubName(rs.getString("club_name"));
-            club.setDivision(rs.getString("division"));
-            club.setDeptNameKr(rs.getString("dept_name_kr"));
-            club.setDeptNameEn(rs.getString("dept_name_en"));
-            return club;
-        };
-        
 		try {
-			int id = Integer.parseInt(clubId.substring(0, 2));
+			int id = Integer.parseInt(clubId.substring(0, 2));		// 동아리 코드
 			
-			String sql = "SELECT * FROM club WHERE club_id LIKE ?";
+			String sql = "SELECT * FROM CLUB WHERE club_id LIKE ?";
 			String param = id + "%";
 			
 			club = jdbcTemplate.queryForObject(sql, rowMapper, param);
@@ -55,17 +48,8 @@ public class ClubDao {
 	}
 	
 	public List<Club> getAllClubs() {
-		String sql = "select * from club";
-		RowMapper<Club> rowMapper = (rs, rowNum) -> {
-            Club club = new Club();
-            club.setClubId(rs.getString("club_id"));
-            club.setManagerId(rs.getInt("manager_id"));
-            club.setClubName(rs.getString("club_name"));
-            club.setDivision(rs.getString("division"));
-            club.setDeptNameKr(rs.getString("dept_name_kr"));
-            club.setDeptNameEn(rs.getString("dept_name_en"));
-            return club;
-        };
-        return jdbcTemplate.query(sql, rowMapper);
+		String sql = "SELECT * FROM CLUB";
+		
+		return jdbcTemplate.query(sql, rowMapper);
 	}
 }

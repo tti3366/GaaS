@@ -10,7 +10,6 @@ public interface LoginService {
 	//회원가입
 	public int insertUser(User user);
 	
-	public void selectAllUser();
 	public List<String> selectClub(String userId);
 	public User selectUser(User user) throws Exception;
 	public User selectUserByUserId(String userId);

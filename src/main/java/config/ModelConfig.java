@@ -9,7 +9,7 @@ import dao.DeptDao;
 import dao.UserDao;
 import model.ChangePwd;
 import model.Club;
-import model.Department;
+import model.Dept;
 import model.Post;
 
 import model.User;
@@ -34,8 +34,8 @@ public class ModelConfig {
 	}
 	
 	@Bean
-	public Department dept() {
-		return new Department();
+	public Dept dept() {
+		return new Dept();
 	}
 	
 	@Bean

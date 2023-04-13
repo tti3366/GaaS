@@ -1,6 +1,6 @@
 package model;
 
-public class Department {
+public class Dept {
 	
 	private String deptId;
 	private String nameKr;
@@ -23,6 +23,10 @@ public class Department {
 	}
 	public void setNameEn(String nameEn) {
 		this.nameEn = nameEn;
+	}
+	@Override
+	public String toString() {
+		return "Dept [deptId=" + deptId + ", nameKr=" + nameKr + ", nameEn=" + nameEn + "]";
 	}
 
 }

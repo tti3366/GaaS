@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
-import model.Department;
+import model.Dept;
 import model.User;
 import service.ClubService;
 import service.DeptService;
@@ -100,7 +100,6 @@ public class LoginController {
 		session.invalidate();
 		return "redirect:/home";
 	}
-	
-	
+  
 }
 
