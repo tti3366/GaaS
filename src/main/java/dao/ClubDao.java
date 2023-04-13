@@ -16,9 +16,7 @@ public class ClubDao {
 	
 	private Club club;
 	
-	public int intsertClub(Club club) {
-		System.out.println("insertClub");
-		
+	public int intsertClub(Club club) {		
 		String sql = "INSERT INTO CLUB VALUES (?, ?, ?, ?, ?, ?)";
 		
 		int result = jdbcTemplate.update(sql,club.getClubId(),club.getManagerId(),club.getClubName(),club.getDivision(),club.getDeptNameKr(),club.getDeptNameEn());
@@ -42,7 +40,7 @@ public class ClubDao {
 			
 			club = jdbcTemplate.queryForObject(sql, rowMapper, param);
 		} catch (NullPointerException e) {
-			System.out.println("일치하는 데이터가 없습니다.");
+			System.out.println("[동아리] 일치하는 데이터가 없습니다.");
 		}
 		return club;
 	}

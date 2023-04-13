@@ -7,13 +7,14 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import model.Dept;
 import model.Post;
 
 public class PostDao {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	private BeanPropertyRowMapper<Post> rowMapper = new BeanPropertyRowMapper<>(Post.class);
+	private RowMapper<Post> rowMapper = BeanPropertyRowMapper.newInstance(Post.class);
 	
 	public List<Post> selectAllPost() {
 		String sql = "SELECT * FROM POST";

@@ -31,14 +31,14 @@ public class ClubController {
 	}
 	
 	@RequestMapping("/viewclub")
-	public ModelAndView testA(@RequestParam("id") String clubId) {
+	public ModelAndView viewclub(@RequestParam("id") String clubId) {
 		ModelAndView mav = new ModelAndView();  
 		
 		Club club = clubService.getClubNamesByNum(clubId);
 
 		mav.addObject("clubObj", club);
 
-		mav.setViewName("test");
+		mav.setViewName("club");
 		return mav;
 	}
 }
