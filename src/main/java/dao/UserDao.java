@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import model.ChangePwd;
+import model.Club;
 import model.User;
 
 //db접근하는 클래스
@@ -58,6 +60,7 @@ public class UserDao {
 					userInfo.setUserEmail(rs.getString("email"));
 					userInfo.setUserPhoneNumber(rs.getString("phone_number"));
 					userInfo.setAuthority(rs.getString("authority"));
+					userInfo.setAbout(rs.getString("about"));
 					return userInfo;
 				},
 				Integer.parseInt(user.getUserId()),user.getUserPw());
@@ -77,6 +80,8 @@ public class UserDao {
 						userInfo.setUserName(rs.getString("name"));
 						userInfo.setUserEmail(rs.getString("email"));
 						userInfo.setUserPhoneNumber(rs.getString("phone_number"));
+						userInfo.setAuthority(rs.getString("authority"));
+						userInfo.setAbout(rs.getString("about"));
 						return userInfo;
 					}, userId);
 			return result;
@@ -104,6 +109,21 @@ public class UserDao {
 					return rs.getString("club_name");
 				},userId);
 			
+		return result;
+	}
+	
+	public int updateUser(User user) {
+		System.out.println("update user");
+		String sql="UPDATE MEMBER SET PHONE_NUMBER = ?, EMAIL = ?, ABOUT = ? WHERE MEMBER_ID = ? ";
+		
+		int result=jdbcTemplate.update(sql,user.getUserPhoneNumber(),user.getUserEmail(),user.getAbout(),user.getUserId());
+		return result;
+	}
+	
+	public int changePwd(User user, ChangePwd changePwd) {
+		System.out.println("change password");
+		String sql="UPDATE MEMBER SET PASSWORD = ? WHERE MEMBER_ID = ? ";
+		int result=jdbcTemplate.update(sql,changePwd.getNewPwd(),user.getUserId());
 		return result;
 	}
 	

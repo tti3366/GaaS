@@ -8,7 +8,7 @@ public class User {
 	private String userEmail;
 	private String userPhoneNumber;
 	private String authority;
-	
+	private String about;
 	
 	public String getUserId() {
 		return userId;
@@ -46,11 +46,17 @@ public class User {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
+	public String getAbout() {
+		return about;
+	}
+	public void setAbout(String about) {
+		this.about = about;
+	}
 	
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userPw=" + userPw + ", userName=" + userName + ", userEmail=" + userEmail
-				+ ", userPhoneNumber=" + userPhoneNumber + ", authority=" + authority + "]";
+				+ ", userPhoneNumber=" + userPhoneNumber + ", authority=" + authority + ", about=" + about + "]";
 	}
 	
 }

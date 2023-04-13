@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import controller.ChatController;
 import controller.LoginController;
+import controller.MyPageController;
 import controller.PostController;
 import controller.ClubController;
 import controller.IndexController;
@@ -34,6 +35,10 @@ public class ControllerConfig {
 	
 	@Bean IndexController indexController() {
 		return new IndexController();
+	}
+	
+	@Bean MyPageController myPageController() {
+		return new MyPageController();
 	}
 	
 }

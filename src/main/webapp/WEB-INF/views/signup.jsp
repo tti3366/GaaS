@@ -62,7 +62,7 @@
                  	<!-- 학번 입력란 -->
                     <div class="col-12">
                       <label for="userId" class="form-label">Your Student ID</label>
-                      <input type="text" id="userId" name="userId" value="${user.userId }" class="form-control" required>   ${error}
+                      <input type="text" id="userId" name="userId" value="${user.userId }" class="form-control" required>${error}
                       <div class="invalid-feedback">Please, enter your Student ID!</div>
                     </div>
                     
