@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import model.ChangePwd;
+import model.Club;
 import model.User;
 
 public class UserDao {
@@ -20,9 +22,9 @@ public class UserDao {
 	public int insertUser(User user) {
 		System.out.println("insertUser : " + user.toString());
 		
-		String sql = "INSERT INTO USER (user_id, user_pw, user_name, user_email, user_phone_number) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO USERS (user_id, user_pw, user_name, user_email, user_phone_number) VALUES (?, ?, ?, ?, ?)";
 		
-		int result = jdbcTemplate.update(sql, Integer.parseInt(user.getUserId()),user.getUserPw(),user.getUserName(),user.getUserEmail(),user.getUserPhoneNumber());
+		int result = jdbcTemplate.update(sql, Integer.parseInt(user.getUserId()), user.getUserPw(), user.getUserName(), user.getUserEmail(), user.getUserPhoneNumber());
 		
 		return result;
 	}
@@ -31,20 +33,19 @@ public class UserDao {
 	public User selectUser(User user) throws Exception{
 		System.out.println("selectUser : " + user.toString());
 		
-		String sql = "SELECT * FROM USER where user_id = ? AND user_pw = ?";
-		
+		String sql = "SELECT * FROM USERS where user_id = ? AND user_pw = ?";
+    
 		user = jdbcTemplate.queryForObject(sql, rowMapper, Integer.parseInt(user.getUserId()), user.getUserPw());
-		
+    
 		return user;
 	}
 	
 	public User selectUserByUserId(String userId) {
-		String sql = "SELECT * FROM USER where user_id = ?";
+		String sql = "SELECT * FROM USERS where user_id = ?";
 		
 		try {
 			user = jdbcTemplate.queryForObject(sql, rowMapper, userId);
-			return user;
-					
+			return user;					
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -56,13 +57,28 @@ public class UserDao {
 		System.out.println("selectClub");
 		
 		String sql = "SELECT club_name FROM CLUB where club_id IN "
-						+ "(SELECT club_id FROM USER, CLUB_USER "
-						+ "where USER.user_id = CLUB_USER.user_id AND USER.user_id = ?)";
+						+ "(SELECT club_id FROM USERS, CLUB_USERS "
+						+ "where USERS.user_id = CLUB_USERS.user_id AND USERS.user_id = ?)";
 		
 		return jdbcTemplate.query(
 				sql,
 				(ResultSet rs, int rowNumb)->{ return rs.getString("club_name"); },
 				userId);
+	}
+	
+	public int updateUser(User user) {
+		System.out.println("update user");
+		String sql = "UPDATE USERS SET user_phone_number = ?, user_email = ?, about = ? where user_id = ? ";
+		
+		int result = jdbcTemplate.update(sql, user.getUserPhoneNumber(), user.getUserEmail(), user.getAbout(), user.getUserId());
+		return result;
+	}
+	
+	public int changePwd(User user, ChangePwd changePwd) {
+		System.out.println("change password");
+		String sql = "UPDATE USERS SET user_pw = ? where user_id = ? ";
+		int result = jdbcTemplate.update(sql, changePwd.getNewPwd(), user.getUserId());
+		return result;
 	}
 	
 }
