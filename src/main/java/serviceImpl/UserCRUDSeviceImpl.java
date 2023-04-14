@@ -22,4 +22,9 @@ public class UserCRUDSeviceImpl implements UserCRUDService {
 		return userDao.changePwd(user, changePwd);
 	}
 
+	@Override
+	public int deleteUsers(User user) {
+		return userDao.deleteUsers(user);
+	}
+
 }

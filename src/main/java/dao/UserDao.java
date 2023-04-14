@@ -68,7 +68,6 @@ public class UserDao {
 	
 	public int updateUser(User user) {
 		String sql = "UPDATE USERS SET user_phone_number = ?, user_email = ?, about = ? where user_id = ? ";
-		
 		int result = jdbcTemplate.update(sql, user.getUserPhoneNumber(), user.getUserEmail(), user.getAbout(), user.getUserId());
 		
 		return result;
@@ -76,8 +75,14 @@ public class UserDao {
 	
 	public int changePwd(User user, ChangePwd changePwd) {
 		String sql = "UPDATE USERS SET user_pw = ? where user_id = ? ";
-		
 		int result = jdbcTemplate.update(sql, changePwd.getNewPwd(), user.getUserId());
+		
+		return result;
+	}
+	
+	public int deleteUsers(User user) {
+		String sql = "DELETE FROM users WHERE user_id = ? ";
+		int result = jdbcTemplate.update(sql, user.getUserId());
 		
 		return result;
 	}

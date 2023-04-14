@@ -12,3 +12,12 @@ var changeMainBoard = function(path, paramId){
 		}
 	});
 }
+
+var deleteUsers = function(){
+	let deleteCheck = prompt("If you want to delete account, Type in 'DELETE'");
+	if(deleteCheck == "DELETE"){
+		location.href = "/deleteUsers";
+	}else{
+		alert("Not Matched");
+	}
+}
