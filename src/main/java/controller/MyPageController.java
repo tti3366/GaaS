@@ -21,6 +21,7 @@ import service.ClubService;
 import service.DeptService;
 import service.LoginService;
 import service.UserCRUDService;
+import serviceImpl.UserCRUDSeviceImpl;
 
 @Controller
 public class MyPageController {
@@ -52,7 +53,7 @@ public class MyPageController {
 
 	@PostMapping(value = "/updateUserProc")
 	public ModelAndView updateUserProc(@ModelAttribute("updateUserData") User user, HttpServletRequest request,
-			HttpSession session, RedirectAttributes redirectAttributes) {
+			HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
 		user.setUserId(userInfo.getUserId());
@@ -64,10 +65,6 @@ public class MyPageController {
 
 			session.setAttribute("SESSION", userInfo);
 
-			String alert = "";
-			alert = "<script>alert('SUCCESS UPDATE USER');</script>";
-			redirectAttributes.addFlashAttribute("alert", alert);
-
 			RedirectView redirectView = new RedirectView("/mypage"); // redirect url 설정
 			redirectView.setExposeModelAttributes(false);
 			mav.setView(redirectView);
@@ -75,10 +72,6 @@ public class MyPageController {
 			return mav;
 		} catch (Exception e) {
 			System.out.println("UPDATE USER EXCEPTION");
-
-			String alert = "";
-			alert = "<script>alert('UPDATE USER EXCEPTION');</script>";
-			redirectAttributes.addFlashAttribute("alert", alert);
 
 			RedirectView redirectView = new RedirectView("/mypage"); // redirect url 설정
 			redirectView.setExposeModelAttributes(false);
@@ -101,22 +94,12 @@ public class MyPageController {
 
 					session.setAttribute("SESSION", userInfo);
 
-					String alert = "";
-					alert = "<script>alert('SUCCESS CHANGE PASSWORD');</script>";
-					redirectAttributes.addFlashAttribute("alert", alert);
-
 					RedirectView redirectView = new RedirectView("/mypage"); // redirect url 설정
 					redirectView.setExposeModelAttributes(false);
 					mav.setView(redirectView);
 
 					return mav;
 				} catch (Exception e) {
-					System.out.println("CAHNGE PASSWORD EXCEPTION");
-
-					String alert = "";
-					alert = "<script>alert('CAHNGE PASSWORD EXCEPTION');</script>";
-					redirectAttributes.addFlashAttribute("alert", alert);
-
 					RedirectView redirectView = new RedirectView("/mypage"); // redirect url 설정
 					redirectView.setExposeModelAttributes(false);
 					mav.setView(redirectView);
@@ -139,6 +122,30 @@ public class MyPageController {
 			alert = "<script>alert('현재 비밀번호가 틀렸다요.');</script>";
 			redirectAttributes.addFlashAttribute("alert", alert);
 
+			RedirectView redirectView = new RedirectView("/mypage"); // redirect url 설정
+			redirectView.setExposeModelAttributes(false);
+			mav.setView(redirectView);
+
+			return mav;
+		}
+
+	}
+	
+	@RequestMapping("/deleteUsers")
+	public ModelAndView deleteUsers(HttpServletRequest request, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		User userInfo = (User) request.getSession().getAttribute("SESSION");
+		
+		try {
+			userCRUDService.deleteUsers(userInfo);
+
+			RedirectView redirectView = new RedirectView("/home"); // redirect url 설정
+			redirectView.setExposeModelAttributes(false);
+			mav.setView(redirectView);
+			
+			session.invalidate();
+			return mav;
+		}catch(Exception e) {
 			RedirectView redirectView = new RedirectView("/mypage"); // redirect url 설정
 			redirectView.setExposeModelAttributes(false);
 			mav.setView(redirectView);

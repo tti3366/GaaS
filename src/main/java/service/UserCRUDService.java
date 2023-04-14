@@ -9,4 +9,5 @@ public interface UserCRUDService {
 	//회원가입
 	public int updateUser(User user);
 	public int changePwd(User user, ChangePwd changePwd);
+	public int deleteUsers(User user);
 }
