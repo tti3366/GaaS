@@ -3,24 +3,25 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import dao.PostDao;
 import dao.ClubDao;
 import dao.DeptDao;
+import dao.PostDao;
 import dao.UserDao;
 import model.ChangePwd;
 import model.Club;
 import model.Dept;
 import model.Post;
-
 import model.User;
 import service.ClubService;
 import service.DeptService;
 import service.LoginService;
+import service.ManageService;
 import service.PostService;
 import service.UserCRUDService;
 import serviceImpl.ClubServiceImpl;
 import serviceImpl.DeptServiceImpl;
 import serviceImpl.LoginServiceImpl;
+import serviceImpl.ManageServiceImpl;
 import serviceImpl.PostServiceImpl;
 import serviceImpl.UserCRUDSeviceImpl;
 
@@ -96,5 +97,9 @@ public class ModelConfig {
 	public UserCRUDService userCRUDServiceImpl() {
 		return new UserCRUDSeviceImpl();
 	}
-	
+
+	@Bean
+	public ManageService manageServiceImpl() {
+		return new ManageServiceImpl();
+	}
 }

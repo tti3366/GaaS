@@ -354,7 +354,7 @@
 	<div class="marquee_text">
 		<c:forEach items="${clubs}" var="club">
 		<div class="block">
-			<a href="#" onclick="selectClubAndView(${club.clubId})">
+			<a href="#" onclick="changeMainBoard('club', '${club.clubId}')">
 				<img class="sliderImg" src="/assets/img/clubs/${club.clubId}.jpg"><br>
 			</a>
 			<center><span><b>[${club.deptNameEn}]<br>${club.clubName}</b></span></center>

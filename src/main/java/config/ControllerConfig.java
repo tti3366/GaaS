@@ -4,11 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import controller.ChatController;
-import controller.LoginController;
-import controller.MyPageController;
-import controller.PostController;
 import controller.ClubController;
 import controller.IndexController;
+import controller.LoginController;
+import controller.ManageController;
+import controller.MyPageController;
+import controller.PostController;
 
 //컨트롤러 설정 클래스
 @Configuration
@@ -40,5 +41,8 @@ public class ControllerConfig {
 	@Bean MyPageController myPageController() {
 		return new MyPageController();
 	}
-	
+
+	@Bean ManageController manageController() {
+		return new ManageController();
+	}
 }
