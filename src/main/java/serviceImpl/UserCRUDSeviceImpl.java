@@ -27,4 +27,9 @@ public class UserCRUDSeviceImpl implements UserCRUDService {
 		return userDao.deleteUsers(user);
 	}
 
+	@Override
+	public int updateUserAuthority(User user) {
+		return userDao.updateUserAuthority(user);
+	}
+
 }

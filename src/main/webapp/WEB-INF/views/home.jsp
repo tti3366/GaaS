@@ -160,14 +160,14 @@
           </a>
           <ul id="${dept.nameKr}" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <c:forEach items="${clubs}" var="club">
-              <c:if test="${club.deptNameEn == dept.nameEn}">
+              <c:if test="${club.deptNameEn == dept.nameEn && club.clubState == 1}">
               
               	<script>console.log('-> ${club.clubName}');</script>
               	
                 <li>
                   <a href="#" onclick="changeMainBoard('club', '${club.clubId}')">
                     <i class="bi bi-circle"></i>
-                    <span>${club.clubName}</span>
+                    <span>${club.clubName} </span>
                   </a>
                 </li>
               </c:if>

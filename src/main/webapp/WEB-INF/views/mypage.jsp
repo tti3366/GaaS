@@ -171,13 +171,12 @@
 
 								<li class="nav-item">
 									<button class="nav-link" data-bs-toggle="tab"
-										data-bs-target="#profile-change-password">Change
-										Password</button>
+										data-bs-target="#profile-change-password">Change Password</button>
 								</li>
 
 								<li class="nav-item">
 									<button class="nav-link" data-bs-toggle="tab"
-										data-bs-target="#profile-deletion">Account Deletion</button>
+										data-bs-target="#profile-deletion">Account & Club</button>
 								</li>
 
 							</ul>
@@ -321,7 +320,7 @@
 
 								<div class="tab-pane fade pt-3" id="profile-deletion">
 									<div class="row mb-3">
-										<label class="col-md-4 col-lg-3 col-form-label">Account Delete</label>
+										<label class="col-md-4 col-lg-3 col-form-label">Account Deletion</label>
 										<div class="col-md-8 col-lg-9">
 											<div class="pt-2">
 												 <a onclick="deleteUsers()" class="btn btn-danger btn-sm"
@@ -333,8 +332,8 @@
 										<label class="col-md-4 col-lg-3 col-form-label">Club Create Page</label>
 										<div class="col-md-8 col-lg-9">
 											<div class="pt-2">
-												 <a href="/createclub" class="btn btn-primary btn-sm"
-													title="Remove my Account"><i class="bi bi-door-open"></i></a>
+												 <a href="#" onclick="window.open('/createclub','CreateClubPopup','width=500, height=520')"
+												 class="btn btn-primary btn-sm" title="Create Club"><i class="bi bi-door-open"></i></a>
 											</div>
 										</div>
 									</div>

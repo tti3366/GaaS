@@ -28,4 +28,12 @@ public class ClubServiceImpl implements ClubService{
 	public List<Club> getAllClubs() {
 		return clubDao.getAllClubs();
 	}
+
+	public String getClubsCountByManagerId(String managerId) {
+		return clubDao.getClubsCountByManagerId(managerId);
+	}
+
+	public String getAllClubByCreatingClub(String clubName) {
+		return clubDao.getAllClubByCreatingClub(clubName);
+	}
 }

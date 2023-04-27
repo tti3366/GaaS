@@ -10,4 +10,5 @@ public interface UserCRUDService {
 	public int updateUser(User user);
 	public int changePwd(User user, ChangePwd changePwd);
 	public int deleteUsers(User user);
+	public int updateUserAuthority(User user);
 }
