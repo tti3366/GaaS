@@ -62,7 +62,7 @@ public class ClubController {
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
 		
 		club.setManagerId(userInfo.getUserId());
-		if(clubService.getAllClubByCreatingClub(club.getClubName()).equals("0")) {
+		if(clubService.getAllClubByCreatingClub(club.getClubName()).equals("0")) {	// 동일한 이름의 동아리 존재 여부 (0 = 없음, 1 = 있음)
 			if(club.getDivision().equals("전공")) {
 				String tempId = userInfo.getUserId().substring(3, 5).equals("71")?"00060000":userInfo.getUserId();
 				Dept dept = deptService.getDepartsByUserId(tempId);
