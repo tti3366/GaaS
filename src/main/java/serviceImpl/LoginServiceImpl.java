@@ -32,4 +32,8 @@ public class LoginServiceImpl implements LoginService{
 	public User selectUserByUserId(String userId) {
 		return userDao.selectUserByUserId(userId);
 	}
+	
+	public List<User> getAllUsers() {
+		return userDao.getAllUsers();
+	}
 }

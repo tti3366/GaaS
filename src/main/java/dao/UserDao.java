@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import model.ChangePwd;
 import model.Club;
+import model.Dept;
 import model.Post;
 import model.User;
 
@@ -19,6 +20,12 @@ public class UserDao {
 	private RowMapper<User> rowMapper = BeanPropertyRowMapper.newInstance(User.class);
 	
 	private User user;
+	
+	public List<User> getAllUsers() {
+		String sql = "SELECT * FROM USERS";
+		
+        return jdbcTemplate.query(sql, rowMapper);
+	}
 	
 	// 회원 가입
 	public int insertUser(User user) {
