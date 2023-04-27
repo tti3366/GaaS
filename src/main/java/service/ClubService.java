@@ -14,4 +14,7 @@ public interface ClubService {
 	
 	public List<Club> getAllClubs();
 
+	public String getClubsCountByManagerId(String managerId);
+	
+	public String getAllClubByCreatingClub(String clubName);
 }

@@ -80,6 +80,13 @@ public class UserDao {
 		return result;
 	}
 	
+	public int updateUserAuthority(User user) {
+		String sql = "UPDATE users SET authority = 'admin' WHERE user_id = ? ";
+		int result = jdbcTemplate.update(sql, user.getUserId());
+		
+		return result;
+	}
+	
 	public int changePwd(User user, ChangePwd changePwd) {
 		String sql = "UPDATE USERS SET user_pw = ? where user_id = ? ";
 		int result = jdbcTemplate.update(sql, changePwd.getNewPwd(), user.getUserId());

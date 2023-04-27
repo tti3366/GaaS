@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Post {
 	private String postId;
-	private int writerId;
+	private String writerId;
 	private String clubId;
 	private String boardId;
 	private String title;
@@ -20,11 +20,11 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public int getWriterId() {
+	public String getWriterId() {
 		return writerId;
 	}
 
-	public void setWriterId(int writerId) {
+	public void setWriterId(String writerId) {
 		this.writerId = writerId;
 	}
 

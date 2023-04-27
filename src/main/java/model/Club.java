@@ -3,11 +3,13 @@ package model;
 public class Club {
 	
 	private String clubId;
-	private int managerId;
+	private String managerId;
 	private String clubName;
 	private String division;
 	private String deptNameKr;
 	private String deptNameEn;
+	private int clubState;
+	private String clubInformation;
 	
 	public String getClubId() {
 		return clubId;
@@ -15,10 +17,10 @@ public class Club {
 	public void setClubId(String clubId) {
 		this.clubId = clubId;
 	}
-	public int getManagerId() {
+	public String getManagerId() {
 		return managerId;
 	}
-	public void setManagerId(int managerId) {
+	public void setManagerId(String managerId) {
 		this.managerId = managerId;
 	}
 	public String getClubName() {
@@ -45,11 +47,23 @@ public class Club {
 	public void setDeptNameEn(String deptNameEn) {
 		this.deptNameEn = deptNameEn;
 	}
+	public int getClubState() {
+		return clubState;
+	}
+	public void setClubState(int clubState) {
+		this.clubState = clubState;
+	}
+	public String getClubInformation() {
+		return clubInformation;
+	}
+	public void setClubInformation(String clubInformation) {
+		this.clubInformation = clubInformation;
+	}
 	
 	@Override
 	public String toString() {
 		return "Club [clubId=" + clubId + ", managerId=" + managerId + ", clubName=" + clubName + ", division="
-				+ division + ", deptNameKr=" + deptNameKr + ", deptNameEn=" + deptNameEn + "]";
+				+ division + ", deptNameKr=" + deptNameKr + ", deptNameEn=" + deptNameEn + ", clubState=" + clubState
+				+ ", clubInformation=" + clubInformation + "]";
 	}
-	
 }
