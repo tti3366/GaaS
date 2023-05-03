@@ -100,4 +100,13 @@ public class UserDao {
 		
 		return result;
 	}
+	
+	public int modifyUser(User user) {
+		String sql = "UPDATE users SET user_pw = ?, user_name = ?, user_email = ?, user_phone_number = ?, authority = ?, about = ? where user_id = ?";
+		String param = user.getUserId();
+		
+		int result = jdbcTemplate.update(sql, user.getUserPw(), user.getUserName(), user.getUserEmail(), user.getUserPhoneNumber(), user.getAuthority(), user.getAbout(), param);
+
+		return result;
+	}
 }

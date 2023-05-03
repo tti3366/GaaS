@@ -20,5 +20,4 @@ public class DeptServiceImpl implements DeptService {
 	public Dept getDepartsByUserId(String userId) {
 		return deptDao.getDepartsByUserId(userId);
 	}
-	
 }

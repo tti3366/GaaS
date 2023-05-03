@@ -7,7 +7,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import model.ChangePwd;
 import model.Dept;
+import model.User;
 
 public class DeptDao {
 	
@@ -35,6 +37,15 @@ public class DeptDao {
 		 */
 		
 		return jdbcTemplate.queryForObject(sql, rowMapper, param);
+	}
+	
+	public int modifyDept(Dept dept) {
+		String sql = "UPDATE dept SET name_kr = ?, name_en = ? where dept_id = ?";
+		String param = dept.getDeptId();
+		
+		int result = jdbcTemplate.update(sql, dept.getNameKr(), dept.getNameEn(), param);
+
+		return result;
 	}
 
 }
