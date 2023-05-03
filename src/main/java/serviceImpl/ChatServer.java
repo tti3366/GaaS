@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -14,7 +13,7 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint("/chatserver")
 public class ChatServer {
-	
+
 	private static List<Session> list=new ArrayList<Session>();
 
 	private void print(String msg) {	// TimeStamp Print
@@ -23,6 +22,7 @@ public class ChatServer {
 	
 	@OnOpen
 	public void handleOpen(Session session) {
+		
 		print("[" + session + "] Connect");
 		list.add(session);	// 접속자 관리(****)
 	}
@@ -31,10 +31,11 @@ public class ChatServer {
 	public void handleMessage(String msg, Session session) {
 		System.out.println(msg);
 		// 로그인 할 때: 1#유저명
-		// 대화  할 때: 2유저명#메세지		
+		// 대화  할 때: 2유저명#메세지21234567		
 		int index = msg.indexOf("#", 2);
 		String no = msg.substring(0, 1); 
 		String user = msg.substring(2, index);
+		
 		String txt = msg.substring(index + 1);
 		
 		if (no.equals("1")) {
@@ -43,6 +44,7 @@ public class ChatServer {
 				if (s != session) { // 현재 접속자가 아닌 나머지 사람들
 					
 					try {
+						session.getUserProperties().putIfAbsent("userId",user);//세션 프로퍼티로 userId 저장
 						s.getBasicRemote().sendText("1#" + user + "#");
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -85,12 +87,16 @@ public class ChatServer {
 	
 	@OnClose
 	public void handleClose(Session session) {
+		System.out.println("handleColse");
 		print("[" + session + "] Close");
 		for (Session s : list) {
 			
 			if (s != session) { // 현재 접속자가 아닌 나머지 사람들
 				try {
-					s.getBasicRemote().sendText("3#나감");
+					Object userId=session.getUserProperties().get("userId");
+					
+					
+					s.getBasicRemote().sendText("3#"+userId+"#");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
