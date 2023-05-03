@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import model.Club;
+import model.Dept;
 
 public class ClubDao {
 	@Autowired
@@ -41,12 +42,17 @@ public class ClubDao {
 	// 동아리 코드로 동아리 정보 조회
 	public Club getClubNamesByNum(String clubId) {
 		try {
-			String id = clubId.substring(0, 2);		// 동아리 코드
-			
+			/*
+			 * 동아리 추가 페이지 생성 이전 테스트 용으로, 동아리 구분 코드만 활용한 코드 일부
+			 * 
+			 * String id = clubId.substring(0, 2); // 동아리 코드 
+			 * String sql = "SELECT * FROM CLUB WHERE club_id LIKE ?"; 
+			 * String param = id + "%";
+			 * club = jdbcTemplate.queryForObject(sql, rowMapper, param);
+			 */	
 			String sql = "SELECT * FROM CLUB WHERE club_id LIKE ?";
-			String param = id + "%";
 			
-			club = jdbcTemplate.queryForObject(sql, rowMapper, param);
+			club = jdbcTemplate.queryForObject(sql, rowMapper, clubId);
 		} catch (NullPointerException e) {
 			System.out.println("[동아리] 일치하는 데이터가 없습니다.");
 		}
@@ -71,6 +77,15 @@ public class ClubDao {
 			result += clubs.size();
 		}
 		
+		return result;
+	}
+	
+	public int modifyClub(Club club) {
+		String sql = "UPDATE club SET club_name = ?, club_information= ?, club_state = ? where club_id = ?";
+		String param = club.getClubId();
+		
+		int result = jdbcTemplate.update(sql, club.getClubName(), club.getClubInformation(), club.getClubState(), param);
+
 		return result;
 	}
 }
