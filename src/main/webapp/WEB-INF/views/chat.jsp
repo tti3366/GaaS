@@ -40,7 +40,8 @@
 		userName = '${userInfo.userName}';		// 이름
 		USER = userName + "(" + userId + ")";	// 이름 + 학번
 
-		url = "ws://146.56.165.103:8080/chatserver"; // 채팅 서버 // url="ws://localhost:8080/chatserver";
+		url = "ws://146.56.165.103:8080/chatserver"; // 채팅 서버 
+		//url="ws://localhost:8080/chatserver";
 
 		//연결 버튼 클릭 시	
 		$('#btnConnect').click(function() {
@@ -193,7 +194,7 @@
 
 		$('#btnDisconnect').click(function() {
 			ws.send('3#' + userName + "(" + userId + ")" + '#');
-			ws.close();
+			//ws.close();
 
 			$('#user').attr('readonly', false);
 			$('#user').val('');
