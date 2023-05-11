@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import exception.effectException;
 import model.Club;
 import model.Dept;
 import model.User;
@@ -48,15 +50,35 @@ public class LoginController {
 		ModelAndView mav = new ModelAndView();
 		
 		try {
-			loginService.insertUser(user);
-			System.out.println("SUCCESS SIGNUP");
+			//유효성 검사
+			String pattern = "2\\d{2}(10|20|30|44|60|71)\\d{3}";//아이디 정규표현식
+			boolean effect=Pattern.matches(pattern, user.getUserId());
+			System.out.println("유효성검사 :"+effect);
 			
-			String alert = "<script>alert('회원가입에 성공하였습니다.');</script>";
-			mav.addObject("alert", alert);
-			mav.setViewName("login");
+			if(effect) {//유효성 검사 성공
+				loginService.insertUser(user);
+				System.out.println("SUCCESS SIGNUP");
+			
+				String alert = "<script>alert('회원가입에 성공하였습니다.');</script>";
+				mav.addObject("alert", alert);
+				mav.setViewName("login");
+			
+			}else {//유효성 검사 실패
+				throw new effectException("유효성 검사 실패");
+			}
 			
 			return mav;
-		} catch(Exception e) {
+		}catch(effectException e) {//유효성 검사 예외
+			System.out.println("LOGIN EXCEPTION");
+			
+			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
+			
+			mav.addObject("alert", alert);
+			mav.addObject("error", " 아이디 형식에 맞지 않습니다.\n(2xx[10|20|30|44|60|71]xxx)");
+			mav.setViewName("signup");
+			return mav;
+		}catch(Exception e) {
+			
 			System.out.println("LOGIN EXCEPTION");
 			
 			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
