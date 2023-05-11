@@ -84,14 +84,26 @@
               <a class="dropdown-item d-flex align-items-center" href="/mypage">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
-              </a>
+              </a>               
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="
+	              	<c:choose>
+	              		<c:when test="${userInfo.authority eq 'manager'}">
+	              			/manage/viewTables
+	              		</c:when>
+	              		<c:when test="${userInfo.authority eq 'admin'}">
+	              			<!-- 동아리 관리 페이지 -->
+	              		</c:when>
+	              		<c:when test="${userInfo.authority eq 'user'}">
+	              			<!-- 본인 동아리 현황 -->
+	              		</c:when>
+	              	</c:choose>              		
+				">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>

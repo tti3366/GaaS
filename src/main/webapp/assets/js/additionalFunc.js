@@ -94,28 +94,28 @@ $(document).on('submit', '.forms', function(event) {
 
 
 /// checkbox 선택한 행만 수정 가능하도록 활성화하는 기능
-var changeAvailable = function(selectCheckbox, f) {
+var changeAvailable = function(element, target) {
 	var disabledArr = [];
 	var tNum, tElement, cnt;
 	
 	// 항목별 input 태그 개수 및 수정 가능한 input 태그 항목 여부 배열
-	if(f.includes('user')) {
+	if(target.includes('user')) {
 		cnt = 7;
 		disabledArr = [1, 0, 0, 0, 0, 0, 0];
 	} 
-	else if(f.includes('club')) {
+	else if(target.includes('club')) {
 		cnt = 8;
 		disabledArr = [1, 0, 1, 1, 1, 1, 0, 0];
 	} 
-	else if(f.includes('dept')) {
+	else if(target.includes('dept')) {
 		cnt = 3;
 		disabledArr = [1, 0, 0];
 	}
 	
 	// checkbox 선택 시, 수정 가능하도록 활성화
-	if(selectCheckbox.checked) {
+	if(element.checked) {
 		for(var i=0; i<cnt; i++){
-			tNum = f + '_' + (i+1);
+			tNum = target + '_' + (i+1);
 			tElement = document.getElementById(tNum);
 			
 			if(disabledArr[i] == 1)	tElement.disabled = true;
@@ -124,10 +124,40 @@ var changeAvailable = function(selectCheckbox, f) {
 	}
 	else {
 		for(var i=0; i<cnt; i++){
-			tNum = f + '_' + (i+1);
+			tNum = target + '_' + (i+1);
 			tElement = document.getElementById(tNum);
 			
 			tElement.disabled = true;
 		}
 	}
+}
+
+// CLUB 테이블 club_state 변경에 사용되는 checkbox의 상태 변경 시 value 값 반영
+var changeValue = function(element, target) {	
+	if(target.includes('checkbox')) {
+		if(element.checked) element.value = 1;
+		else element.value = 0;
+		
+		console.log(element.value);
+	}
+}
+
+var deleteTarget = function(targetId, target) {
+	$.ajax({
+		    type: 'POST',
+		    url: '/manage/delete/' + target,		// ex) /manage/delete/club
+		    data: {targetId : targetId},			// ex) clubId
+		    dataType: "text",
+		    success: function(data) {				// 성공 시 처리할 내용 (리다이렉트)
+				if (data == "success") {
+					alert("삭제 성공");
+		            window.location.replace("/manage/viewTables");
+		        }
+		        else if (data == "failure") {
+		        	alert("삭제 실패");
+		        }
+		    },
+		    error: function(xhr, status, error) {	// 에러 시 처리할 내용
+		    }
+		});
 }

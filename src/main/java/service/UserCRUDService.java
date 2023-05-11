@@ -11,4 +11,5 @@ public interface UserCRUDService {
 	public int changePwd(User user, ChangePwd changePwd);
 	public int deleteUsers(User user);
 	public int updateUserAuthority(User user);
+	public int updateUserAuthority(String userId, String authority);
 }

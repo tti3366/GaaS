@@ -18,7 +18,7 @@ public class DeptDao {
 	private RowMapper<Dept> rowMapper = BeanPropertyRowMapper.newInstance(Dept.class);
 	
 	public List<Dept> getAllDeparts() {
-		String sql = "SELECT * FROM DEPT";
+		String sql = "SELECT * FROM DEPT ORDER BY dept_id";
 		
         return jdbcTemplate.query(sql, rowMapper);
 	}
