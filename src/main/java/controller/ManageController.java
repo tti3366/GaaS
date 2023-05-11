@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class ManageController {
 	
 	@RequestMapping("/modify/{target}")
 	@ResponseBody
-	public Map<String, Object> exampleHandler(@PathVariable String target, HttpServletRequest request) {
+	public Map<String, Object> modifyTarget(@PathVariable String target, HttpServletRequest request) {
 		
 		try {
 			Map<String, Object> result = new HashMap<>();
@@ -85,4 +86,17 @@ public class ManageController {
 
 	}
 
+	@RequestMapping("/delete/{target}")
+	@ResponseBody
+	public String deleteTarget(@PathVariable String target, String targetId) {		
+        if (target.equals("user")) {
+        		
+	    } else if (target.equals("dept")) {
+	    	
+	    } else if (target.equals("club")) {
+	    	if(manageService.deleteClub(targetId))
+	    		return "success";
+	    }
+        return "failure";
+	}
 }

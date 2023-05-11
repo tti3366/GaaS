@@ -12,4 +12,6 @@ public interface ManageService {
 	public int modifyUser(User user);
 	public int modifyDept(Dept dept);
 	public int modifyClub(Club club);
+	
+	public boolean deleteClub(String clubId);
 }

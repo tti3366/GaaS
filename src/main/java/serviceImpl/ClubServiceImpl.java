@@ -36,4 +36,8 @@ public class ClubServiceImpl implements ClubService{
 	public String getAllClubByCreatingClub(String clubName) {
 		return clubDao.getAllClubByCreatingClub(clubName);
 	}
+	
+	public boolean existsClubUsers(String clubId) {
+		return clubDao.existsClubUsers(clubId);
+	}
 }

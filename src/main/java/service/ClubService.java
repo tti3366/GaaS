@@ -17,4 +17,6 @@ public interface ClubService {
 	public String getClubsCountByManagerId(String managerId);
 	
 	public String getAllClubByCreatingClub(String clubName);
+	
+	public boolean existsClubUsers(String clubId);
 }
