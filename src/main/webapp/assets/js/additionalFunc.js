@@ -13,15 +13,6 @@ var changeMainBoard = function(path, paramId){
 	});
 }
 
-var deleteUsers = function(){
-	let deleteCheck = prompt("If you want to delete account, Type in 'DELETE'");
-	if(deleteCheck == "DELETE"){
-		location.href = "/deleteUsers";
-	}else{
-		alert("Not Matched");
-	}
-}
-
 // ----------------------------------------------------------------------------- //
 // <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 

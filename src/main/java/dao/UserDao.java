@@ -81,7 +81,7 @@ public class UserDao {
 	}
 	
 	public int updateUserAuthority(User user) {
-		String sql = "UPDATE users SET authority = 'admin' WHERE user_id = ? ";
+		String sql = "UPDATE users SET authority = 'manager' WHERE user_id = ? ";
 		int result = jdbcTemplate.update(sql, user.getUserId());
 		
 		return result;

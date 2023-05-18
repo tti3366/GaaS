@@ -65,7 +65,17 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/${userInfo.authority}.png" alt="Profile" class="rounded-circle">
+            <c:choose>           
+	            <c:when test = "${userInfo.authority eq 'manager'}">
+			    	<i class="ri-admin-line"></i>
+			    </c:when>
+			    <c:when test = "${userInfo.authority eq 'admin'}">
+			    	<i class="ri-aliens-line"></i>
+			    </c:when>
+			    <c:otherwise>
+			    	<i class="ri-user-line"></i>
+		        </c:otherwise>
+            </c:choose>
             <span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
           </a>
 
@@ -140,12 +150,39 @@
         </a>
       </li>
       
+      <c:choose>
+	      <c:when test = "${userInfo.authority eq 'manager'}">
+		      <li class="nav-item">
+		        <a class="nav-link collapsed" href="">
+		          <i class="ri-team-line"></i>
+		          <span>Manage Club</span>
+		        </a>
+		      </li>
+	      </c:when>
+	      <c:when test = "${userInfo.authority eq 'user'}">
+		      <li class="nav-item">
+		        <a class="nav-link collapsed" href="">
+		          <i class="ri-pencil-line"></i>
+		          <span>Enroll Club</span>
+		        </a>
+		      </li>
+	      </c:when>
+	      <c:otherwise>
+		      <li class="nav-item">
+		        <a class="nav-link collapsed" href="">
+		          <i class="ri-settings-5-line"></i>
+		          <span>Administrator</span>
+		        </a>
+		      </li>
+	      </c:otherwise>
+      </c:choose>
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="/logoutProc">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>LOGOUT</span>
         </a>
-      </li><!-- End Login Page Nav -->
+      </li>
 
       <li class="nav-heading">DEPARTMENT</li>
       
@@ -339,8 +376,6 @@
               </script>
             </div>
           </div>
-          
-          
         </div><!-- End Right side columns -->
       </div>
     </section>
