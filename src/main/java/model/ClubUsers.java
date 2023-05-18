@@ -1,11 +1,12 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public class ClubUser {
+public class ClubUsers {
 	private int userId;
 	private String clubId;
-	private Date joinDate;
+	private LocalDateTime joinDate;
+	private String joinDateStr;
 	private int allowState;
 	private String introduce;
 	
@@ -26,11 +27,17 @@ public class ClubUser {
 	public void setClubId(String clubId) {
 		this.clubId = clubId;
 	}
-	public Date getJoinDate() {
+	public LocalDateTime getJoinDate() {
 		return joinDate;
 	}
-	public void setJoinDate(Date joinDate) {
+	public void setJoinDate(LocalDateTime joinDate) {
 		this.joinDate = joinDate;
+	}
+	public String getJoinDateStr() {
+		return joinDateStr;
+	}
+	public void setJoinDateStr(String joinDateStr) {
+		this.joinDateStr = joinDateStr;
 	}
 	public int getAllowState() {
 		return allowState;

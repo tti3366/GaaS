@@ -31,7 +31,7 @@
 		<c:forEach items="${users}" var="user" varStatus="status">
 			<tr>
 				<th scope="row" style="text-align: center">
-					${status.count} <input type="checkbox" class="checkbox_user" value="${status.count}" onclick="changeAvailable(this, 'user${status.count}')"/>
+					${status.count} <input type="checkbox" class="checkbox_user" value="${status.count}" onclick="changeAvailable(this, 'user_${status.count}')"/>
 				</th>
 				<td style="text-align: center"><input type="text" id="user${status.count}_1" size="8" name="userId" value="${user.userId}" disabled/></td>
 				<td style="text-align: center"><input type="text" id="user${status.count}_2" size="20" minlength="4" maxlength="20" name="userPw" value="${user.userPw}" disabled/></td>
@@ -75,7 +75,7 @@
 		<c:forEach items="${clubs}" var="club" varStatus="status">
 			<tr>
 				<th scope="row" style="text-align: center">
-					${status.count} <input type="checkbox" class="checkbox_club" value="${status.count}" onclick="changeAvailable(this, 'club${status.count}')"/>
+					${status.count} <input type="checkbox" class="checkbox_club" value="${status.count}" onclick="changeAvailable(this, 'club_${status.count}')"/>
 				</th>
 				<td style="text-align: center"><input type="text" id="club${status.count}_1" size="6" name="clubId" value="${club.clubId}" disabled/></td>
 				<td style="text-align: center"><input type="text" id="club${status.count}_2" size="20" minlength="2" maxlength="20" name="clubName" value="${club.clubName}" disabled/></td>
@@ -110,7 +110,7 @@
 		<c:forEach items="${depts}" var="dept" varStatus="status">
 			<tr>
 				<th scope="row" style="text-align: center">
-					${status.count} <input type="checkbox" class="checkbox_dept" value="${status.count}" onclick="changeAvailable(this, 'dept${status.count}')"/>
+					${status.count} <input type="checkbox" class="checkbox_dept" value="${status.count}" onclick="changeAvailable(this, 'dept_${status.count}')"/>
 				</th>
 				<td style="text-align: center"><input type="text" id="dept${status.count}_1" size="2" name="deptId" value="${dept.deptId}" disabled/></td>
 				<td style="text-align: center"><input type="text" id="dept${status.count}_2" size="30" minlength="2" maxlength="30" name="nameKr" value="${dept.nameKr}" disabled/></td>

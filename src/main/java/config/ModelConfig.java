@@ -10,7 +10,7 @@ import dao.PostDao;
 import dao.UserDao;
 import model.ChangePwd;
 import model.Club;
-import model.ClubUser;
+import model.ClubUsers;
 import model.Dept;
 import model.Post;
 import model.User;
@@ -54,8 +54,8 @@ public class ModelConfig {
 	}
 	
 	@Bean
-	public ClubUser clubUser() {
-		return new ClubUser();
+	public ClubUsers clubUsers() {
+		return new ClubUsers();
 	}
 	
 	@Bean
