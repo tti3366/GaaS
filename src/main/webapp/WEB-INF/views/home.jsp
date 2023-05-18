@@ -94,10 +94,10 @@
               <a class="dropdown-item d-flex align-items-center" href="
 	              	<c:choose>
 	              		<c:when test="${userInfo.authority eq 'manager'}">
-	              			/admin/viewTables
+	              			/manager/clubUsers
 	              		</c:when>
 	              		<c:when test="${userInfo.authority eq 'admin'}">
-	              			<!-- 동아리 관리 페이지 -->
+	              			/admin/viewTables
 	              		</c:when>
 	              		<c:when test="${userInfo.authority eq 'user'}">
 	              			<!-- 본인 동아리 현황 -->

@@ -32,15 +32,18 @@ $(document).on('submit', '.forms', function(event) {
   	// submit이 발생된 폼의 정보 (실제 처리는 리다이렉트되어 콘솔이 보이지 않음)
     var form = event.target;
     var formId = form.id;
-    var formTarget = formId.split('_')[1];	// ex) user / dept / club 
+    var formTarget = formId.split('_')[1];	// ex) user / dept / club / clubUsers
     console.log(form + "\n" + formId + "\n" + formTarget);
     
     // 현재 폼 중에서 checkbox가 선택된 행들
   	var selected_rows = $('input.checkbox_' + formTarget + ':checked');
     
+    // ajax 요청을 보낼 경로 (admin : user, dept, club | manager : clubUsers)
+    var reqPath;
+    
     selected_rows.each(function() {
 		// console.log($(this).val());	// checkbox가 선택된 행의 번호
-	
+		
 		// 현재 폼의 정보에 알맞은 객체로 매핑
 		if(formTarget == 'user') {
 			var obj = {
@@ -52,6 +55,8 @@ $(document).on('submit', '.forms', function(event) {
 				authority : $('#' + formTarget + $(this).val() + '_' + 6).val(),
 				about : $('#' + formTarget + $(this).val() + '_' + 7).val(),
 			};
+			
+			reqPath = '/admin';
 		}
 		else if(formTarget == 'dept') {
 			var obj = {
@@ -59,6 +64,8 @@ $(document).on('submit', '.forms', function(event) {
 				nameKr : $('#' + formTarget + $(this).val() + '_' + 2).val(),
 				nameEn : $('#' + formTarget + $(this).val() + '_' + 3).val(),
 			};
+			
+			reqPath = '/admin';
 		}
 		else if(formTarget == 'club') {
 			var obj = {
@@ -71,19 +78,33 @@ $(document).on('submit', '.forms', function(event) {
 				clubInformation : $('#' + formTarget + $(this).val() + '_' + 7).val(),
 				clubState : $('#' + formTarget + $(this).val() + '_' + 8).val(),
 			};
+			
+			reqPath = '/admin';
+		}
+		else if(formTarget == 'clubUsers') {
+			var obj = {
+				userId : $('#' + formTarget + $(this).val() + '_' + 2).val(),
+				allowState : $('#' + formTarget + $(this).val() + '_' + 7).val(),
+				clubId : $('#' + formTarget + $(this).val() + '_' + 8).val(),
+			};
+			
+			reqPath = '/manager';
 		}
 		// console.log(obj);
-			
+		
 		// 현재 폼의 정보에 알맞은 요청 처리	
 		$.ajax({
 		    type: 'POST',
-		    url: '/admin/modify/' + formTarget,	// ex) /admin/modify/user
+		    url: reqPath + '/modify/' + formTarget,	// ex) /admin/modify/user | /manager/modify/clubUsers
 		    data: JSON.stringify(obj),
 		    contentType: 'application/json; charset=utf-8',
 		    dataType: "json",
 		    success: function(data) {				// 성공 시 처리할 내용 (리다이렉트)
 				if (data.success) {
-		            window.location.replace("/admin/viewTables");
+		            if(reqPath == '/admin') 
+		            	window.location.replace("/admin/viewTables");
+		            else if(reqPath = '/manager')
+		            	window.location.replace("/manager/clubUsers");
 		        }
 		    },
 		    error: function(xhr, status, error) {	// 에러 시 처리할 내용
@@ -98,24 +119,33 @@ var changeAvailable = function(element, target) {
 	var disabledArr = [];
 	var tNum, tElement, cnt;
 	
-	// 항목별 input 태그 개수 및 수정 가능한 input 태그 항목 여부 배열
-	if(target.includes('user')) {
+	// ex) target => clubUser_6
+	var targetName = target.split('_')[0];	// ex) clubUsers
+	var targetIdx = target.split('_')[1];	// ex) 6
+	
+	// cnt : 항목별 input 태그 개수
+	// disabledArr : 수정 가능한 input 태그 항목 여부 배열 (1 : disabled)
+	if(targetName == 'user') {
 		cnt = 7;
 		disabledArr = [1, 0, 0, 0, 0, 0, 0];
 	} 
-	else if(target.includes('club')) {
+	else if(targetName == 'club') {
 		cnt = 8;
 		disabledArr = [1, 0, 1, 1, 1, 1, 0, 0];
 	} 
-	else if(target.includes('dept')) {
+	else if(targetName == 'dept') {
 		cnt = 3;
 		disabledArr = [1, 0, 0];
+	}
+	else if(targetName == 'clubUsers') {
+		cnt = 7;
+		disabledArr = [1, 1, 1, 1, 1, 1, 0];
 	}
 	
 	// checkbox 선택 시, 수정 가능하도록 활성화
 	if(element.checked) {
 		for(var i=0; i<cnt; i++){
-			tNum = target + '_' + (i+1);
+			tNum = targetName + targetIdx + '_' + (i+1);
 			tElement = document.getElementById(tNum);
 			
 			if(disabledArr[i] == 1)	tElement.disabled = true;
@@ -124,7 +154,7 @@ var changeAvailable = function(element, target) {
 	}
 	else {
 		for(var i=0; i<cnt; i++){
-			tNum = target + '_' + (i+1);
+			tNum = targetName + targetIdx + '_' + (i+1);
 			tElement = document.getElementById(tNum);
 			
 			tElement.disabled = true;
