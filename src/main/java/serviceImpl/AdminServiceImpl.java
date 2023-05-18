@@ -12,10 +12,10 @@ import dao.UserDao;
 import model.Club;
 import model.Dept;
 import model.User;
-import service.ManageService;
+import service.AdminService;
 
 @Service
-public class ManageServiceImpl implements ManageService {
+public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	UserDao userDao;
@@ -65,15 +65,22 @@ public class ManageServiceImpl implements ManageService {
 			Club club = clubDao.getClubNamesByNum(clubId);
 			String managerId = club.getManagerId();
 			
+			System.out.println("[" + clubId + " 동아리] 게시판 존재 여부 : " + (clubDao.existsClubBoard(clubId) == true ? "O" : "X"));
+			
 			// 동아리 게시판이 존재하지 않아야 동아리 삭제 가능
-			if(!clubDao.existsClubBoard(clubId)) {
+			if(!clubDao.existsClubBoard(clubId)) {	
 				if(clubDao.deleteClub(clubId) != 0) {
-					System.out.println(clubId + " 동아리 삭제 성공");
+					System.out.println("[" + clubId + " 동아리] 삭제 성공");
 					
 					// 동아리장 권한 변경 : admin -> user
 					userDao.updateUserAuthority(managerId, "user");
+					return true;
 				}
-				return true;
+				else { 
+					System.out.println("[" + clubId + " 동아리] 삭제 실패");
+					
+					return false;
+				}
 			}
 			return false;
 		}

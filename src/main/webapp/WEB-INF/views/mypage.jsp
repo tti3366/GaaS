@@ -78,7 +78,7 @@
 							href="
 				              	<c:choose>
 				              		<c:when test="${userInfo.authority eq 'manager'}">
-				              			/manage/viewTables
+				              			/admin/viewTables
 				              		</c:when>
 				              		<c:when test="${userInfo.authority eq 'admin'}">
 				              			<!-- 동아리 관리 페이지 -->

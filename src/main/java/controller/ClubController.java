@@ -84,7 +84,7 @@ public class ClubController {
 			
 			if(result == 1) {
 				userInfo = loginService.selectUserByUserId(userInfo.getUserId());
-				userInfo.setAuthority("admin");
+				userInfo.setAuthority("manager");
 				userCRUDService.updateUserAuthority(userInfo);
 				session.setAttribute("SESSION", userInfo);
 				

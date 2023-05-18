@@ -77,13 +77,13 @@ $(document).on('submit', '.forms', function(event) {
 		// 현재 폼의 정보에 알맞은 요청 처리	
 		$.ajax({
 		    type: 'POST',
-		    url: '/manage/modify/' + formTarget,	// ex) /manage/modify/user
+		    url: '/admin/modify/' + formTarget,	// ex) /admin/modify/user
 		    data: JSON.stringify(obj),
 		    contentType: 'application/json; charset=utf-8',
 		    dataType: "json",
 		    success: function(data) {				// 성공 시 처리할 내용 (리다이렉트)
 				if (data.success) {
-		            window.location.replace("/manage/viewTables");
+		            window.location.replace("/admin/viewTables");
 		        }
 		    },
 		    error: function(xhr, status, error) {	// 에러 시 처리할 내용
@@ -145,13 +145,13 @@ var changeValue = function(element, target) {
 var deleteTarget = function(targetId, target) {
 	$.ajax({
 		    type: 'POST',
-		    url: '/manage/delete/' + target,		// ex) /manage/delete/club
+		    url: '/admin/delete/' + target,		// ex) /admin/delete/club
 		    data: {targetId : targetId},			// ex) clubId
 		    dataType: "text",
 		    success: function(data) {				// 성공 시 처리할 내용 (리다이렉트)
 				if (data == "success") {
 					alert("삭제 성공");
-		            window.location.replace("/manage/viewTables");
+		            window.location.replace("/admin/viewTables");
 		        }
 		        else if (data == "failure") {
 		        	alert("삭제 실패");
