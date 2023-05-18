@@ -21,19 +21,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Club;
 import model.Dept;
 import model.User;
-import service.ManageService;
+import service.AdminService;
 
 @Controller
-@RequestMapping("/manage")
-public class ManageController {
+@RequestMapping("/admin")
+public class AdminController {
 	
 	@Autowired
-	ManageService manageService;
+	AdminService adminService;
 	
 	@RequestMapping("viewTables")
 	public String viewTables(Model model) {
 		
-		Map<String, Object> map = manageService.getAllTables();
+		Map<String, Object> map = adminService.getAllTables();
 		
 		for ( String key : map.keySet() ) {
 			model.addAttribute(key, map.get(key));
@@ -63,15 +63,15 @@ public class ManageController {
 	        
 	        if (target.equals("user")) {
 	        	User command = objectMapper.readValue(inputStreamReader, User.class);
-	        	manageService.modifyUser(command);
+	        	adminService.modifyUser(command);
 	        	success = true;
 		    } else if (target.equals("dept")) {
 	        	Dept command = objectMapper.readValue(inputStreamReader, Dept.class);
-	        	manageService.modifyDept(command);
+	        	adminService.modifyDept(command);
 	        	success = true;
 		    } else if (target.equals("club")) {
 		    	Club command = objectMapper.readValue(inputStreamReader, Club.class);
-		    	manageService.modifyClub(command);
+		    	adminService.modifyClub(command);
 		    	success = true;
 		    }
 	        
@@ -94,7 +94,7 @@ public class ManageController {
 	    } else if (target.equals("dept")) {
 	    	
 	    } else if (target.equals("club")) {
-	    	if(manageService.deleteClub(targetId))
+	    	if(adminService.deleteClub(targetId))
 	    		return "success";
 	    }
         return "failure";

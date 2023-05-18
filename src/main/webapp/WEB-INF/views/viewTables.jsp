@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>FHAK MANAGER</title>
+<title>FHAK ADMIN</title>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="/assets/js/additionalFunc.js"></script>
 </head>
@@ -41,8 +41,8 @@
 				<td style="text-align: center">
 					<select id="user${status.count}_6" name="authority" disabled>
 					    <option value="user" <c:if test="${user.authority == 'user'}">selected</c:if>>사용자</option>
-					    <option value="admin" <c:if test="${user.authority == 'admin'}">selected</c:if>>동아리장</option>
-					    <option value="manager" <c:if test="${user.authority == 'manager'}">selected</c:if>>관리자</option>
+					    <option value="manager" <c:if test="${user.authority == 'manager'}">selected</c:if>>동아리장</option>
+					    <option value="admin" <c:if test="${user.authority == 'admin'}">selected</c:if>>관리자</option>
 					</select>
 				</td>
 				<td style="text-align: center"><input type="text" id="user${status.count}_7" size="50" minlength="0" maxlength="50" name="about" value="${user.about}" disabled/></td>
