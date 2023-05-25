@@ -38,11 +38,11 @@ public class ClubUsersDao {
 		return result;
 	}
 	
-	public ClubUsers checkSignedById(String clubId) {
+	public ClubUsers checkSignedById(String clubId, String userId) {
 		try {
-			String sql = "SELECT * FROM CLUB_USERS WHERE club_id LIKE ?";
+			String sql = "SELECT * FROM CLUB_USERS WHERE club_id LIKE ? AND user_id LIKE ?";
 		
-			ClubUsers clubUser = jdbcTemplate.queryForObject(sql, rowMapper, clubId);
+			ClubUsers clubUser = jdbcTemplate.queryForObject(sql, rowMapper, clubId, userId);
 			return clubUser;
 		} catch (EmptyResultDataAccessException e) {
 			System.out.println("가입한 동아리가 없습니다.");
@@ -50,11 +50,11 @@ public class ClubUsersDao {
 		}	
 	}
 	
-	public ClubUsers checkMajorSigned() {
+	public ClubUsers checkMajorSigned(String userId) {
 		try {
-			String sql = "SELECT * FROM CLUB_USERS WHERE SUBSTR(CLUB_ID, 1, 2) <> '99'";
+			String sql = "SELECT * FROM CLUB_USERS WHERE SUBSTR(CLUB_ID, 1, 2) <> '99' AND user_id LIKE ?";
 			
-			ClubUsers clubUser = jdbcTemplate.queryForObject(sql, rowMapper);
+			ClubUsers clubUser = jdbcTemplate.queryForObject(sql, rowMapper, userId);
 			return clubUser;
 		} catch (EmptyResultDataAccessException e) {
 			System.out.println("가입한 전공 동아리가 없습니다.");
