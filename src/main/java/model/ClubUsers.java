@@ -9,7 +9,8 @@ public class ClubUsers {
 	private String joinDateStr;
 	private int allowState;
 	private String introduce;
-	
+	private String clubName;
+  
 	// JOIN
 	private String userName;
 	private String userPhoneNumber;
@@ -57,6 +58,12 @@ public class ClubUsers {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+  public String getClubName() {
+    return clubName;
+  }
+  public void setClubName(String clubName) {
+   this.clubName = clubName;
+  }
 	public String getUserPhoneNumber() {
 		return userPhoneNumber;
 	}

@@ -50,4 +50,5 @@ public class ControllerConfig {
 	@Bean ManagerController managerController() {
 		return new ManagerController();
 	}
+
 }

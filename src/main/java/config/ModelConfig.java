@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import dao.ClubDao;
+import dao.ClubUsersDao;
 import dao.DeptDao;
 import dao.ManagerDao;
 import dao.PostDao;
@@ -16,6 +17,7 @@ import model.Post;
 import model.User;
 import service.AdminService;
 import service.ClubService;
+import service.ClubUsersService;
 import service.DeptService;
 import service.LoginService;
 import service.ManagerService;
@@ -23,6 +25,7 @@ import service.PostService;
 import service.UserCRUDService;
 import serviceImpl.AdminServiceImpl;
 import serviceImpl.ClubServiceImpl;
+import serviceImpl.ClubUsersServiceImpl;
 import serviceImpl.DeptServiceImpl;
 import serviceImpl.LoginServiceImpl;
 import serviceImpl.ManagerServiceImpl;
@@ -61,6 +64,11 @@ public class ModelConfig {
 	@Bean
 	public ChangePwd changePwd() {
 		return new ChangePwd();
+	}
+	
+	@Bean
+	public ClubUsers clubUsers() {
+		return new ClubUsers();
 	}
 	
 	@Bean
@@ -120,5 +128,15 @@ public class ModelConfig {
 	@Bean
 	public ManagerService managerServiceImpl() {
 		return new ManagerServiceImpl();
+	}
+	
+	@Bean
+	public ClubUsersDao clubUsersDao() {
+		return new ClubUsersDao();
+	}
+	
+	@Bean
+	public ClubUsersService clubUserServiceImpl() {
+		return new ClubUsersServiceImpl();
 	}
 }
