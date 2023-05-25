@@ -62,8 +62,9 @@
 	        <select id="clubSelect" name="clubName">
 		        <c:forEach items="${clubs}" var="club">
 		            <option value="${club.clubName}">
+		            	<c:if test="${club.division eq '일반'}">[일반]</c:if>
+		            	<c:if test="${club.division eq '전공'}">[전공]</c:if>
 		            	${club.clubName}
-		            	<c:if test="${club.division eq '전공'}">(전공)</c:if>
 		            </option>
 		        </c:forEach>
 	    	</select>
