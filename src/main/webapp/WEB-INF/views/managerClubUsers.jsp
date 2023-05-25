@@ -31,7 +31,7 @@
 		<c:forEach items="${clubUsers}" var="clubUser" varStatus="status">
 			<tr>
 				<th scope="row" style="text-align: center">
-					${status.count} <input type="checkbox" class="checkbox_clubUsers" value="${status.count}" onclick="changeAvailable(this, 'clubUsers_${status.count}')"/>
+					${status.count}
 				</th>
 				<td style="text-align: center"><input type="text" id="clubUsers${status.count}_1" size="20" name="deptNameKr" value="${clubUser.deptNameKr}" disabled/></td>
 				<td style="text-align: center"><input type="text" id="clubUsers${status.count}_2" size="8" name="userId" value="${clubUser.userId}" disabled/></td>
@@ -39,13 +39,14 @@
 				<td style="text-align: center"><input type="text" id="clubUsers${status.count}_4" size="11" minlength="10" maxlength="11" name="userPhoneNumber" value="${clubUser.userPhoneNumber}" disabled/></td>
 				<td style="text-align: center"><input type="text" id="clubUsers${status.count}_5" size="50" minlength="0" maxlength="50" name="introduce" value="${clubUser.introduce}" disabled/></td>
 				<td style="text-align: center"><input type="text" id="clubUsers${status.count}_6" size="20" name="joinDateStr" value="${clubUser.joinDateStr}" disabled/></td>
-				<td style="text-align: center"><input type="checkbox" id="clubUsers${status.count}_7" name="allowState" value="${clubUser.allowState}" onclick="changeValue(this, 'checkbox')" disabled <c:if test="${clubUser.allowState == 1}">checked</c:if>/></td>
+				<td style="text-align: center"><input type="checkbox" id="clubUsers${status.count}_7" class="checkbox_clubUsers" name="allowState" value="${clubUser.allowState}" onclick="changeValue(this, 'checkbox')" <c:if test="${clubUser.allowState == 1}">checked</c:if>/></td>
 
 				<input type="hidden" id="clubUsers${status.count}_8" name="clubId" value="${clubUser.clubId}"/>
 			</tr>	
 		</c:forEach>
 		</tbody>
 	</table>
+	<input type="button" value="전체 선택" onclick="changeAllAllow('clubUsers')"/>
 	<input type="submit" value="수정"/>
 	</form>
 </body>
