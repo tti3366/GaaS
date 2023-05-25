@@ -58,7 +58,7 @@ public class ManagerController {
 				return "/home";
 			}
 		} catch (Exception e) {
-			System.out.println("[Exception] ManagerController - viewTables");
+			System.out.println("[Exception] ManagerController - clubUsers");
 			return "/home";
 		}
 	}
