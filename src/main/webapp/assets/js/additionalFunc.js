@@ -37,8 +37,10 @@ $(document).on('submit', '.forms', function(event) {
     
     // 현재 폼 중에서 checkbox가 선택된 행들
   	var selected_rows = $('input.checkbox_' + formTarget + ':checked');
-    
-    // ajax 요청을 보낼 경로 (admin : user, dept, club | manager : clubUsers)
+  	if(formTarget == 'clubUsers') // clubUser의 경우, checkbox 상태로 갱신을 구분하는 것이 아니고 전체 선택 기능이 있기 때문에 예외로 모든 checkbox를 받아옴
+  		selected_rows = $('input.checkbox_' + formTarget); 
+  	
+  	// ajax 요청을 보낼 경로 (admin : user, dept, club | manager : clubUsers)
     var reqPath;
     
     selected_rows.each(function() {
@@ -82,10 +84,13 @@ $(document).on('submit', '.forms', function(event) {
 			reqPath = '/admin';
 		}
 		else if(formTarget == 'clubUsers') {
+			// clubUsers의 경우 모든 행이 갱신 대상이기 때문에, 별도로 행의 값을 받아와야 함
+			var val = $(this).prop('id').split(formTarget)[1].split('_')[0];
+			
 			var obj = {
-				userId : $('#' + formTarget + $(this).val() + '_' + 2).val(),
-				allowState : $('#' + formTarget + $(this).val() + '_' + 7).val(),
-				clubId : $('#' + formTarget + $(this).val() + '_' + 8).val(),
+				userId : $('#' + formTarget + val + '_' + 2).val(),
+				allowState : $('#' + formTarget + val + '_' + 7).val(),
+				clubId : $('#' + formTarget + val + '_' + 8).val(),
 			};
 			
 			reqPath = '/manager';
@@ -137,10 +142,12 @@ var changeAvailable = function(element, target) {
 		cnt = 3;
 		disabledArr = [1, 0, 0];
 	}
+	/*	
 	else if(targetName == 'clubUsers') {
 		cnt = 7;
 		disabledArr = [1, 1, 1, 1, 1, 1, 0];
 	}
+	*/
 	
 	// checkbox 선택 시, 수정 가능하도록 활성화
 	if(element.checked) {
@@ -170,6 +177,25 @@ var changeValue = function(element, target) {
 		
 		console.log(element.value);
 	}
+}
+
+var changeAllAllow = function(formName) {
+	var cnt = 0;
+	var selected_rows = $('input.checkbox_' + formName);
+	
+	selected_rows.each(function() {
+		if($(this).is(":checked") == true) cnt++;	// 체크된 행의 개수
+	});
+	
+	selected_rows.each(function() {
+		if(cnt != selected_rows.length) {			// 하나라도 덜 체크된 행이 있으면 모두 선택
+			$(this).prop("checked", true);
+			$(this).attr("value", 1);
+		} else {									// 모든 행이 선택되어 있으면 선택 해제 
+			$(this).prop("checked", false);
+			$(this).attr("value", 0);
+		}	
+	});
 }
 
 var deleteTarget = function(targetId, target) {
