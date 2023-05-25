@@ -22,7 +22,7 @@ public class UserDao {
 	private User user;
 	
 	public List<User> getAllUsers() {
-		String sql = "SELECT * FROM USERS ORDER BY user_id";
+		String sql = "SELECT * FROM USERS";
 		
         return jdbcTemplate.query(sql, rowMapper);
 	}
@@ -81,15 +81,8 @@ public class UserDao {
 	}
 	
 	public int updateUserAuthority(User user) {
-		String sql = "UPDATE users SET authority = ? WHERE user_id = ? ";
-		int result = jdbcTemplate.update(sql, user.getAuthority(), user.getUserId());
-		
-		return result;
-	}
-	
-	public int updateUserAuthority(String authority, String userId) {
-		String sql = "UPDATE users SET authority = ? WHERE user_id = ? ";
-		int result = jdbcTemplate.update(sql, userId, authority);
+		String sql = "UPDATE users SET authority = 'manager' WHERE user_id = ? ";
+		int result = jdbcTemplate.update(sql, user.getUserId());
 		
 		return result;
 	}

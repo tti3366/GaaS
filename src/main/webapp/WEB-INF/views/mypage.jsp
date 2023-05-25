@@ -50,10 +50,19 @@
 			<ul class="d-flex align-items-center">
 				<li class="nav-item dropdown pe-3"><a
 					class="nav-link nav-profile d-flex align-items-center pe-0"
-					href="#" data-bs-toggle="dropdown"> <img
-						src="/assets/img/${userInfo.authority}.png" alt="Profile"
-						class="rounded-circle"> <span
-						class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
+					href="#" data-bs-toggle="dropdown"> 
+						<c:choose>           
+				            <c:when test = "${userInfo.authority eq 'manager'}">
+						    	<i class="ri-admin-line"></i>
+						    </c:when>
+						    <c:when test = "${userInfo.authority eq 'admin'}">
+						    	<i class="ri-aliens-line"></i>
+						    </c:when>
+						    <c:otherwise>
+						    	<i class="ri-user-line"></i>
+					        </c:otherwise>
+			            </c:choose>
+						<span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
 				</a> <!-- 유저 정보  -->
 					<ul
 						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -132,6 +141,33 @@
 					<span>HOME</span>
 				</a>
 			</li>
+			
+			<c:choose>
+			      <c:when test = "${userInfo.authority eq 'manager'}">
+				      <li class="nav-item">
+				        <a class="nav-link collapsed" href="">
+				          <i class="ri-team-line"></i>
+				          <span>Manage Club</span>
+				        </a>
+				      </li>
+			      </c:when>
+			      <c:when test = "${userInfo.authority eq 'user'}">
+				      <li class="nav-item">
+				        <a class="nav-link collapsed" href="">
+				          <i class="ri-pencil-line"></i>
+				          <span>Enroll Club</span>
+				        </a>
+				      </li>
+			      </c:when>
+			      <c:otherwise>
+				      <li class="nav-item">
+				        <a class="nav-link collapsed" href="">
+				          <i class="ri-settings-5-line"></i>
+				          <span>Administrator</span>
+				        </a>
+				      </li>
+			      </c:otherwise>
+		    </c:choose>
 
 			<li class="nav-item">
 				<a class="nav-link collapsed"href="/logoutProc">
@@ -336,19 +372,106 @@
 										<label class="col-md-4 col-lg-3 col-form-label">Account Deletion</label>
 										<div class="col-md-8 col-lg-9">
 											<div class="pt-2">
-												 <a onclick="deleteUsers()" class="btn btn-danger btn-sm"
+												 <a class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal"
 													title="Remove my Account"><i class="bi bi-trash"></i></a>
 											</div>
 										</div>
 									</div>
+										<div class="modal fade" id="deleteModal" tabindex="-1">
+							                <div class="modal-dialog">
+							                  <div class="modal-content">
+							                    <div class="modal-header">
+							                      <h5 class="modal-title">Delete Account</h5>
+							                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							                    </div>
+							                    <div class="modal-body">
+							                      Do you want to delete your account?
+							                    </div>
+							                    <div class="modal-footer">
+							                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+							                      <button type="button" class="btn btn-danger" onclick="location.href='/deleteUsers'">Yes</button>
+							                    </div>
+							                  </div>
+							                </div>
+							            </div>
 									<div class="row mb-3">
 										<label class="col-md-4 col-lg-3 col-form-label">Club Create Page</label>
 										<div class="col-md-8 col-lg-9">
 											<div class="pt-2">
-												 <a href="#" onclick="window.open('/createclub','CreateClubPopup','width=500, height=520')"
+												 <a data-bs-toggle="modal" data-bs-target="#createClubModal"
 												 class="btn btn-primary btn-sm" title="Create Club"><i class="bi bi-door-open"></i></a>
 											</div>
 										</div>
+										
+										<!-- Modal을 이용한 개설 신청 페이지 -->
+										<div class="modal fade" id="createClubModal" tabindex="-1">
+							                <div class="modal-dialog modal-lg">
+							                  <div class="modal-content">
+							                    <div class="modal-header">
+							                      <h5 class="modal-title">Create Club</h5>
+							                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							                    </div>
+							                    <c:choose>
+							                    	<c:when test = "${userInfo.authority eq 'user'}">
+							                    		<form:form modelAttribute="createClub" action="/enrollclub" method="post">
+									                    <div class="modal-body">
+													      	<div class="row mb-3">
+													          <label class="col-sm-2 col-form-label">Proposer</label>
+													          <div class="col-sm-10">
+													            <input type="text" class="form-control" value="${userInfo.userName} / ${userInfo.userId}" disabled>
+													          </div>
+													        </div>
+													      
+													        <div class="row mb-3">
+													          <label for="clubName" class="col-sm-2 col-form-label">Club Name</label>
+													          <div class="col-sm-10">
+													            <input type="text" class="form-control" id="clubName" name="clubName" required>
+													          </div>
+													        </div>
+													        
+													        <div class="row mb-3">
+													          <label for="clubInformation" class="col-sm-2 col-form-label">Club Information</label>
+													          <div class="col-sm-10">
+													            <textarea class="form-control" style="height: 50px" id="clubInformation" name="clubInformation" required></textarea>
+													          </div>
+													        </div>
+													        
+													        <fieldset class="row mb-3">
+													          <legend class="col-form-label col-sm-2 pt-0">Major/Common</legend>
+													          <div class="col-sm-10">
+													            <div class="form-check">
+													              <input class="form-check-input" type="radio" name="division" id="division" value="전공" checked>
+													              <label class="form-check-label" for="gridRadios1">
+													                Major
+													              </label>
+													            </div>
+													            <div class="form-check">
+													              <input class="form-check-input" type="radio" name="division" id="division" value="일반">
+													              <label class="form-check-label" for="gridRadios2">
+													                Common
+													              </label>
+													            </div>
+													          </div>
+													        </fieldset>
+									                    </div>
+									                    <div class="modal-footer">
+									                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									                      <button type="submit" class="btn btn-primary">Create Club</button>
+									                    </div>
+									                    </form:form>
+								                    </c:when>
+								                    <c:otherwise>
+								                    	<div class="modal-body">
+									                    You can't create a club.
+									                    </div>
+									                    <div class="modal-footer">
+									                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									                    </div>
+								                    </c:otherwise>
+							                    </c:choose>
+							                  </div>
+							                </div>
+						              	</div>
 									</div>
 									<div class="row mb-3">
 										<label class="col-md-4 col-lg-3 col-form-label">Sign In Club</label>
