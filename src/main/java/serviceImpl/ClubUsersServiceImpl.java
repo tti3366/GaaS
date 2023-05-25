@@ -24,13 +24,13 @@ public class ClubUsersServiceImpl implements ClubUsersService {
 	}
 	
 	@Override
-	public ClubUsers checkSignedById(String clubId) {
-		return clubUserDao.checkSignedById(clubId);
+	public ClubUsers checkSignedById(String clubId, String userId) {
+		return clubUserDao.checkSignedById(clubId, userId);
 	}
 	
 	@Override
-	public ClubUsers checkMajorSigned() {
-		return clubUserDao.checkMajorSigned();
+	public ClubUsers checkMajorSigned(String userId) {
+		return clubUserDao.checkMajorSigned(userId);
 	}
 
 }

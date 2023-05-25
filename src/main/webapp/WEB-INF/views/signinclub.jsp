@@ -70,7 +70,7 @@
     	</div>
         
         <div class="row mb-3">
-          <label for="Introduce" class="col-sm-2 col-form-label">Introduce</label>
+          <label for="Introduce" class="col-sm-2 col-form-label">인사말</label>
           <div class="col-sm-10">
             <textarea class="form-control" style="height: 50px" id="Introduce" name="Introduce" required></textarea>
           </div>
