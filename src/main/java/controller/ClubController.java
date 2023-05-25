@@ -92,8 +92,9 @@ public class ClubController {
 			int result=clubService.insertClub(club);
 			
 			if(result == 1) {
-				userCRUDService.updateUserAuthority(userInfo);
 				userInfo = loginService.selectUserByUserId(userInfo.getUserId());
+				userInfo.setAuthority("manager");
+				userCRUDService.updateUserAuthority(userInfo);
 				session.setAttribute("SESSION", userInfo);
 				
 				String alert = "<script>alert('Insert Success!'); window.close();</script>";

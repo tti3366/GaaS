@@ -66,7 +66,8 @@
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="/mypage"> <i class="bi bi-person"></i> 
+							href="/mypage">
+							<i class="bi bi-person"></i> 
 							<span>My Profile</span>
 						</a></li>
 						<li>
@@ -74,7 +75,19 @@
 						</li>
 
 						<li><a class="dropdown-item d-flex align-items-center"
-							href="users-profile.html"> <i class="bi bi-gear"></i>
+							href="
+				              	<c:choose>
+				              		<c:when test="${userInfo.authority eq 'manager'}">
+				              			/manager/clubUsers
+				              		</c:when>
+				              		<c:when test="${userInfo.authority eq 'admin'}">
+				              			/admin/viewTables
+				              		</c:when>
+				              		<c:when test="${userInfo.authority eq 'user'}">
+				              			<!-- 본인 동아리 현황 -->
+				              		</c:when>
+				              	</c:choose>  						
+							"> <i class="bi bi-gear"></i>
 							<span>Account Settings</span>
 						</a></li>
 						<li>

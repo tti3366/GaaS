@@ -1,6 +1,8 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -8,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import model.Club;
-import model.Dept;
 
 public class ClubDao {
 	@Autowired
@@ -57,14 +58,6 @@ public class ClubDao {
 	// 동아리 코드로 동아리 정보 조회
 	public Club getClubNamesByNum(String clubId) {
 		try {
-			/*
-			 * 동아리 추가 페이지 생성 이전 테스트 용으로, 동아리 구분 코드만 활용한 코드 일부
-			 * 
-			 * String id = clubId.substring(0, 2); // 동아리 코드 
-			 * String sql = "SELECT * FROM CLUB WHERE club_id LIKE ?"; 
-			 * String param = id + "%";
-			 * club = jdbcTemplate.queryForObject(sql, rowMapper, param);
-			 */	
 			String sql = "SELECT * FROM CLUB WHERE club_id LIKE ?";
 			
 			club = jdbcTemplate.queryForObject(sql, rowMapper, clubId);
@@ -81,7 +74,7 @@ public class ClubDao {
 	}
 	
 	public List<Club> getAllClubs() {
-		String sql = "SELECT * FROM CLUB";
+		String sql = "SELECT * FROM CLUB ORDER BY club_id";
 		
 		return jdbcTemplate.query(sql, rowMapper);
 	}
@@ -108,5 +101,49 @@ public class ClubDao {
 		int result = jdbcTemplate.update(sql, club.getClubName(), club.getClubInformation(), club.getClubState(), param);
 
 		return result;
+	}
+	
+	public int deleteClub(String clubId) {
+		String sql = "DELETE FROM club WHERE club_id = ?";
+		
+		int result = jdbcTemplate.update(sql, clubId);
+
+		return result;
+	}
+	
+	public boolean existsClubUsers(String clubId) {
+		String sql = "SELECT count(*) FROM club_users where club_id = ?";
+	
+		int result = jdbcTemplate.queryForObject(sql, Integer.class, clubId); 
+		
+		if(result != 0) return true;	// 동아리원이 한 명이라도 존재한다는 의미
+		else return false;
+	}
+	
+	public boolean existsClubBoard(String clubId) {	// 동아리 게시판 존재 유무
+		String sql = "SELECT count(*) FROM club_board where club_id = ?";
+		
+		int result = jdbcTemplate.queryForObject(sql, Integer.class, clubId); 
+		
+		if(result != 0) return true;	// 게시판이 한 개 이상 존재함을 의미
+		else return false;
+	}
+	
+	public int createClubBoard(String clubId) {		// 동아리 게시판 생성
+		Map<String, String> tableNames = new HashMap<String, String>();
+		tableNames.put("pub", "PUBLIC");
+		tableNames.put("pri", "PRIVATE");
+		tableNames.put("qna", "QNA");
+
+		int success = 0;
+		
+		for(String key : tableNames.keySet()) {
+			String sql = "INSERT INTO club_board VALUES (?, ?, ?)";
+
+			int result = jdbcTemplate.update(sql, clubId + "_" + key, clubId, clubId + "_" + tableNames.get(key));
+			success += result;
+		}
+
+		return success;
 	}
 }

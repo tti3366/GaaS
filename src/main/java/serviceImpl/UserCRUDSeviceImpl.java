@@ -31,5 +31,10 @@ public class UserCRUDSeviceImpl implements UserCRUDService {
 	public int updateUserAuthority(User user) {
 		return userDao.updateUserAuthority(user);
 	}
+	
+	@Override
+	public int updateUserAuthority(String userId, String authority) {
+		return userDao.updateUserAuthority(userId, authority);
+	}
 
 }

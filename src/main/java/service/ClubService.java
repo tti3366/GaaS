@@ -24,4 +24,5 @@ public interface ClubService {
 	
 	public String getAllClubByCreatingClub(String clubName);
 	
+	public boolean existsClubUsers(String clubId);
 }

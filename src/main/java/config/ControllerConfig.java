@@ -3,11 +3,12 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import controller.AdminController;
 import controller.ChatController;
 import controller.ClubController;
 import controller.IndexController;
 import controller.LoginController;
-import controller.ManageController;
+import controller.ManagerController;
 import controller.MyPageController;
 import controller.PostController;
 
@@ -42,8 +43,12 @@ public class ControllerConfig {
 		return new MyPageController();
 	}
 
-	@Bean ManageController manageController() {
-		return new ManageController();
+	@Bean AdminController adminController() {
+		return new AdminController();
+	}
+	
+	@Bean ManagerController managerController() {
+		return new ManagerController();
 	}
 
 }
