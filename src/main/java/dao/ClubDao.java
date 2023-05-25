@@ -35,7 +35,7 @@ public class ClubDao {
 	}
 	
 	public List<Club> getAllowedClubNames() {
-		String sql = "SELECT * FROM club WHERE club_state LIKE ?";
+		String sql = "SELECT * FROM club WHERE club_state LIKE ? ORDER BY division DESC";
 		
 		return jdbcTemplate.query(sql, rowMapper, 1);
 	}
