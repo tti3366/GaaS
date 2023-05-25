@@ -22,14 +22,14 @@ public class UserDao {
 	private User user;
 	
 	public List<User> getAllUsers() {
-		String sql = "SELECT * FROM USERS";
+		String sql = "SELECT * FROM USERS ORDER BY user_id";
 		
         return jdbcTemplate.query(sql, rowMapper);
 	}
 	
 	// 회원 가입
 	public int insertUser(User user) {
-		System.out.println("insertUser : " + user.toString());
+		System.out.println("[SIGNUP] UserDao insertUser ▶ " + user.toString());
 		
 		String sql = "INSERT INTO USERS (user_id, user_pw, user_name, user_email, user_phone_number) VALUES (?, ?, ?, ?, ?)";
 		
@@ -40,7 +40,7 @@ public class UserDao {
 	
 	// 로그인 
 	public User selectUser(User user) throws Exception{
-		System.out.println("selectUser : " + user.toString());
+		System.out.println("[LOGIN] UserDao selectUser ▶ " + user.getUserId() + " / " + user.getUserPw());
 		
 		String sql = "SELECT * FROM USERS where user_id = ? AND user_pw = ?";
     
@@ -81,9 +81,16 @@ public class UserDao {
 	}
 	
 	public int updateUserAuthority(User user) {
-		String sql = "UPDATE users SET authority = 'manager' WHERE user_id = ? ";
-		int result = jdbcTemplate.update(sql, user.getUserId());
-		
+		String sql = "UPDATE users SET authority = ? WHERE user_id = ? ";
+		int result = jdbcTemplate.update(sql, user.getAuthority(), user.getUserId());
+
+		return result;
+	}
+
+	public int updateUserAuthority(String authority, String userId) {
+		String sql = "UPDATE users SET authority = ? WHERE user_id = ? ";
+		int result = jdbcTemplate.update(sql, userId, authority);
+
 		return result;
 	}
 	

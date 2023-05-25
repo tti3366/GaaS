@@ -53,11 +53,11 @@ public class LoginController {
 			//유효성 검사
 			String pattern = "2\\d{2}(10|20|30|44|60|71)\\d{3}";//아이디 정규표현식
 			boolean effect=Pattern.matches(pattern, user.getUserId());
-			System.out.println("유효성검사 :"+effect);
+			System.out.println("[SIGNUP] VALIDATE : " + effect);
 			
 			if(effect) {//유효성 검사 성공
 				loginService.insertUser(user);
-				System.out.println("SUCCESS SIGNUP");
+				System.out.println("[SIGNUP] SUCCESS");
 			
 				String alert = "<script>alert('회원가입에 성공하였습니다.');</script>";
 				mav.addObject("alert", alert);
@@ -69,7 +69,7 @@ public class LoginController {
 			
 			return mav;
 		}catch(effectException e) {//유효성 검사 예외
-			System.out.println("LOGIN EXCEPTION");
+			System.out.println("[LOGIN] EXCEPTION");
 			
 			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
 			
@@ -79,7 +79,7 @@ public class LoginController {
 			return mav;
 		}catch(Exception e) {
 			
-			System.out.println("LOGIN EXCEPTION");
+			System.out.println("[LOGIN] EXCEPTION");
 			
 			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
 			
@@ -100,13 +100,12 @@ public class LoginController {
 			
 			session.setAttribute("SESSION", userInfo);	// 로그인 유저 Session 등록
 			
-			System.out.println("SESSION : " + request.getSession().getAttribute("SESSION")
-								+ " [" + userInfo.getUserName() + "(" + userInfo.getUserId()+ ")]");
+			System.out.println("[SESSION] " + userInfo.getUserName() + "(" + userInfo.getUserId()+ ")");
 			mav.setViewName("redirect:/home");
 			
 			return mav;
 		} catch(Exception e) {
-			System.out.println("LOGIN EXCEPTION");
+			System.out.println("[LOGIN] EXCEPTION");
 			String alert = "";
 			alert = "<script>alert('로그인에 실패했습니다.');</script>";
 			
@@ -119,6 +118,9 @@ public class LoginController {
 	
 	@RequestMapping("/logoutProc")
 	public String logoutProc(HttpSession session) {
+		User user = (User)session.getAttribute("SESSION");
+		System.out.println("[LOGOUT] " + user.getUserName() + "(" + user.getUserId() + ")");
+		
 		session.invalidate();
 		return "redirect:/home";
 	}

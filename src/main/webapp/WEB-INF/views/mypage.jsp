@@ -86,18 +86,30 @@
 						<li><a class="dropdown-item d-flex align-items-center"
 							href="
 				              	<c:choose>
-				              		<c:when test="${userInfo.authority eq 'manager'}">
-				              			/manager/clubUsers
-				              		</c:when>
 				              		<c:when test="${userInfo.authority eq 'admin'}">
 				              			/admin/viewTables
+				              		</c:when>
+				              		<c:when test="${userInfo.authority eq 'manager'}">
+				              			/manager/clubUsers
 				              		</c:when>
 				              		<c:when test="${userInfo.authority eq 'user'}">
 				              			<!-- 본인 동아리 현황 -->
 				              		</c:when>
 				              	</c:choose>  						
 							"> <i class="bi bi-gear"></i>
-							<span>Account Settings</span>
+							<span>
+				              	<c:choose>
+				              		<c:when test="${userInfo.authority eq 'admin'}">
+				              			Administrator
+				              		</c:when>
+				              		<c:when test="${userInfo.authority eq 'manager'}">
+				              			Manage Club
+				              		</c:when>
+				              		<c:when test="${userInfo.authority eq 'user'}">
+				              			Enroll Club
+				              		</c:when>
+				              	</c:choose>							
+							</span>
 						</a></li>
 						<li>
 							<hr class="dropdown-divider">
@@ -145,7 +157,7 @@
 			<c:choose>
 			      <c:when test = "${userInfo.authority eq 'manager'}">
 				      <li class="nav-item">
-				        <a class="nav-link collapsed" href="">
+				        <a class="nav-link collapsed" href="/manager/clubUsers">
 				          <i class="ri-team-line"></i>
 				          <span>Manage Club</span>
 				        </a>
@@ -161,7 +173,7 @@
 			      </c:when>
 			      <c:otherwise>
 				      <li class="nav-item">
-				        <a class="nav-link collapsed" href="">
+				        <a class="nav-link collapsed" href="/admin/viewTables">
 				          <i class="ri-settings-5-line"></i>
 				          <span>Administrator</span>
 				        </a>
