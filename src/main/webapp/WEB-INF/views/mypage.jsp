@@ -337,6 +337,15 @@
 											</div>
 										</div>
 									</div>
+									<div class="row mb-3">
+										<label class="col-md-4 col-lg-3 col-form-label">Sign In Club</label>
+										<div class="col-md-8 col-lg-9">
+											<div class="pt-2">
+												 <a href="#" onclick="window.open('/signinclub','SignInClubPopup','width=500, height=520')"
+												 class="btn btn-primary btn-sm" title="Sign In Club"><i class="bi bi-door-open"></i></a>
+											</div>
+										</div>
+									</div>
 								</div>
 
 							</div>

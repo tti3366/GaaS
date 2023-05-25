@@ -45,4 +45,5 @@ public class ControllerConfig {
 	@Bean ManageController manageController() {
 		return new ManageController();
 	}
+
 }
