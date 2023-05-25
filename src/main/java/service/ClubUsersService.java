@@ -10,8 +10,8 @@ public interface ClubUsersService {
 	
 	public int insertClub(ClubUsers clubUser);
 	
-	public ClubUsers checkSignedById(String clubId);
+	public ClubUsers checkSignedById(String clubId, String userId);
 	
-	public ClubUsers checkMajorSigned();
+	public ClubUsers checkMajorSigned(String userId);
 
 }

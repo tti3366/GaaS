@@ -67,11 +67,6 @@ public class ModelConfig {
 	}
 	
 	@Bean
-	public ClubUsers clubUsers() {
-		return new ClubUsers();
-	}
-	
-	@Bean
 	public LoginService loginServiceImpl() {
 		return new LoginServiceImpl();
 	}

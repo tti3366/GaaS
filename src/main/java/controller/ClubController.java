@@ -1,6 +1,7 @@
 package controller;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -161,7 +162,7 @@ public class ClubController {
 		//선택한 동아리가 전공 동아리일 경우
 		if(!clubId.substring(0, 2).equals("99")) {
 			//선택한 동아리가 전공 동아리인데 이미 전공 동아리에 가입한 경우
-			if(clubUserService.checkMajorSigned() != null) {
+			if(clubUserService.checkMajorSigned(userInfo.getUserId()) != null) {
 				String alert = "<script>alert('이미 가입한 전공 동아리가 존재합니다!'); window.close();</script>";
 				redirectAttributes.addFlashAttribute("alert", alert);
 				
@@ -173,7 +174,7 @@ public class ClubController {
 			else {
 				clubUser.setUserId(Integer.parseInt(userInfo.getUserId()));
 				clubUser.setClubId(clubId);
-				clubUser.setJoinDate(LocalDate.now());
+				clubUser.setJoinDate(LocalDateTime.now());
 				
 				clubUserService.insertClub(clubUser);
 				
@@ -186,7 +187,7 @@ public class ClubController {
 			}
 		}
 		//교양 동아리 가입 신청 시, 이미 같은 동아리에 가입이 돼있는 경우
-		else if(clubUserService.checkSignedById(clubId) != null) {
+		else if(clubUserService.checkSignedById(clubId, userInfo.getUserId()) != null) {
 			String alert = "<script>alert('이미 가입한 동아리가 존재합니다!'); window.close();</script>";
 			redirectAttributes.addFlashAttribute("alert", alert);
 			
@@ -198,7 +199,7 @@ public class ClubController {
 		else {
 			clubUser.setUserId(Integer.parseInt(userInfo.getUserId()));
 			clubUser.setClubId(clubId);
-			clubUser.setJoinDate(LocalDate.now());
+			clubUser.setJoinDate(LocalDateTime.now());
 			
 			clubUserService.insertClub(clubUser);
 			
