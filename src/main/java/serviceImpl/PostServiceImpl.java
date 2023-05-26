@@ -17,4 +17,10 @@ public class PostServiceImpl implements PostService {
 	public List<Post> selectAllPost() {
 		return postDao.selectAllPost();
 	}
+
+	@Override
+	public int insertPost(Post post) {
+		return postDao.insertPost(post);
+		
+	}
 }

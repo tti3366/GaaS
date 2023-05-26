@@ -305,8 +305,9 @@
                     <li class="dropdown-header text-start">
                       <h6>CRUD</h6>
                     </li>
-
-                    <li><a class="dropdown-item" href="#">ADD</a></li>
+					
+					<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
+                    <li><a class="dropdown-item" href="/post">ADD</a></li>
                     <li><a class="dropdown-item" href="#">This Month</a></li>
                   </ul>
                 </div>

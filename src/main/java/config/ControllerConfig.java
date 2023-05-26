@@ -2,6 +2,8 @@ package config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import controller.AdminController;
 import controller.ChatController;
@@ -45,10 +47,18 @@ public class ControllerConfig {
 
 	@Bean AdminController adminController() {
 		return new AdminController();
-	}
+  }
 	
 	@Bean ManagerController managerController() {
 		return new ManagerController();
 	}
-
+  
+	//이미지 첨부를 위한 설정
+	@Bean
+  public MultipartResolver multipartResolver() {
+      CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+      multipartResolver.setMaxUploadSize(10485760); // 최대 업로드 크기 설정 (10MB)
+      // 필요한 추가 설정들
+      return multipartResolver;
+  }
 }
