@@ -1,16 +1,28 @@
 package model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Post {
-	private String postId;
-	private String writerId;
-	private String clubId;
-	private String boardId;
-	private String title;
-	private String content;
-	private Date postDate;
-	private int statusCode;
+	
+	private String postId;//게시물 고유번호-->자동적으로 증가
+	private int writerId;//작성자 id(작성자 학번?)-->학번으로 학과를 알 수 있음
+	private String clubId;//동아리 코드(99_01)
+	private String boardId;//게시판 종류(99_01_qna)
+	private String title;//제목
+	private String content;//내용
+	private Timestamp postDate;//작성날짜
+	private int statusCode;//상태코드(삭제나 수정했을때 알기 위해)'
+	
+	private int views;//조회수
+	private String fileName;//참조 파일 이름(랜덤 숫자+파일 이름)
+	
+	//파일 경로도(파일 이름이 중복될 수 있으니 랜덤 숫자를 앞에 붙여서)
+	
+	
+	//게시물 번호는 숫자로 자동적으로 증가하게
+	//동아리,학과,게시판 종류는 따로 컬럼에
+	
 
 	public String getPostId() {
 		return postId;
@@ -20,11 +32,11 @@ public class Post {
 		this.postId = postId;
 	}
 
-	public String getWriterId() {
+	public int getWriterId() {
 		return writerId;
 	}
 
-	public void setWriterId(String writerId) {
+	public void setWriterId(int writerId) {
 		this.writerId = writerId;
 	}
 
@@ -60,11 +72,11 @@ public class Post {
 		this.content = content;
 	}
 
-	public Date getPostDate() {
+	public Timestamp getPostDate() {
 		return postDate;
 	}
 
-	public void setPostDate(Date postDate) {
+	public void setPostDate(Timestamp postDate) {
 		this.postDate = postDate;
 	}
 
@@ -74,6 +86,22 @@ public class Post {
 
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 	@Override

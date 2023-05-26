@@ -188,6 +188,15 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>5.3.6</version>
 		</dependency>
+		
+		
+		<!-- 이미지 첨부하기 위한 의존설정 -->
+		<dependency>
+	    	<groupId>commons-fileupload</groupId>
+	    	<artifactId>commons-fileupload</artifactId>
+	    	<version>1.4</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
