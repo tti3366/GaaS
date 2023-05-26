@@ -12,7 +12,7 @@ public interface ClubService {
 	
 	public List<Club> getAllowedClubNames();
 	
-	public List<String> getCommonClubNames();
+	public List<Club> getCommonClubNames();
 	
 	public Club getClubNamesByNum(String clubId);
 	

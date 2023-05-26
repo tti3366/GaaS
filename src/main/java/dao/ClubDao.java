@@ -41,10 +41,10 @@ public class ClubDao {
 	}
 	
 	//교양 동아리명 전체 조회
-	public List<String> getCommonClubNames() {
-		String sql = "SELECT club_name FROM club WHERE division LIKE ? AND club_state LIKE ?";
+	public List<Club> getCommonClubNames() {
+		String sql = "SELECT * FROM club WHERE division LIKE ? AND club_state LIKE ?";
 		
-		return jdbcTemplate.queryForList(sql, String.class, "일반", 1);
+		return jdbcTemplate.query(sql, rowMapper, "일반", 1);
 	}
 	
 	public String getAllClubByCreatingClub(String clubName) {
