@@ -44,7 +44,9 @@ public class ClubController {
 	private UserCRUDService userCRUDService;
 	
 	@Autowired
-	private ClubUsersService clubUserService;
+	private ClubUsersService clubUsersService;
+	
+	private List<Club> clubs;
 	
 	@RequestMapping("/createclub")
 	public ModelAndView createClub(HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -141,8 +143,15 @@ public class ClubController {
 		ModelAndView mav = new ModelAndView();
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
 		
-		List<Club> clubs = clubService.getAllowedClubNames();
+		
 		System.out.println(userInfo.getUserId());
+		
+		if(clubUsersService.checkMajorSigned(userInfo.getUserId()) == null) {
+			clubs = clubService.getAllowedClubNames();
+		}
+		else {
+			clubs = clubService.getCommonClubNames();
+		}
 		
 		mav.addObject("clubs", clubs);
 		mav.addObject("userInfo", userInfo);
@@ -162,7 +171,7 @@ public class ClubController {
 		//선택한 동아리가 전공 동아리일 경우
 		if(!clubId.substring(0, 2).equals("99")) {
 			//선택한 동아리가 전공 동아리인데 이미 전공 동아리에 가입한 경우
-			if(clubUserService.checkMajorSigned(userInfo.getUserId()) != null) {
+			if(clubUsersService.checkMajorSigned(userInfo.getUserId()) != null) {
 				String alert = "<script>alert('이미 가입한 전공 동아리가 존재합니다!'); window.close();</script>";
 				redirectAttributes.addFlashAttribute("alert", alert);
 				
@@ -176,7 +185,7 @@ public class ClubController {
 				clubUser.setClubId(clubId);
 				clubUser.setJoinDate(LocalDateTime.now());
 				
-				clubUserService.insertClub(clubUser);
+				clubUsersService.insertClub(clubUser);
 				
 				String alert = "<script>alert('가입 신청 완료!'); window.close();</script>";
 				redirectAttributes.addFlashAttribute("alert", alert);
@@ -187,7 +196,7 @@ public class ClubController {
 			}
 		}
 		//교양 동아리 가입 신청 시, 이미 같은 동아리에 가입이 돼있는 경우
-		else if(clubUserService.checkSignedById(clubId, userInfo.getUserId()) != null) {
+		else if(clubUsersService.checkSignedById(clubId, userInfo.getUserId()) != null) {
 			String alert = "<script>alert('이미 가입한 동아리가 존재합니다!'); window.close();</script>";
 			redirectAttributes.addFlashAttribute("alert", alert);
 			
@@ -201,7 +210,7 @@ public class ClubController {
 			clubUser.setClubId(clubId);
 			clubUser.setJoinDate(LocalDateTime.now());
 			
-			clubUserService.insertClub(clubUser);
+			clubUsersService.insertClub(clubUser);
 			
 			String alert = "<script>alert('가입 신청 완료!'); window.close();</script>";
 			redirectAttributes.addFlashAttribute("alert", alert);

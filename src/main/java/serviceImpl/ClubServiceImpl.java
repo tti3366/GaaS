@@ -25,7 +25,7 @@ public class ClubServiceImpl implements ClubService{
 		return clubDao.getAllowedClubNames();
 	}
 	
-	public List<String> getCommonClubNames() {
+	public List<Club> getCommonClubNames() {
 		return clubDao.getCommonClubNames();
 	}
 	
