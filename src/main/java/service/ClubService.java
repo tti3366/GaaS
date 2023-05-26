@@ -10,7 +10,13 @@ public interface ClubService {
 	
 	public List<String> getAllClubNames();
 	
+	public List<Club> getAllowedClubNames();
+	
+	public List<Club> getCommonClubNames();
+	
 	public Club getClubNamesByNum(String clubId);
+	
+	public String getClubIdByName(String clubName);
 	
 	public List<Club> getAllClubs();
 

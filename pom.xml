@@ -165,6 +165,12 @@
 		    <artifactId>jackson-databind</artifactId>
 		    <version>2.10.0</version>
 		</dependency>
+		<!-- JSON - java.time.LocalDateTime 직렬화/역직렬화 하기 위함 (JavaTimeModule) -->
+	    <dependency>
+	       <groupId>com.fasterxml.jackson.datatype</groupId>
+	       <artifactId>jackson-datatype-jsr310</artifactId>
+	       <version>2.12.5</version> <!-- 현재 최신 버전 -->
+	   </dependency>
 		
 		<dependency>
 			<groupId>commons-dbcp</groupId>

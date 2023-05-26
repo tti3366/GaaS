@@ -1,5 +1,10 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -14,9 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import model.Club;
+import model.ClubUsers;
 import model.Dept;
 import model.User;
 import service.ClubService;
+import service.ClubUsersService;
 import service.DeptService;
 import service.LoginService;
 import service.UserCRUDService;
@@ -35,6 +42,11 @@ public class ClubController {
 	
 	@Autowired
 	private UserCRUDService userCRUDService;
+	
+	@Autowired
+	private ClubUsersService clubUsersService;
+	
+	private List<Club> clubs;
 	
 	@RequestMapping("/createclub")
 	public ModelAndView createClub(HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -84,7 +96,7 @@ public class ClubController {
 			
 			if(result == 1) {
 				userInfo = loginService.selectUserByUserId(userInfo.getUserId());
-				userInfo.setAuthority("admin");
+				userInfo.setAuthority("manager");
 				userCRUDService.updateUserAuthority(userInfo);
 				session.setAttribute("SESSION", userInfo);
 				
@@ -125,4 +137,91 @@ public class ClubController {
 		mav.setViewName("club");
 		return mav;
 	}
+	
+	@RequestMapping("/signinclub")
+	public ModelAndView signinclub(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User userInfo = (User) request.getSession().getAttribute("SESSION");
+		
+		
+		System.out.println(userInfo.getUserId());
+		
+		if(clubUsersService.checkMajorSigned(userInfo.getUserId()) == null) {
+			clubs = clubService.getAllowedClubNames();
+		}
+		else {
+			clubs = clubService.getCommonClubNames();
+		}
+		
+		mav.addObject("clubs", clubs);
+		mav.addObject("userInfo", userInfo);
+		mav.setViewName("signinclub");
+		return mav;
+	}
+	
+	@PostMapping("/enterclub")
+	public ModelAndView enterclub(@ModelAttribute("clubUser") ClubUsers clubUser, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		ModelAndView mav = new ModelAndView();
+		String clubName = clubUser.getClubName();
+		String clubId = clubService.getClubIdByName(clubName);
+		System.out.println(clubName);
+		System.out.println(clubId);
+		User userInfo = (User) request.getSession().getAttribute("SESSION");
+		
+		//선택한 동아리가 전공 동아리일 경우
+		if(!clubId.substring(0, 2).equals("99")) {
+			//선택한 동아리가 전공 동아리인데 이미 전공 동아리에 가입한 경우
+			if(clubUsersService.checkMajorSigned(userInfo.getUserId()) != null) {
+				String alert = "<script>alert('이미 가입한 전공 동아리가 존재합니다!'); window.close();</script>";
+				redirectAttributes.addFlashAttribute("alert", alert);
+				
+				RedirectView redirectView = new RedirectView("/mypage");
+				redirectView.setExposeModelAttributes(false);
+				mav.setView(redirectView);
+			}
+			//전공 동아리 가입을 하지 않은 경우, 테이블에 가입 정보 삽입
+			else {
+				clubUser.setUserId(Integer.parseInt(userInfo.getUserId()));
+				clubUser.setClubId(clubId);
+				clubUser.setJoinDate(LocalDateTime.now());
+				
+				clubUsersService.insertClub(clubUser);
+				
+				String alert = "<script>alert('가입 신청 완료!'); window.close();</script>";
+				redirectAttributes.addFlashAttribute("alert", alert);
+				
+				RedirectView redirectView = new RedirectView("/mypage");
+				redirectView.setExposeModelAttributes(false);
+				mav.setView(redirectView);
+			}
+		}
+		//교양 동아리 가입 신청 시, 이미 같은 동아리에 가입이 돼있는 경우
+		else if(clubUsersService.checkSignedById(clubId, userInfo.getUserId()) != null) {
+			String alert = "<script>alert('이미 가입한 동아리가 존재합니다!'); window.close();</script>";
+			redirectAttributes.addFlashAttribute("alert", alert);
+			
+			RedirectView redirectView = new RedirectView("/mypage");
+			redirectView.setExposeModelAttributes(false);
+			mav.setView(redirectView);
+		}
+		//정상적으로 새로운 교양 동아리 가입 신청 완료
+		else {
+			clubUser.setUserId(Integer.parseInt(userInfo.getUserId()));
+			clubUser.setClubId(clubId);
+			clubUser.setJoinDate(LocalDateTime.now());
+			
+			clubUsersService.insertClub(clubUser);
+			
+			String alert = "<script>alert('가입 신청 완료!'); window.close();</script>";
+			redirectAttributes.addFlashAttribute("alert", alert);
+			
+			RedirectView redirectView = new RedirectView("/mypage");
+			redirectView.setExposeModelAttributes(false);
+			mav.setView(redirectView);
+		}
+		
+		return mav;
+	
+	}
 }
+

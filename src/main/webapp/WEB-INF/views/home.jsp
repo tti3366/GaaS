@@ -65,8 +65,18 @@
       <ul class="d-flex align-items-center">
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/${userInfo.authority}.png" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
+            <c:choose>           
+	            <c:when test = "${userInfo.authority eq 'manager'}">
+			    	<i class="ri-admin-line"></i>
+			    </c:when>
+			    <c:when test = "${userInfo.authority eq 'admin'}">
+			    	<i class="ri-aliens-line"></i>
+			    </c:when>
+			    <c:otherwise>
+			    	<i class="ri-user-line"></i>
+		        </c:otherwise>
+            </c:choose>
+			<span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
           </a>
 
 		<!-- 유저 정보  -->
@@ -93,11 +103,11 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="
 	              	<c:choose>
-	              		<c:when test="${userInfo.authority eq 'manager'}">
-	              			/manage/viewTables
-	              		</c:when>
 	              		<c:when test="${userInfo.authority eq 'admin'}">
-	              			<!-- 동아리 관리 페이지 -->
+	              			/admin/viewTables
+	              		</c:when>
+	              		<c:when test="${userInfo.authority eq 'manager'}">
+	              			/manager/clubUsers
 	              		</c:when>
 	              		<c:when test="${userInfo.authority eq 'user'}">
 	              			<!-- 본인 동아리 현황 -->
@@ -105,7 +115,19 @@
 	              	</c:choose>              		
 				">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>
+	              	<c:choose>
+	              		<c:when test="${userInfo.authority eq 'admin'}">
+	              			Administrator
+	              		</c:when>
+	              		<c:when test="${userInfo.authority eq 'manager'}">
+	              			Manage Club
+	              		</c:when>
+	              		<c:when test="${userInfo.authority eq 'user'}">
+	              			Enroll Club
+	              		</c:when>
+	              	</c:choose>
+                </span>
               </a>
             </li>
             <li>
@@ -152,9 +174,36 @@
         </a>
       </li>
       
+      <c:choose>
+	      <c:when test = "${userInfo.authority eq 'manager'}">
+		      <li class="nav-item">
+		        <a class="nav-link collapsed" href="/manager/clubUsers">
+		          <i class="ri-team-line"></i>
+		          <span>Manage Club</span>
+		        </a>
+		      </li>
+	      </c:when>
+	      <c:when test = "${userInfo.authority eq 'user'}">
+		      <li class="nav-item">
+		        <a class="nav-link collapsed" href="">
+		          <i class="ri-pencil-line"></i>
+		          <span>Enroll Club</span>
+		        </a>
+		      </li>
+	      </c:when>
+	      <c:otherwise>
+		      <li class="nav-item">
+		        <a class="nav-link collapsed" href="/admin/viewTables">
+		          <i class="ri-settings-5-line"></i>
+		          <span>Administrator</span>
+		        </a>
+		      </li>
+	      </c:otherwise>
+      </c:choose>
+      
       <li class="nav-item">
         <a class="nav-link collapsed" href="/logoutProc">
-          <i class="bi bi-box-arrow-in-right"></i>
+          <i class="bi bi-box-arrow-right"></i>
           <span>LOGOUT</span>
         </a>
       </li><!-- End Login Page Nav -->
@@ -164,7 +213,7 @@
       <!-- 학과 배열 선언 -->
       <c:forEach items="${depts}" var="dept">
       	
-      	<script>console.log('${dept.nameEn}');</script>
+      	<!-- <script>console.log('${dept.nameEn}');</script> -->
       	
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#${dept.nameKr}">
@@ -174,7 +223,7 @@
             <c:forEach items="${clubs}" var="club">
               <c:if test="${club.deptNameEn == dept.nameEn && club.clubState == 1}">
               
-              	<script>console.log('-> ${club.clubName}');</script>
+             	<!-- <script>console.log('-> ${club.clubName}');</script> -->
               	
                 <li>
                   <a href="#" onclick="changeMainBoard('club', '${club.clubId}')">
