@@ -106,7 +106,7 @@
 				              			Manage Club
 				              		</c:when>
 				              		<c:when test="${userInfo.authority eq 'user'}">
-				              			Enroll Club
+				              			Sign in Club
 				              		</c:when>
 				              	</c:choose>							
 							</span>
@@ -286,18 +286,6 @@
 									<form:form class="row g-3 needs-validation"
 										modelAttribute="updateUserData" action="/updateUserProc"
 										method="post">
-										<!--                
-					<div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
-                      <div class="col-md-8 col-lg-9">
-                        <img src="assets/img/profile-img.jpg" alt="Profile">
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                        </div>
-                      </div>
-                    </div>
- -->
 
 										<div class="row mb-3">
 											<label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
@@ -406,12 +394,13 @@
 							                  </div>
 							                </div>
 							            </div>
+							            
 									<div class="row mb-3">
 										<label class="col-md-4 col-lg-3 col-form-label">Club Create Page</label>
 										<div class="col-md-8 col-lg-9">
 											<div class="pt-2">
 												 <a data-bs-toggle="modal" data-bs-target="#createClubModal"
-												 class="btn btn-primary btn-sm" title="Create Club"><i class="bi bi-door-open"></i></a>
+												 class="btn btn-primary btn-sm" title="Create Club"><i class="bi bi-plus-square"></i></a>
 											</div>
 										</div>
 										
@@ -485,14 +474,80 @@
 							                </div>
 						              	</div>
 									</div>
+									
 									<div class="row mb-3">
 										<label class="col-md-4 col-lg-3 col-form-label">Sign In Club</label>
 										<div class="col-md-8 col-lg-9">
 											<div class="pt-2">
-												 <a href="#" onclick="window.open('/signinclub','SignInClubPopup','width=500, height=520')"
-												 class="btn btn-primary btn-sm" title="Sign In Club"><i class="bi bi-door-open"></i></a>
+												 <a data-bs-toggle="modal" data-bs-target="#signInClubModal"
+												 class="btn btn-primary btn-sm" title="Sign in Club"><i class="bi bi-door-open"></i></a>
 											</div>
 										</div>
+										
+										<!-- Modal을 이용한 동아리 가입 신청 페이지 -->
+										<div class="modal fade" id="signInClubModal" tabindex="-1">
+							                <div class="modal-dialog modal-lg">
+							                  <div class="modal-content">
+							                    <div class="modal-header">
+							                      <h5 class="modal-title">Sign in Club</h5>
+							                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							                    </div>
+						                    		<form:form modelAttribute="clubUser" action="/enterclub" method="post">
+						                    		
+								                    <div class="modal-body">
+												      	<div class="row mb-3">
+												          <label class="col-sm-2 col-form-label">이름</label>
+												          <div class="col-sm-10">
+												            <input type="text" class="form-control" value="${userInfo.userName}" disabled>
+												          </div>
+												        </div>
+												        
+												        <div class="row mb-3">
+												          <label class="col-sm-2 col-form-label">학번</label>
+												          <div class="col-sm-10">
+												            <input type="text" class="form-control" value="${userInfo.userId}" disabled>
+												          </div>
+												        </div>
+												      
+												        <div class="row mb-3">
+												          <label class="col-sm-2 col-form-label">연락처</label>
+												          <div class="col-sm-10">
+												            <input type="text" class="form-control" value="${userInfo.userPhoneNumber}" disabled>
+												          </div>
+												        </div>
+												        
+												        <div class="row mb-3">
+												        	<label class="col-sm-2 col-form-label">동아리</label>
+												        	<div class="col-sm-10">
+														        <select class="form-select" id="clubSelect" name="clubName">
+															        <c:forEach items="${clubs}" var="club">
+															            <option value="${club.clubName}">
+															            	<c:if test="${club.division eq '일반'}">[일반]</c:if>
+															            	<c:if test="${club.division eq '전공'}">[전공]</c:if>
+															            	${club.clubName}
+															            </option>
+															        </c:forEach>
+														    	</select>
+													    	</div>
+												    	</div>
+												        
+												        <div class="row mb-3">
+												          <label for="Introduce" class="col-sm-2 col-form-label">인사말</label>
+												          <div class="col-sm-10">
+												            <textarea class="form-control" style="height: 50px" id="Introduce" name="Introduce" required></textarea>
+												          </div>
+												        </div>
+												     </div>
+									                    <div class="modal-footer">
+									                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									                      <button type="submit" class="btn btn-primary">Sing in Club</button>
+									                    </div>
+									                    </form:form>
+							                  </div>
+							                </div>
+						              	</div>
+										
+										
 									</div>
 								</div>
 

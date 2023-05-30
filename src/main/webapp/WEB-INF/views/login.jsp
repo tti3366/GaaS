@@ -80,15 +80,81 @@
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
                     
-                    <!-- 회원가입 이동 -->
+                    <!-- 회원가입 모달 -->
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="/signup">Create an account</a></p>
+                      <p class="small mb-0">Don't have account? <a href="" data-bs-toggle="modal" data-bs-target="#signUpModal">Create an account</a></p>
                     </div>
                     
                     <!-- 로그인 실패 메시지 -->
                     ${alert}
                   </form:form>
                 </div>
+                
+                <!-- Modal을 이용한 회원가입 -->
+					<div class="modal fade" id="signUpModal" tabindex="-1">
+		                <div class="modal-dialog modal-lg">
+		                  <div class="modal-content">
+		                    <div class="modal-header">
+		                      <h5 class="modal-title">Sign Up</h5>
+		                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		                    </div>
+	                    		<form:form class="row g-3 needs-validation" modelAttribute="signupData" action="/signupProc" method="post">
+			                    <div class="modal-body">
+				                 	<!-- 학번 입력란 -->
+				                    <div class="col-12">
+				                      <label for="userId" class="form-label">Your Student ID</label>
+				                      <input type="text" id="userId" name="userId" value="${user.userId }" class="form-control" required>
+				                      <div class="invalid-feedback">Please, enter your Student ID!</div>
+				                    </div>
+				                    
+				                    <!-- 비밀번호 입력란 -->
+				                    <div class="col-12">
+				                      <label for="userPw" class="form-label">Password</label>
+				                      <input type="password" id="userPw" name="userPw" value="${user.userPw }" class="form-control" required>
+				                      <div class="invalid-feedback">Please enter your password!</div>
+				                    </div>
+				                    
+				                    <!-- 이름 입력란 -->
+				                    <div class="col-12">
+				                      <label for="userName" class="form-label">Your Name</label>
+				                      <input type="text" id="userName" name="userName" value="${user.userName }" class="form-control" required>
+				                      <div class="invalid-feedback">Please, enter your name!</div>
+				                    </div>
+				                    
+				                    <!-- 이메일 입력란 -->
+				                    <div class="col-12">
+				                      <label for="userEmail" class="form-label">Your Email</label>
+				                      <input type="email" id="userEmail" name="userEmail" pattern="[a-zA-Z0-9]+[@][a-zA-Z0-9]+[.]+[a-zA-Z]+[.]*[a-zA-Z]*[.]*[a-zA-Z]*" 
+				                      size="40" value="${user.userEmail }"class="form-control" required>
+				                      <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+				                    </div>
+				                    
+				                    <!-- 전화번호 입력란 -->
+				                    <div class="col-12">
+				                     <label for="userPhoneNumber" class="form-label">Phone</label>
+				                      <input type="text" id="userPhoneNumber" name="userPhoneNumber" placeholder="하이픈(-)을 제외하고 입력하세요" 
+				                      value="${user.userPhoneNumber }" class="form-control" required>
+				                      <div class="invalid-feedback">Please enter a valid Phone Number!</div>
+				                    </div>
+				                    
+				                    <!-- 약관 동의란 -->
+				                    <div class="col-12">
+				                      <div class="form-check">
+				                        <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+				                        <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+				                        <div class="invalid-feedback">You must agree before submitting.</div>
+				                      </div>
+				                    </div>
+							        
+							     </div>
+				                    <div class="modal-footer">
+				                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				                      <button type="submit" class="btn btn-primary">Sing Up</button>
+				                    </div>
+			                    </form:form>
+		                  </div>
+		                </div>
+	              	</div>
               </div>
               
               <!-- Pro 버전 아니면 이거 지우면 혼남 -->

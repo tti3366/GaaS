@@ -71,21 +71,19 @@ public class LoginController {
 		}catch(effectException e) {//유효성 검사 예외
 			System.out.println("[LOGIN] EXCEPTION");
 			
-			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
+			String alert = "<script>alert('아이디 형식에 맞지 않습니다.\\n(2xx[10|20|30|44|60|71]xxx)');</script>";
 			
 			mav.addObject("alert", alert);
-			mav.addObject("error", " 아이디 형식에 맞지 않습니다.\n(2xx[10|20|30|44|60|71]xxx)");
-			mav.setViewName("signup");
+			mav.setViewName("login");
 			return mav;
 		}catch(Exception e) {
 			
 			System.out.println("[LOGIN] EXCEPTION");
 			
-			String alert = "<script>alert('회원가입에 실패했습니다. 유효한 데이터를 입력해주세요.');</script>";
+			String alert = "<script>alert('중복된 학번이 있습니다.');</script>";
 			
 			mav.addObject("alert", alert);
-			mav.addObject("error", " 중복된 학번이 있습니다.");
-			mav.setViewName("signup");
+			mav.setViewName("login");
 			return mav;
 		}
 	}

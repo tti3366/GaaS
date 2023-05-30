@@ -57,9 +57,9 @@
           </div>
         </div>
         
-        <div class="row mb-3"
+        <div class="row mb-3">
         	<label class="col-sm-2 col-form-label">동아리</label>
-	        <select id="clubSelect" name="clubName">
+	        <select class="form-select" id="clubSelect" name="clubName">
 		        <c:forEach items="${clubs}" var="club">
 		            <option value="${club.clubName}">
 		            	<c:if test="${club.division eq '일반'}">[일반]</c:if>

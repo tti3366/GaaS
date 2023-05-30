@@ -133,7 +133,6 @@ public class ClubController {
 		Club club = clubService.getClubNamesByNum(clubId);
 
 		mav.addObject("clubObj", club);
-
 		mav.setViewName("club");
 		return mav;
 	}
@@ -142,7 +141,6 @@ public class ClubController {
 	public ModelAndView signinclub(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
-		
 		
 		System.out.println(userInfo.getUserId());
 		
