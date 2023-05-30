@@ -46,7 +46,6 @@
               </div>
 
               <div class="card mb-3">
-
                 <div class="card-body">
                 
                   <!-- 헤더 -->
@@ -57,7 +56,7 @@
                   <!-- 헤더 끝 -->
                   
                   <!-- 스프링 폼 태그 -->
-                  <form:form class="row g-3 needs-validation" modelAttribute="signupData" action="/signupProc" method="post">
+                  <form:form modelAttribute="signupData" action="/signupProc" method="post">
                   
                  	<!-- 학번 입력란 -->
                     <div class="col-12">

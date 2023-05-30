@@ -89,13 +89,15 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="/mypage">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>               
-            </li>
+			
+			<c:if test="${userInfo.authority ne 'admin'}">
+	            <li>
+	              <a class="dropdown-item d-flex align-items-center" href="/mypage">
+	                <i class="bi bi-person"></i>
+	                <span>My Profile</span>
+	              </a> 
+	            </li>
+            </c:if>   
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -167,12 +169,14 @@
       <li class="nav-heading">Main</li>
 
 	<!--  MAIN PAGE -->
+	 <c:if test="${userInfo.authority ne 'admin'}">
       <li class="nav-item">
         <a class="nav-link " href="/mypage">
           <i class="bi bi-grid"></i>
           <span>MY PAGE</span>
         </a>
       </li>
+     </c:if>
       
       <c:choose>
 	      <c:when test = "${userInfo.authority eq 'manager'}">
@@ -187,7 +191,7 @@
 		      <li class="nav-item">
 		        <a class="nav-link collapsed" href="">
 		          <i class="ri-pencil-line"></i>
-		          <span>Enroll Club</span>
+		          <span>Sign in Club</span>
 		        </a>
 		      </li>
 	      </c:when>
