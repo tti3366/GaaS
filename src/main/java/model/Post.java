@@ -5,12 +5,12 @@ import java.util.Date;
 
 public class Post {
 	
-	private String postId;//게시물 고유번호-->자동적으로 증가
+	private int postId;//게시물 고유번호-->자동적으로 증가
 	private int writerId;//작성자 id(작성자 학번?)-->학번으로 학과를 알 수 있음
 	private String clubId;//동아리 코드(99_01)
 	private String boardId;//게시판 종류(99_01_qna)
 	private String title;//제목
-	private String content;//내용
+	private String contents;//내용
 	private Timestamp postDate;//작성날짜
 	private int statusCode;//상태코드(삭제나 수정했을때 알기 위해)'
 	
@@ -24,11 +24,11 @@ public class Post {
 	//동아리,학과,게시판 종류는 따로 컬럼에
 	
 
-	public String getPostId() {
+	public int getPostId() {
 		return postId;
 	}
 
-	public void setPostId(String postId) {
+	public void setPostId(int postId) {
 		this.postId = postId;
 	}
 
@@ -64,12 +64,12 @@ public class Post {
 		this.title = title;
 	}
 
-	public String getContent() {
-		return content;
+	public String getContents() {
+		return contents;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setContents(String content) {
+		this.contents = content;
 	}
 
 	public Timestamp getPostDate() {
@@ -107,7 +107,7 @@ public class Post {
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", writerId=" + writerId + ", clubId=" + clubId + ", boardId=" + boardId
-				+ ", title=" + title + ", content=" + content + ", postDate=" + postDate + ", statusCode=" + statusCode
+				+ ", title=" + title + ", content=" + contents + ", postDate=" + postDate + ", statusCode=" + statusCode
 				+ "]";
 	}
 }

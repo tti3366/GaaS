@@ -307,8 +307,8 @@
                     </li>
 					
 					<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
-                    <li><a class="dropdown-item" href="/post">ADD</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="/post">글쓰기</a></li>
+                    <li><a class="dropdown-item" href="/viewallpost">글 목록 보기(전체)</a></li>
                   </ul>
                 </div>
 
