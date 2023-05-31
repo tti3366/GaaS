@@ -32,11 +32,14 @@ public class DatabaseConfig {
 		DataSource ds = new DataSource();
 		
 		ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=C:/Wallet_gaasDB");
+		ds.setUrl("jdbc:oracle:thin:@61.255.235.171:1521:xe");
+		//ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=C:/Wallet_gaasDB");
 		//ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=/home/ubuntu/Wallet_gaasDB");
 		
-		ds.setUsername("admin");
-		ds.setPassword("Qwer1234!@#$");
+		ds.setUsername("GaaS");
+		ds.setPassword("GaaS");
+		//ds.setUsername("admin");
+		//ds.setPassword("Qwer1234!@#$");
 
 		ds.setMaxActive(20);
 		ds.setMaxIdle(20);

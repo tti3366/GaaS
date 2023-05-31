@@ -173,7 +173,7 @@ public class ClubController {
 				String alert = "<script>alert('이미 가입한 전공 동아리가 존재합니다!'); window.close();</script>";
 				redirectAttributes.addFlashAttribute("alert", alert);
 				
-				RedirectView redirectView = new RedirectView("/mypage");
+				RedirectView redirectView = new RedirectView("/home");
 				redirectView.setExposeModelAttributes(false);
 				mav.setView(redirectView);
 			}
@@ -188,17 +188,17 @@ public class ClubController {
 				String alert = "<script>alert('가입 신청 완료!'); window.close();</script>";
 				redirectAttributes.addFlashAttribute("alert", alert);
 				
-				RedirectView redirectView = new RedirectView("/mypage");
+				RedirectView redirectView = new RedirectView("/home");
 				redirectView.setExposeModelAttributes(false);
 				mav.setView(redirectView);
 			}
 		}
 		//교양 동아리 가입 신청 시, 이미 같은 동아리에 가입이 돼있는 경우
 		else if(clubUsersService.checkSignedById(clubId, userInfo.getUserId()) != null) {
-			String alert = "<script>alert('이미 가입한 동아리가 존재합니다!'); window.close();</script>";
+			String alert = "<script>alert('이미 신청했거나 가입한 동아리입니다.'); window.close();</script>";
 			redirectAttributes.addFlashAttribute("alert", alert);
 			
-			RedirectView redirectView = new RedirectView("/mypage");
+			RedirectView redirectView = new RedirectView("/home");
 			redirectView.setExposeModelAttributes(false);
 			mav.setView(redirectView);
 		}
@@ -213,7 +213,7 @@ public class ClubController {
 			String alert = "<script>alert('가입 신청 완료!'); window.close();</script>";
 			redirectAttributes.addFlashAttribute("alert", alert);
 			
-			RedirectView redirectView = new RedirectView("/mypage");
+			RedirectView redirectView = new RedirectView("/home");
 			redirectView.setExposeModelAttributes(false);
 			mav.setView(redirectView);
 		}

@@ -46,96 +46,6 @@
 		</div>
 		<!-- End Logo -->
 
-		<nav class="header-nav ms-auto">
-			<ul class="d-flex align-items-center">
-				<li class="nav-item dropdown pe-3"><a
-					class="nav-link nav-profile d-flex align-items-center pe-0"
-					href="#" data-bs-toggle="dropdown"> 
-						<c:choose>           
-				            <c:when test = "${userInfo.authority eq 'manager'}">
-						    	<i class="ri-admin-line"></i>
-						    </c:when>
-						    <c:when test = "${userInfo.authority eq 'admin'}">
-						    	<i class="ri-aliens-line"></i>
-						    </c:when>
-						    <c:otherwise>
-						    	<i class="ri-user-line"></i>
-					        </c:otherwise>
-			            </c:choose>
-						<span class="d-none d-md-block dropdown-toggle ps-2">${userInfo.userName}</span>
-				</a> <!-- 유저 정보  -->
-					<ul
-						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-						<li class="dropdown-header">
-							<h6>${userInfo.userName}</h6> <span>${userInfo.userId}</span>
-						</li>
-
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="/mypage">
-							<i class="bi bi-person"></i> 
-							<span>My Profile</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="
-				              	<c:choose>
-				              		<c:when test="${userInfo.authority eq 'admin'}">
-				              			/admin/viewTables
-				              		</c:when>
-				              		<c:when test="${userInfo.authority eq 'manager'}">
-				              			/manager/clubUsers
-				              		</c:when>
-				              		<c:when test="${userInfo.authority eq 'user'}">
-				              			<!-- 본인 동아리 현황 -->
-				              		</c:when>
-				              	</c:choose>  						
-							"> <i class="bi bi-gear"></i>
-							<span>
-				              	<c:choose>
-				              		<c:when test="${userInfo.authority eq 'admin'}">
-				              			Administrator
-				              		</c:when>
-				              		<c:when test="${userInfo.authority eq 'manager'}">
-				              			Manage Club
-				              		</c:when>
-				              		<c:when test="${userInfo.authority eq 'user'}">
-				              			Sign in Club
-				              		</c:when>
-				              	</c:choose>							
-							</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="pages-faq.html"> <i class="bi bi-question-circle"></i>
-								<span>Need Help?</span>
-						</a></li>
-						<li>
-							<hr class="dropdown-divider">
-						</li>
-
-						<li><a class="dropdown-item d-flex align-items-center"
-							href="/logoutProc"> <i class="bi bi-box-arrow-right"></i>
-							<span>Logout</span>
-						</a></li>
-
-					</ul>
-					<!-- End Profile Dropdown Items --></li>
-				<!-- End Profile Nav -->
-
-			</ul>
-		</nav>
-		<!-- End Icons Navigation -->
-
 	</header>
 	<!-- End Header -->
 
@@ -163,22 +73,14 @@
 				        </a>
 				      </li>
 			      </c:when>
-			      <c:when test = "${userInfo.authority eq 'user'}">
-				      <li class="nav-item">
-				        <a class="nav-link collapsed" href="">
-				          <i class="ri-pencil-line"></i>
-				          <span>Enroll Club</span>
-				        </a>
-				      </li>
-			      </c:when>
-			      <c:otherwise>
+			      <c:when test = "${userInfo.authority eq 'admin'}">
 				      <li class="nav-item">
 				        <a class="nav-link collapsed" href="/admin/viewTables">
 				          <i class="ri-settings-5-line"></i>
 				          <span>Administrator</span>
 				        </a>
 				      </li>
-			      </c:otherwise>
+			      </c:when>
 		    </c:choose>
 
 			<li class="nav-item">
@@ -219,7 +121,7 @@
 						<div class="card-body pt-3">
 							<!-- Bordered Tabs -->
 							<ul class="nav nav-tabs nav-tabs-bordered">
-
+								<!-- TAB HEAD -->
 								<li class="nav-item">
 									<button class="nav-link active" data-bs-toggle="tab"
 										data-bs-target="#profile-overview">Overview</button>
@@ -241,8 +143,9 @@
 								</li>
 
 							</ul>
+							
 							<div class="tab-content pt-2">
-
+								<!-- 프로필 정보 -->
 								<div class="tab-pane fade show active profile-overview"
 									id="profile-overview">
 									<h5 class="card-title">Profile Details</h5>
@@ -327,6 +230,7 @@
 
 								</div>
 
+								<!-- 비밀번호 변경 -->
 								<div class="tab-pane fade pt-3" id="profile-change-password">
 									<form:form class="row g-3 needs-validation"
 										modelAttribute="changePw" action="/changePwProc" method="post">
@@ -367,6 +271,7 @@
 									</form:form>
 								</div>
 
+								<!-- 계정삭제  -->
 								<div class="tab-pane fade pt-3" id="profile-deletion">
 									<div class="row mb-3">
 										<label class="col-md-4 col-lg-3 col-form-label">Account Deletion</label>
@@ -475,78 +380,6 @@
 						              	</div>
 									</div>
 									
-									<div class="row mb-3">
-										<label class="col-md-4 col-lg-3 col-form-label">Sign In Club</label>
-										<div class="col-md-8 col-lg-9">
-											<div class="pt-2">
-												 <a data-bs-toggle="modal" data-bs-target="#signInClubModal"
-												 class="btn btn-primary btn-sm" title="Sign in Club"><i class="bi bi-door-open"></i></a>
-											</div>
-										</div>
-										
-										<!-- Modal을 이용한 동아리 가입 신청 페이지 -->
-										<div class="modal fade" id="signInClubModal" tabindex="-1">
-							                <div class="modal-dialog modal-lg">
-							                  <div class="modal-content">
-							                    <div class="modal-header">
-							                      <h5 class="modal-title">Sign in Club</h5>
-							                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							                    </div>
-						                    		<form:form modelAttribute="clubUser" action="/enterclub" method="post">
-						                    		
-								                    <div class="modal-body">
-												      	<div class="row mb-3">
-												          <label class="col-sm-2 col-form-label">이름</label>
-												          <div class="col-sm-10">
-												            <input type="text" class="form-control" value="${userInfo.userName}" disabled>
-												          </div>
-												        </div>
-												        
-												        <div class="row mb-3">
-												          <label class="col-sm-2 col-form-label">학번</label>
-												          <div class="col-sm-10">
-												            <input type="text" class="form-control" value="${userInfo.userId}" disabled>
-												          </div>
-												        </div>
-												      
-												        <div class="row mb-3">
-												          <label class="col-sm-2 col-form-label">연락처</label>
-												          <div class="col-sm-10">
-												            <input type="text" class="form-control" value="${userInfo.userPhoneNumber}" disabled>
-												          </div>
-												        </div>
-												        
-												        <div class="row mb-3">
-												        	<label class="col-sm-2 col-form-label">동아리</label>
-												        	<div class="col-sm-10">
-														        <select class="form-select" id="clubSelect" name="clubName">
-															        <c:forEach items="${clubs}" var="club">
-															            <option value="${club.clubName}">
-															            	<c:if test="${club.division eq '일반'}">[일반]</c:if>
-															            	<c:if test="${club.division eq '전공'}">[전공]</c:if>
-															            	${club.clubName}
-															            </option>
-															        </c:forEach>
-														    	</select>
-													    	</div>
-												    	</div>
-												        
-												        <div class="row mb-3">
-												          <label for="Introduce" class="col-sm-2 col-form-label">인사말</label>
-												          <div class="col-sm-10">
-												            <textarea class="form-control" style="height: 50px" id="Introduce" name="Introduce" required></textarea>
-												          </div>
-												        </div>
-												     </div>
-									                    <div class="modal-footer">
-									                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-									                      <button type="submit" class="btn btn-primary">Sing in Club</button>
-									                    </div>
-									                    </form:form>
-							                  </div>
-							                </div>
-						              	</div>
-										
 										
 									</div>
 								</div>

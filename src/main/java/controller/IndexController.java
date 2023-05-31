@@ -17,6 +17,7 @@ import model.Dept;
 import model.User;
 
 import service.ClubService;
+import service.ClubUsersService;
 import service.DeptService;
 
 @Controller
@@ -25,6 +26,10 @@ public class IndexController {
 	private DeptService deptService;
 	@Autowired
 	private ClubService clubService;
+	@Autowired
+	private ClubUsersService clubUsersService;
+	
+	private List<Club> clubsForSignIn;
 
 	@RequestMapping("/home")
 	public ModelAndView mainPage(HttpServletRequest request) {
@@ -32,11 +37,19 @@ public class IndexController {
 		
 		User userInfo = (User)request.getSession().getAttribute("SESSION");
 		
+		if(clubUsersService.checkMajorSigned(userInfo.getUserId()) == null) {
+			clubsForSignIn = clubService.getAllowedClubNames();
+		}
+		else {
+			clubsForSignIn = clubService.getCommonClubNames();
+		}
+		
 		List<Dept> depts = deptService.getAllDeparts();
 		List<Club> clubs = clubService.getAllClubs();
 		
 		mav.addObject("depts", depts);
 		mav.addObject("clubs", clubs);
+		mav.addObject("clubsForSignIn", clubsForSignIn);
 		mav.addObject("userInfo", userInfo);
 		
 		mav.setViewName("home");
