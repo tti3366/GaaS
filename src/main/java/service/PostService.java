@@ -7,6 +7,11 @@ import serviceImpl.PostServiceImpl;
 
 public interface PostService {
 	public List<Post> selectAllPost();
+
+	public Post selectPost(int postId);
 	
 	public int insertPost(Post post);
+	
+
+	
 }

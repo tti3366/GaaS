@@ -3,7 +3,10 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.Club;
 import model.Post;
 import model.User;
 import service.LoginService;
@@ -27,16 +31,15 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 	
-	
-	@RequestMapping("/viewpost")
-	public ModelAndView viewpost(@RequestParam("id") String postId) {
-		ModelAndView mav = new ModelAndView();  
-
-		mav.addObject("postObj", postId);
-
-		mav.setViewName("post");
-		return mav;
-	}
+//	@RequestMapping("/viewpost")
+//	public ModelAndView viewpost(@RequestParam("id") String postId) {
+//		ModelAndView mav = new ModelAndView();  
+//
+//		mav.addObject("postObj", postId);
+//
+//		mav.setViewName("post");
+//		return mav;
+//	}
 	
 	@RequestMapping("/post")
 	public String post() {//게시글 작성 페이지로
@@ -46,13 +49,15 @@ public class PostController {
 	//작성한 내용을 처리
 	@PostMapping("/process")
     public String processForm(@ModelAttribute("Post") Post post,@RequestParam(value="image",required=false) MultipartFile file, HttpSession session) {
-
+		
 		if (!file.isEmpty()) {//파일 첨부했으면
 			System.out.println("파일 있음");
             try {
                 // 파일 저장 경로 설정 (서버 경로로 변경)
                 String path ="C:/GaaSimg/";//이건 제 로컬 경로 입니다.
                 String fileName = file.getOriginalFilename();//파일명
+                
+                //파일명이 겹칠 수 있으므로 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해서 넣는걸로
                 File uploadFile = new File(path+fileName);
                 
                 // 서버에(로컬에) 파일 저장
@@ -78,7 +83,33 @@ public class PostController {
         int result=postService.insertPost(post);
         System.out.println(result);
 		
-        return "process"; // 결과 페이지로 리다이렉트 또는 포워드
+        return "home"; // 결과 페이지로 리다이렉트 또는 포워드
     }
+	
+	@RequestMapping("/viewallpost")
+	public ModelAndView viewAllPost() {
+		
+		ModelAndView mav=new ModelAndView();
+		
+		List<Post> posts=postService.selectAllPost();
+		
+		Collections.sort(posts, (a, b) -> b.getPostId() - a.getPostId());
+		
+		mav.addObject("posts", posts);
+		mav.setViewName("viewallpost");
+		return mav;
+	}
+	
+	
+	@RequestMapping("/viewpost")
+	public ModelAndView viewPost(@RequestParam("id") int postId) {
+		ModelAndView mav = new ModelAndView();  
+		
+		Post post=postService.selectPost(postId);
+		mav.addObject("postObj",post);
+		mav.setViewName("viewpost");
+
+		return mav;
+	}
 
 }
