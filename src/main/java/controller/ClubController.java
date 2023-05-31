@@ -169,7 +169,7 @@ public class ClubController {
 		//선택한 동아리가 전공 동아리일 경우
 		if(!clubId.substring(0, 2).equals("99")) {
 			//선택한 동아리가 전공 동아리인데 이미 전공 동아리에 가입한 경우
-			if(clubUsersService.checkMajorSigned(userInfo.getUserId()) != null) {
+			if(clubUsersService.checkMajorSigned(userInfo.getUserId()) != null || userInfo.getAuthority() == "manager") {
 				String alert = "<script>alert('이미 가입한 전공 동아리가 존재합니다!'); window.close();</script>";
 				redirectAttributes.addFlashAttribute("alert", alert);
 				
