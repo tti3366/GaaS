@@ -15,10 +15,14 @@ public class DatabaseConfig {
 		DataSource ds = new DataSource();
 		
 		ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		ds.setUrl("jdbc:mysql://localhost/SW?characterEncoding=utf8");
+		ds.setUrl("jdbc:oracle:thin:@61.255.235.171:1521:xe");
+		//ds.setUrl("jdbc:mysql://localhost/SW?characterEncoding=utf8");
+	
+		ds.setUsername("GaaS");
+	    ds.setPassword("GaaS");
 		
-		ds.setUsername("root");
-		ds.setPassword("root");
+//		ds.setUsername("root");
+//		ds.setPassword("root");
 		ds.setInitialSize(10);
 		ds.setMaxActive(30);
 		
@@ -32,9 +36,13 @@ public class DatabaseConfig {
 		DataSource ds = new DataSource();
 		
 		ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		//ds.setUrl("jdbc:oracle:thin:@61.255.235.171:1521:xe");
 		ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=C:/Wallet_gaasDB");
 		//ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=/home/ubuntu/Wallet_gaasDB");
 		
+		
+		//ds.setUsername("GaaS");
+	    //ds.setPassword("GaaS");
 		ds.setUsername("admin");
 		ds.setPassword("Qwer1234!@#$");
 

@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +52,15 @@ public class PostController {
 	@PostMapping("/process")
     public String processForm(@ModelAttribute("Post") Post post,@RequestParam(value="image",required=false) MultipartFile file, HttpSession session) {
 		
+		
+		
 		if (!file.isEmpty()) {//파일 첨부했으면
 			System.out.println("파일 있음");
             try {
                 // 파일 저장 경로 설정 (서버 경로로 변경)
                 String path ="C:/GaaSimg/";//이건 제 로컬 경로 입니다.
+                //String path = session.getServletContext().getRealPath("/assets/img/");
+                System.out.println(path);
                 String fileName = file.getOriginalFilename();//파일명
                 
                 //파일명이 겹칠 수 있으므로 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해서 넣는걸로
@@ -112,4 +118,5 @@ public class PostController {
 		return mav;
 	}
 
+		
 }

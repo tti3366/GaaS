@@ -38,7 +38,8 @@
 					<td>${post.views}</td>
 					<td>
 						<c:if test="${!empty post.fileName}">
-			   				<a class="btn" href="/C:/GaaSimg/db구조.png" download="db구조.png">${post.fileName }</a>
+							
+							${post.fileName }
 						</c:if>
 					</td>
 					

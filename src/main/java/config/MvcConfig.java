@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -35,6 +36,11 @@ public class MvcConfig implements WebMvcConfigurer{
 				"/validation", "/error", "/assets/**", "/css/**");	// manage/** 는 테스트를 위해 임시로 인터셉트 해제. 개발 완료 시 삭제	
 	
 		// 인터럽트 제외
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/upload/**").addResourceLocations("file:///C:/GaaSimg/");
 	}
 
 	public static final String SESSION_KEY = "SESSION";
