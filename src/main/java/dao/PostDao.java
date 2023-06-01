@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import model.Dept;
 import model.Post;
+import model.User;
 
 public class PostDao {
 
@@ -61,6 +62,30 @@ public class PostDao {
 		
 	}
 	
+	public List<Post> selectAllPostByBoardId(String boardId) {
+		String sql = "SELECT p.*, u.user_name as \"writer_name\" FROM POST2 p, USERS u " 
+					+ "WHERE p.writer_id = u.user_id and board_id LIKE ?";
+		
+		List<Post> result = jdbcTemplate.query(sql,
+				(ResultSet rs,int rowNum)->{
+					Post p=new Post();
+					p.setPostId(rs.getInt("POST_ID"));
+					p.setWriterId(rs.getInt("WRITER_ID"));
+					p.setClubId(rs.getString("CLUB_ID"));
+					p.setBoardId(rs.getString("BOARD_ID"));
+					p.setTitle(rs.getString("TITLE"));
+					p.setContents(rs.getString("CONTENTS"));
+					p.setPostDate(rs.getTimestamp("POST_DATE"));
+					p.setStatusCode(rs.getInt("STATUS_CODE"));
+					p.setViews(rs.getInt("VIEWS"));
+					p.setFileName(rs.getString("FILE_NAME"));
+					p.setWriterName(rs.getString("WRITER_NAME"));
+
+					return p;
+				}, boardId);
+		return result;
+	}
+	
 	public int insertPost(Post post) {
 		
 		String sql="";
@@ -79,6 +104,14 @@ public class PostDao {
 			result = jdbcTemplate.update(sql,post_id,post.getWriterId(),post.getClubId(),
 					post.getBoardId(),post.getTitle(),post.getContents(),post.getPostDate(),post.getStatusCode());
 		}
+
+		return result;
+	}
+	
+	public int increaseViews(int postId) {
+		String sql = "UPDATE post2 SET views = views + 1 where post_id = ?";
+		
+		int result = jdbcTemplate.update(sql, postId);
 
 		return result;
 	}

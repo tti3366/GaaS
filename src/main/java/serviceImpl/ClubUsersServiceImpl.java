@@ -33,4 +33,8 @@ public class ClubUsersServiceImpl implements ClubUsersService {
 		return clubUserDao.checkMajorSigned(userId);
 	}
 
+	@Override
+	public boolean checkClubAuth(String userId, String clubId) {
+		return clubUserDao.checkClubAuth(userId, clubId);
+	}
 }

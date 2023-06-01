@@ -17,7 +17,10 @@ public class PostServiceImpl implements PostService {
 	public List<Post> selectAllPost() {
 		return postDao.selectAllPost();
 	}
-
+	@Override
+	public List<Post> selectAllPostByBoardId(String boardId) {
+		return postDao.selectAllPostByBoardId(boardId);
+	}
 	@Override
 	public Post selectPost(int postId) {
 		return postDao.selectPost(postId);
@@ -26,5 +29,9 @@ public class PostServiceImpl implements PostService {
 	public int insertPost(Post post) {
 		return postDao.insertPost(post);
 		
+	}
+	@Override
+	public int increaseViews(int postId) {
+		return postDao.increaseViews(postId);
 	}
 }
