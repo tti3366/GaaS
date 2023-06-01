@@ -83,7 +83,7 @@ public class PostController {
         int result=postService.insertPost(post);
         System.out.println(result);
 		
-        return "home"; // 결과 페이지로 리다이렉트 또는 포워드
+        return "redirect:home"; // 결과 페이지로 리다이렉트 또는 포워드
     }
 	
 	@RequestMapping("/viewallpost")

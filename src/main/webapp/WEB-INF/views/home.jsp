@@ -189,7 +189,7 @@
 	      </c:when>
 	      <c:when test = "${userInfo.authority eq 'user'}">
 		      <li class="nav-item">
-		        <a class="nav-link collapsed" href="" data-bs-toggle="modal" data-bs-target="#signInClubModal">
+		        <a class="nav-link collapsed" data-bs-toggle="modal" data-bs-target="#signInClubModal">
 		          <i class="ri-pencil-line"></i>
 		          <span>Sign in Club</span>
 		        </a>
@@ -247,71 +247,122 @@
 
   <main id="main" class="main">
     <section class="section dashboard">
-    
-    <!-- Modal을 이용한 동아리 가입 신청 페이지 -->
-  <div class="modal fade" id="signInClubModal" tabindex="-1">
-             <div class="modal-dialog modal-lg">
-               <div class="modal-content">
-                 <div class="modal-header">
-                   <h5 class="modal-title">Sign in Club</h5>
-                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                		<form:form modelAttribute="clubUser" action="/enterclub" method="post">
-                		
-                  <div class="modal-body">
-		      	<div class="row mb-3">
-		          <label class="col-sm-2 col-form-label">이름</label>
-		          <div class="col-sm-10">
-		            <input type="text" class="form-control" value="${userInfo.userName}" disabled>
-		          </div>
-		        </div>
-		        
-		        <div class="row mb-3">
-		          <label class="col-sm-2 col-form-label">학번</label>
-		          <div class="col-sm-10">
-		            <input type="text" class="form-control" value="${userInfo.userId}" disabled>
-		          </div>
-		        </div>
-		      
-		        <div class="row mb-3">
-		          <label class="col-sm-2 col-form-label">연락처</label>
-		          <div class="col-sm-10">
-		            <input type="text" class="form-control" value="${userInfo.userPhoneNumber}" disabled>
-		          </div>
-		        </div>
-		        
-		        <div class="row mb-3">
-		        	<label class="col-sm-2 col-form-label">동아리</label>
-		        	<div class="col-sm-10">
-				        <select class="form-select" id="clubSelect" name="clubName">
-					        <c:forEach items="${clubs}" var="club">
-					            <option value="${club.clubName}">
-					            	<c:if test="${club.division eq '일반'}">[일반]</c:if>
-					            	<c:if test="${club.division eq '전공'}">[전공]</c:if>
-					            	${club.clubName}
-					            </option>
-					        </c:forEach>
-				    	</select>
-			    	</div>
-		    	</div>
-		        
-		        <div class="row mb-3">
-		          <label for="Introduce" class="col-sm-2 col-form-label">인사말</label>
-		          <div class="col-sm-10">
-		            <textarea class="form-control" style="height: 50px" id="Introduce" name="Introduce" required></textarea>
-		          </div>
-		        </div>
-		     </div>
-                   <div class="modal-footer">
-                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                     <button type="submit" class="btn btn-primary">Sign in Club</button>
-                   </div>
-                   </form:form>
-               </div>
-             </div>
-     </div>
-		      
-      <div class="row">
+  	 		<!-- Modal을 이용한 동아리 가입 신청 페이지 -->
+			<div class="modal fade" id="signInClubModal" tabindex="-1">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Sign in Club</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<form:form modelAttribute="clubUser" action="/enterclub"
+							method="post">
+
+							<div class="modal-body">
+								<div class="row mb-3">
+									<label class="col-sm-2 col-form-label">이름</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control"
+											value="${userInfo.userName}" disabled>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label class="col-sm-2 col-form-label">학번</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control"
+											value="${userInfo.userId}" disabled>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label class="col-sm-2 col-form-label">연락처</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control"
+											value="${userInfo.userPhoneNumber}" disabled>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label class="col-sm-2 col-form-label">동아리</label>
+									<div class="col-sm-10">
+										<select class="form-select" id="clubSelect" name="clubName">
+											<c:forEach items="${clubs}" var="club">
+												<option value="${club.clubName}">
+													<c:if test="${club.division eq '일반'}">[일반]</c:if>
+													<c:if test="${club.division eq '전공'}">[전공]</c:if>
+													${club.clubName}
+												</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<label for="Introduce" class="col-sm-2 col-form-label">인사말</label>
+									<div class="col-sm-10">
+										<textarea class="form-control" style="height: 50px"
+											id="Introduce" name="Introduce" required></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Sign in
+									Club</button>
+							</div>
+						</form:form>
+					</div>
+				</div>
+			</div>
+
+			<!-- 게시글 작성 모달 -->
+			<div class="modal fade" id="newPostModal" tabindex="-1">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Write New Post</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<form method="POST" action="/process" enctype="multipart/form-data">
+
+							<div class="modal-body">
+								<div class="row mb-3">
+									<label class="col-sm-2 col-form-label">Writer</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control"
+											value="${userInfo.userName}" disabled>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="title">Title</label> <input type="text"
+										class="form-control" id="title" name="title" required>
+								</div>
+								<br>
+								<div class="form-group">
+									<label for="content">Contents</label>
+									<textarea class="form-control" id="content" name="contents"
+										rows="5" required></textarea>
+								</div>
+								<br>
+								<div>
+									<label for="image">Add Image</label> <input type="file" id="image" name="image">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Add Post</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
         <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
@@ -363,28 +414,28 @@
             </div>
           
           <!-- 게시판 -->
-            <div class="col-md-12" style="height:500px">
-              <div class="card top-selling" >
+						<div class="col-md-12" style="height: 500px">
+							<div class="card top-selling">
+								<div class="filter">
+									<a class="icon" href="#" data-bs-toggle="dropdown"><i
+										class="bi bi-three-dots"></i></a>
+									<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+										<li class="dropdown-header text-start">
+											<h6>POST</h6>
+										</li>
 
-				<!--  filter를 나중에 뒤로가기 버튼으로 변경합시다. -->
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>CRUD</h6>
-                    </li>
-					
-					<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
-                    <li><a class="dropdown-item" href="/post">글쓰기</a></li>
-                    <li><a class="dropdown-item" href="/viewallpost">글 목록 보기(전체)</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body" style="height:500px" >
-                  	<div id="mainBoard"></div>	<!-- 게시판 뷰 -->
-                </div>
-              </div>
-            </div><!-- 게시판 끝-->
+										<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
+										<li><a class="dropdown-item" data-bs-toggle="modal"
+											data-bs-target="#newPostModal">New Post</a></li>
+										<li><a class="dropdown-item" href="/viewallpost">View All Post</a></li>
+									</ul>
+								</div>
+								<div class="card-body" style="height: 500px">
+									<div id="mainBoard"></div>	<!-- 게시판 뷰 -->
+								</div>
+							</div>
+						</div>
+						<!-- 게시판 끝-->
 
           </div>
         </div><!-- End Left side columns -->
