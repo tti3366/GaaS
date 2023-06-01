@@ -10,7 +10,7 @@
 <script src="/assets/js/additionalFunc.js"></script>
 </head>
 <body>
-	<h1 class="card-title">동아리명</h1>
+	<h1 class="card-title">${club.clubName}</h1>
 	<table class="table table-borderless">
 		<thead>
 			<tr style="text-align: center">
@@ -34,7 +34,7 @@
 					</td>
 					<td style="text-align: center">${post.writerName}(${post.writerId})</td>
 					<td style="text-align: center">${post.postDate}</td>
-					<td class="fw-bold" style="text-align: center">${post.views}</td>
+					<td style="text-align: center">${post.views}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

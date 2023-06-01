@@ -3,12 +3,21 @@ var changeMainBoard = function(path, paramId){
 	// 동아리를 선택하면 해당 동아리의 clubId 값만 설정되어 있음
 	// 게시판 선택 시 boardId으로 갱신되므로, 이후 게시판 선택->갱신을 위해 slice 사용
 	if(path == 'club'){
-		document.getElementById('boardId').value = paramId;
+		boardId = document.getElementById('boardId');
+		
+		boardId.value = paramId;
 	}
 	else if(path == 'allpost'){
-		document.getElementById('boardId').value = 
-			document.getElementById('boardId').value.slice(0, 5) + "_" + paramId;
-		paramId = document.getElementById('boardId').value;
+		boardId = document.getElementById('boardId');
+		
+		// 게시판이 설정되지 않은 상태일 때
+		if(boardId.value.indexOf('_') == -1) {
+			alert("동아리를 선택해주세요");
+			return;
+		}
+		
+		boardId.value = boardId.value.slice(0, 5) + "_" + paramId;
+		paramId = boardId.value;
 	}
 		
 	$.ajax({

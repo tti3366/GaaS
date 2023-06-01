@@ -30,4 +30,8 @@ public class PostServiceImpl implements PostService {
 		return postDao.insertPost(post);
 		
 	}
+	@Override
+	public int increaseViews(int postId) {
+		return postDao.increaseViews(postId);
+	}
 }

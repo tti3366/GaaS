@@ -14,4 +14,5 @@ public interface ClubUsersService {
 	
 	public ClubUsers checkMajorSigned(String userId);
 
+	public boolean checkClubAuth(String userId, String clubId);
 }

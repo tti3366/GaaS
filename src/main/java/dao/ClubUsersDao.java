@@ -61,5 +61,17 @@ public class ClubUsersDao {
 			return null;
 		}
 	}
+	
+	public boolean checkClubAuth(String userId, String clubId) {
+		try {
+			String sql = "SELECT * FROM CLUB_USERS WHERE user_id LIKE ? and club_id LIKE ? and allow_state = 1";
+			
+			ClubUsers clubUser = jdbcTemplate.queryForObject(sql, rowMapper, userId, clubId);
+			
+			return clubUser != null ? true : false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }

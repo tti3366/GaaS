@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import model.Club;
 import model.Post;
 import model.User;
+import service.ClubService;
+import service.ClubUsersService;
 import service.PostService;
 
 @Controller
@@ -25,6 +28,10 @@ public class PostController {
 	
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private ClubService clubService;
+	@Autowired
+	private ClubUsersService clubUsersService;
 	
 //	@RequestMapping("/viewpost")
 //	public ModelAndView viewpost(@RequestParam("id") String postId) {
@@ -48,6 +55,8 @@ public class PostController {
 	//작성한 내용을 처리
 	@PostMapping("/process")
     public String processForm(@ModelAttribute("Post") Post post, @RequestParam(value="image",required=false) MultipartFile file, HttpSession session) {
+		
+		
 		
 		if (!file.isEmpty()) {//파일 첨부했으면
 			System.out.println("파일 있음");
@@ -77,6 +86,7 @@ public class PostController {
 		
 		//동아리코드하고 게시판 코드는 어디서 따와서 합시더~
         post.setClubId(post.getBoardId().substring(0, 5));//동아리 코드
+        // 게시판 코드는 post.jsp에서 hidden 값으로 전달되면서 자동으로 Post에 매핑
         post.setPostDate(new Timestamp(System.currentTimeMillis()));//날짜
         post.setStatusCode(0);//상태코드
 
@@ -87,18 +97,36 @@ public class PostController {
     }
 	
 	@RequestMapping("/viewallpost")
-	public ModelAndView viewAllPost(@RequestParam("id") String boardId) {
-		
+	public ModelAndView viewAllPost(@RequestParam("id") String boardId, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		
-		List<Post> posts = postService.selectAllPostByBoardId(boardId);
+		User userInfo = (User) session.getAttribute("SESSION");
 		
-		Collections.sort(posts, (a, b) -> a.getPostId() - b.getPostId());
+		String userId = userInfo.getUserId();
+		String clubId = boardId.substring(0, 5);
+		String boardType = boardId.split("_")[2];
+		Club club = clubService.getClubNamesByNum(clubId);
 		
-		//mav.addObject("clubName", clubSer)
-		mav.addObject("posts", posts);
-		mav.setViewName("viewallpost");
-		return mav;
+		// 현재 사용자가 해당 동아리에 가입되어 있지 않아 비밀 게시판 접근이 불가능할 때
+		if(!clubUsersService.checkClubAuth(userId, clubId) && boardType.equals("pri")) {	
+			mav.addObject("club", club);
+			mav.addObject("alert", "동아리원이 아니면 접근할 수 없습니다!");
+			mav.setViewName("club");
+			
+			return mav;
+		} 
+		
+		else {	
+			List<Post> posts = postService.selectAllPostByBoardId(boardId);
+			
+			Collections.sort(posts, (a, b) -> a.getPostId() - b.getPostId());
+			
+			mav.addObject("club", club);
+			mav.addObject("posts", posts);
+			mav.setViewName("viewallpost");
+			
+			return mav;
+		}
 	}
 	
 	
@@ -106,7 +134,11 @@ public class PostController {
 	public ModelAndView viewPost(@RequestParam("id") int postId) {
 		ModelAndView mav = new ModelAndView();  
 		
-		Post post=postService.selectPost(postId);
+		Post post = postService.selectPost(postId);
+		
+		// 조회수 증가
+		postService.increaseViews(postId);
+		
 		mav.addObject("postObj",post);
 		mav.setViewName("viewpost");
 
