@@ -132,7 +132,7 @@ public class ClubController {
 		
 		Club club = clubService.getClubNamesByNum(clubId);
 
-		mav.addObject("clubObj", club);
+		mav.addObject("club", club);
 		mav.setViewName("club");
 		return mav;
 	}

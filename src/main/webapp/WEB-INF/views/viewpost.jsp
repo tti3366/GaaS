@@ -26,5 +26,8 @@ ${postObj.fileName }<br>
 	<img src="/upload/${postObj.fileName}"/>
 	<a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a>
 </c:if>
+
+<a onclick='history.go(-1)'>뒤로가기 (미완성)</a>
+<!-- https://carpet-part1.tistory.com/721 -->
 </body>
 </html>

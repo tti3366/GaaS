@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import model.Dept;
 import model.Post;
+import model.User;
 
 public class PostDao {
 
@@ -103,6 +104,14 @@ public class PostDao {
 			result = jdbcTemplate.update(sql,post_id,post.getWriterId(),post.getClubId(),
 					post.getBoardId(),post.getTitle(),post.getContents(),post.getPostDate(),post.getStatusCode());
 		}
+
+		return result;
+	}
+	
+	public int increaseViews(int postId) {
+		String sql = "UPDATE post2 SET views = views + 1 where post_id = ?";
+		
+		int result = jdbcTemplate.update(sql, postId);
 
 		return result;
 	}
