@@ -107,7 +107,8 @@ public class Post {
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", writerId=" + writerId + ", clubId=" + clubId + ", boardId=" + boardId
-				+ ", title=" + title + ", content=" + contents + ", postDate=" + postDate + ", statusCode=" + statusCode
-				+ "]";
+				+ ", title=" + title + ", contents=" + contents + ", postDate=" + postDate + ", statusCode="
+				+ statusCode + ", views=" + views + ", fileName=" + fileName + "]";
 	}
+
 }
