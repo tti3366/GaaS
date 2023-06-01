@@ -1,4 +1,16 @@
 var changeMainBoard = function(path, paramId){
+	// home.jsp의 boardId는 초기값이 없음
+	// 동아리를 선택하면 해당 동아리의 clubId 값만 설정되어 있음
+	// 게시판 선택 시 boardId으로 갱신되므로, 이후 게시판 선택->갱신을 위해 slice 사용
+	if(path == 'club'){
+		document.getElementById('boardId').value = paramId;
+	}
+	else if(path == 'allpost'){
+		document.getElementById('boardId').value = 
+			document.getElementById('boardId').value.slice(0, 5) + "_" + paramId;
+		paramId = document.getElementById('boardId').value;
+	}
+		
 	$.ajax({
 		url : "/view" + path,
 		type : "post",
@@ -207,4 +219,10 @@ var deleteTarget = function(targetId, target) {
 		    error: function(xhr, status, error) {	// 에러 시 처리할 내용
 		    }
 		});
+}
+
+var writePost = function() {
+	var boardId = document.getElementById("boardId").value;
+	
+	location.href = "/post?boardId=" + boardId;
 }

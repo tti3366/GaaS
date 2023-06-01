@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 <head>
 
-<script src="/assets/js/additionalFunc.js"></script>
+<resource mapping="/image/**" location="file:///Users/Jun/Image/">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -20,5 +22,9 @@ ${postObj.statusCode }<br>
 ${postObj.views }<br>
 ${postObj.fileName }<br>
 
+<c:if test="${!empty postObj.fileName}">
+	<img src="/upload/${postObj.fileName}"/>
+	<a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a>
+</c:if>
 </body>
 </html>

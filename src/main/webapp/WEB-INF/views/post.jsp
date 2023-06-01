@@ -19,13 +19,15 @@
       
       <div class="form-group">
         <label for="content">내용</label>
-        <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+        <textarea class="form-control" id="contents" name="contents" rows="5" required></textarea>
       </div>
       
       <div>
         <label for="image">이미지 첨부</label>
         <input type="file" id="image" name="image">
       </div>
+      
+      <input type="hidden" name="boardId" value="${boardId}"/>
       
       <button type="submit" class="btn btn-primary">작성 완료</button>
     </form>

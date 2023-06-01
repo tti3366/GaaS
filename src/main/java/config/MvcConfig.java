@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer{
 
+	public static final String SESSION_KEY = "SESSION";
+	public static final String IMAGE_PATH = "Users/Jun/Image/";
+	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
@@ -36,8 +40,11 @@ public class MvcConfig implements WebMvcConfigurer{
 	
 		// 인터럽트 제외
 	}
-
-	public static final String SESSION_KEY = "SESSION";
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/upload/**").addResourceLocations("file:///" + IMAGE_PATH);
+	}	
 
 	public class RequestHandler extends HandlerInterceptorAdapter {
 		@Override

@@ -17,7 +17,10 @@ public class PostServiceImpl implements PostService {
 	public List<Post> selectAllPost() {
 		return postDao.selectAllPost();
 	}
-
+	@Override
+	public List<Post> selectAllPostByBoardId(String boardId) {
+		return postDao.selectAllPostByBoardId(boardId);
+	}
 	@Override
 	public Post selectPost(int postId) {
 		return postDao.selectPost(postId);

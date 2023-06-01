@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Post {
 	
@@ -17,6 +16,9 @@ public class Post {
 	private int views;//조회수
 	private String fileName;//참조 파일 이름(랜덤 숫자+파일 이름)
 	
+	
+	// JOIN
+	private String writerName;
 	//파일 경로도(파일 이름이 중복될 수 있으니 랜덤 숫자를 앞에 붙여서)
 	
 	
@@ -68,8 +70,8 @@ public class Post {
 		return contents;
 	}
 
-	public void setContents(String content) {
-		this.contents = content;
+	public void setContents(String contents) {
+		this.contents = contents;
 	}
 
 	public Timestamp getPostDate() {
@@ -104,11 +106,19 @@ public class Post {
 		this.fileName = fileName;
 	}
 
+	public String getWriterName() {
+		return writerName;
+	}
+
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+
 	@Override
 	public String toString() {
 		return "Post [postId=" + postId + ", writerId=" + writerId + ", clubId=" + clubId + ", boardId=" + boardId
 				+ ", title=" + title + ", contents=" + contents + ", postDate=" + postDate + ", statusCode="
-				+ statusCode + ", views=" + views + ", fileName=" + fileName + "]";
+				+ statusCode + ", views=" + views + ", fileName=" + fileName + ", writerName=" + writerName + "]";
 	}
 
 }

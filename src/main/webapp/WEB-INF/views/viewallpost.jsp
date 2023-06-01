@@ -1,61 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*, java.text.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<style>
-  table {
-    width: 100%;
-    border: 1px solid #444444;
-    border-collapse: collapse;
-  }
-  th, tr {
-    border: 1px solid #444444;
-  }
-</style>
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="/assets/js/additionalFunc.js"></script>
 </head>
-글을 클릭하면 경로에 postid를 줘서 출력할 수 있게(post로 해야할듯. 권한 없는 사용자가 url에 임의로 번호 넣어서 볼 수도 있어서)
 <body>
-	<div class="container" id="mainpost">
-		<table>
-			<c:forEach var="post" items="${posts}">
-				<tr onclick="func1('${post.postId }')">
-					<td>${post.postId}</td>
-					<td>${post.writerId}</td>
-					<td>${post.clubId}</td>
-					<td>${post.boardId}</td>
-					<td>${post.title}</td>
-					<td>${post.contents}</td>
-					<td>${post.postDate}</td>
-					<td>${post.statusCode}</td>
-					<td>${post.views}</td>
+	<h1 class="card-title">동아리명</h1>
+	<table class="table table-borderless">
+		<thead>
+			<tr style="text-align: center">
+				<th scope="col">게시글 번호</th>
+				<th scope="col">제목</th>
+				<th scope="col">작성자</th>
+				<th scope="col">작성일자</th>
+				<th scope="col">조회수</th>
+			</tr>
+		</thead>
+        
+		<tbody>
+			<c:forEach var="post" items="${posts}" varStatus="status">
+				<tr>
+					<th scope="row" style="text-align: center">${status.count}</th>
 					<td>
+						<a href="#" class="text-primary fw-bold" onclick="changeMainBoard('post', '${post.postId}')">${post.title}</a>
 						<c:if test="${!empty post.fileName}">
-			   				<a class="btn" href="/C:/GaaSimg/db구조.png" download="db구조.png">${post.fileName }</a>
+							파일 있음
 						</c:if>
 					</td>
-					
-	    		</tr>
+					<td style="text-align: center">${post.writerName}(${post.writerId})</td>
+					<td style="text-align: center">${post.postDate}</td>
+					<td class="fw-bold" style="text-align: center">${post.views}</td>
+				</tr>
 			</c:forEach>
-		</table>
-		
-		<script>
-			function func1(event){
-				console.log(event);
-			}
-			
-	
-		</script>
-	</div>
+		</tbody>
+	</table>
 </body>
 <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/additionalFunc.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </html>
