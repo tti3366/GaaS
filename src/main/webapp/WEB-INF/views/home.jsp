@@ -325,7 +325,7 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6>Public</h6>
+                      <h6 onclick="changeMainBoard('allpost', 'pub')">Public</h6>
                     </div>
                   </div>
                 </div>
@@ -340,7 +340,7 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6>Private</h6>
+                      <h6 onclick="changeMainBoard('allpost', 'pri')">Private</h6>
                     </div>
                   </div>
                 </div>
@@ -355,12 +355,14 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6>QnA</h6>
+                      <h6 onclick="changeMainBoard('allpost', 'qna')">QnA</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            <!-- 가장 최근에 선택한 동아리의 정보 (additionalFunc에서 동아리에 맞는 게시판으로 들어가기 위해 사용) -->
+            <input type="hidden" id="boardId"/>
           
           <!-- 게시판 -->
             <div class="col-md-12" style="height:500px">
@@ -375,7 +377,7 @@
                     </li>
 					
 					<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
-                    <li><a class="dropdown-item" href="/post">글쓰기</a></li>
+                    <li><a class="dropdown-item" onclick="writePost()"><!-- href="/post"-->글쓰기</a></li>
                     <li><a class="dropdown-item" href="/viewallpost">글 목록 보기(전체)</a></li>
                   </ul>
                 </div>
