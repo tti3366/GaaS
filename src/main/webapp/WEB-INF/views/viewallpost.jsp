@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h1 class="card-title">${club.clubName}</h1>
-	<table class="table table-borderless">
+	<table class="table table-sm table-hover datatable">
 		<thead>
 			<tr style="text-align: center">
 				<th scope="col">게시글 번호</th>
@@ -27,9 +27,9 @@
 				<tr>
 					<th scope="row" style="text-align: center">${status.count}</th>
 					<td>
-						<a href="#" class="text-primary fw-bold" onclick="changeMainBoard('post', '${post.postId}')">${post.title}</a>
+						<a href="#" class="text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#viewPostModal" <%-- onclick="changeMainBoard('post', '${post.postId}')" --%>>${post.title} </a>
 						<c:if test="${!empty post.fileName}">
-							파일 있음
+							<i class = "bi bi-file-earmark"></i>
 						</c:if>
 					</td>
 					<td style="text-align: center">${post.writerName}(${post.writerId})</td>

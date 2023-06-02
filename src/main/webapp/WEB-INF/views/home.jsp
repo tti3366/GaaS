@@ -288,7 +288,7 @@
 									<label class="col-sm-2 col-form-label">동아리</label>
 									<div class="col-sm-10">
 										<select class="form-select" id="clubSelect" name="clubName">
-											<c:forEach items="${clubs}" var="club">
+											<c:forEach items="${clubsForSignIn}" var="club">
 												<option value="${club.clubName}">
 													<c:if test="${club.division eq '일반'}">[일반]</c:if>
 													<c:if test="${club.division eq '전공'}">[전공]</c:if>
@@ -328,7 +328,6 @@
 								aria-label="Close"></button>
 						</div>
 						<form method="POST" action="/process" enctype="multipart/form-data">
-
 							<div class="modal-body">
 								<div class="row mb-3">
 									<label class="col-sm-2 col-form-label">Writer</label>
@@ -349,7 +348,7 @@
 								</div>
 								<br>
 								<div>
-									<label for="image">Add Image</label> <input type="file" id="image" name="image">
+									<label for="image">Add Image</label> <input class="form-control" type="file" id="image" name="image">
 								</div>
 							</div>
 							<div class="modal-footer">
@@ -358,6 +357,40 @@
 								<button type="submit" class="btn btn-primary">Add Post</button>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 게시글 상세 내용 출력 모달 -->
+			<div class="modal fade" id="viewPostModal" tabindex="-1">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title">Post Detail</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+							<div class="modal-body">
+								${postObj.postId }<br>
+								${postObj.writerId }<br>
+								${postObj.clubId }<br>
+								${postObj.boardId }<br>
+								${postObj.title }<br>
+								${postObj.contents }<br>
+								${postObj.postDate }<br>
+								${postObj.statusCode }<br>
+								${postObj.views }<br>
+								${postObj.fileName }<br>
+								
+								<c:if test="${!empty postObj.fileName}">
+									<img src="/upload/${postObj.fileName}"/>
+									<a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a>
+								</c:if>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Close</button>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -376,7 +409,7 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6>Public</h6>
+                      <h6 onclick = "changeMainBoard('allpost', 'pub')">Public</h6>
                     </div>
                   </div>
                 </div>
@@ -391,7 +424,7 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6>Private</h6>
+                      <h6 onclick = "changeMainBoard('allpost', 'pri')">Private</h6>
                     </div>
                   </div>
                 </div>
@@ -406,12 +439,14 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6>QnA</h6>
+                      <h6 onclick = "changeMainBoard('allpost', 'qna')">QnA</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+            
+            <input type = "hidden" id ="boardId"/>
           
           <!-- 게시판 -->
 						<div class="col-md-12" style="height: 500px">
