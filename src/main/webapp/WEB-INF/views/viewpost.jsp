@@ -24,7 +24,7 @@
 	<c:if test="${!empty postObj.fileName}">
 		파일 이름 : ${postObj.fileName}<br>
 		<img src="/upload/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br>
-		파일 저장 : <a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a><br>
+		파일 저장 : <a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a><br>	 <!-- "/home/ubuntu/Project/Image/" -->
 	</c:if>
 </body>
 </html>

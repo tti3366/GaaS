@@ -405,7 +405,7 @@
           <div class="row">
           
            <!-- 회원 게시판-->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-6" onclick="changeMainBoard('allpost', 'pub')">
               <div class="card info-card">
                 <div class="card-body">
                   <div class="d-flex align-items-center" style="margin-top : 30px">
@@ -413,14 +413,14 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6 onclick = "changeMainBoard('allpost', 'pub')">Public</h6>
+                      <h6>Public</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-6" onclick="changeMainBoard('allpost', 'pri')">
               <div class="card info-card">
                 <div class="card-body">
                   <div class="d-flex align-items-center" style="margin-top : 30px">
@@ -428,14 +428,14 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6 onclick = "changeMainBoard('allpost', 'pri')">Private</h6>
+                      <h6>Private</h6>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-6" onclick="changeMainBoard('allpost', 'qna')">
               <div class="card info-card">
                 <div class="card-body">
                   <div class="d-flex align-items-center" style="margin-top : 30px">
@@ -443,7 +443,7 @@
                       <i class="bi bi-cart"></i>
                     </div> -->
                     <div class="ps-3">
-                      <h6 onclick = "changeMainBoard('allpost', 'qna')">QnA</h6>
+                      <h6>QnA</h6>
                     </div>
                   </div>
                 </div>

@@ -18,7 +18,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 public class MvcConfig implements WebMvcConfigurer{
 
 	public static final String SESSION_KEY = "SESSION";
-	public static final String IMAGE_PATH = "Users/Jun/Image/";
+	public static final String IMAGE_PATH = "/Users/Jun/Image/";	// "/home/ubuntu/Project/Image/"
 	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -43,7 +43,7 @@ public class MvcConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/upload/**").addResourceLocations("file:///" + IMAGE_PATH);
+		registry.addResourceHandler("/upload/**").addResourceLocations("file://" + IMAGE_PATH);
 	}	
 
 	public class RequestHandler extends HandlerInterceptorAdapter {

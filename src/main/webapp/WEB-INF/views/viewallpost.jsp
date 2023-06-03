@@ -32,6 +32,9 @@
 						<c:if test="${!empty post.fileName}">
 							<i class = "bi bi-file-earmark"></i>
 						</c:if>
+						<c:if test="${post.statusCode == 1}">
+							[수정됨]
+						</c:if>
 					</td>
 					<td style="text-align: center">${post.writerName}(${post.writerId})</td>
 					<td style="text-align: center">${fn:substring(post.postDate.toString(), 0, 19)}</td>

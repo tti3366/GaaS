@@ -65,7 +65,7 @@ public class PostController {
 		if (!file.isEmpty()) {	//파일 첨부 시
             try {
                 // 파일 저장 경로 설정
-            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"
+            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"	// "/home/ubuntu/Project/Image/"
                 String fileName = file.getOriginalFilename();	//파일명
                 
                 //파일명이 겹칠 수 있으므로, 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해야 함
