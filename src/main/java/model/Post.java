@@ -120,5 +120,4 @@ public class Post {
 				+ ", title=" + title + ", contents=" + contents + ", postDate=" + postDate + ", statusCode="
 				+ statusCode + ", views=" + views + ", fileName=" + fileName + ", writerName=" + writerName + "]";
 	}
-
 }

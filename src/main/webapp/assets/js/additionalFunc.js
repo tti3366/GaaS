@@ -16,7 +16,11 @@ var changeMainBoard = function(path, paramId){
 			return;
 		}
 		
-		boardId.value = boardId.value.slice(0, 5) + "_" + paramId;
+		// paramId == null : 게시글 보기 후 닫기 버튼을 눌렀을 때, 이전 선택했던 게시판으로 이동
+		// paramId != null : 게시판 변경 시, paramId 값으로 받아온 새로운 게시판으로 이동
+		if(paramId != null)
+			boardId.value = boardId.value.slice(0, 5) + "_" + paramId;
+		
 		paramId = boardId.value;
 	}
 		
@@ -33,7 +37,59 @@ var changeMainBoard = function(path, paramId){
 		}
 	});
 }
+// ----------------------------------------------------------------------------- //
+var changeModal = function(path, paramId){		
+	var targetModal;
+	
+	// 글쓰기 모달
+	if(path == 'post') {
+		paramId = document.getElementById("boardId").value;
+		targetModal = "#newPostModalBody";
+	}
+	// 글보기 모달
+	else if(path =='viewpost') {
+		targetModal = "#viewPostModalBody";
+	}
+	
+	$.ajax({
+		url : "/" + path,
+		type : "post",
+		data : {id : paramId},
+		traditional : true,
+		success : function(result) {
+			$(targetModal).html(result);
+		},
+		error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+		}
+	});
+}
 
+// 모달(글쓰기)의 submit을 가로채어, 컨트롤러 처리 후 뷰를 새로 로드하지 않고 해당 게시판을 다시 로딩  
+$(document).on('submit', '.modalForms', function(event) {
+	event.preventDefault();
+	
+	var form = event.target;
+	var data = new FormData(form);
+			
+	$.ajax({
+		url : "/process",
+		type : "post",
+		enctype: 'multipart/form-data',
+	    data: data,
+		contentType: false,
+		processData : false,
+		success : function(result) {
+			if(result == "success") {
+				// alert(data.get("boardId") + " / " + data.get("boardId").split('_')[2]);
+				changeMainBoard('allpost', data.get("boardId").split('_')[2]);
+			}
+		},
+		error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+		}
+	});
+})
 // ----------------------------------------------------------------------------- //
 // <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 
@@ -228,10 +284,4 @@ var deleteTarget = function(targetId, target) {
 		    error: function(xhr, status, error) {	// 에러 시 처리할 내용
 		    }
 		});
-}
-
-var writePost = function() {
-	var boardId = document.getElementById("boardId").value;
-	
-	location.href = "/post?boardId=" + boardId;
 }

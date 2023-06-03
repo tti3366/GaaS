@@ -321,7 +321,8 @@
 			<!-- 게시글 작성 모달 -->
 			<div class="modal fade" id="newPostModal" tabindex="-1">
 				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
+					<div class="modal-content" id="newPostModalBody">
+						<!-- 
 						<div class="modal-header">
 							<h5 class="modal-title">Write New Post</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -357,20 +358,22 @@
 								<button type="submit" class="btn btn-primary">Add Post</button>
 							</div>
 						</form>
+						 -->
 					</div>
 				</div>
 			</div>
 			
 			<!-- 게시글 상세 내용 출력 모달 -->
-			<div class="modal fade" id="viewPostModal" tabindex="-1">
+			<div class="modal fade closeModalAndincreaseViewCount" id="viewPostModal" tabindex="-1">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title">Post Detail</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
+							<button type="button" class="btn-close" 
+								data-bs-dismiss="modal"	aria-label="Close"></button>
 						</div>
-							<div class="modal-body">
+							<div class="modal-body" id="viewPostModalBody">
+							<!-- 
 								${postObj.postId }<br>
 								${postObj.writerId }<br>
 								${postObj.clubId }<br>
@@ -386,6 +389,7 @@
 									<img src="/upload/${postObj.fileName}"/>
 									<a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a>
 								</c:if>
+							--->
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary"
@@ -461,7 +465,7 @@
 
 										<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
 										<li><a class="dropdown-item" data-bs-toggle="modal"
-											data-bs-target="#newPostModal">New Post</a></li>
+											data-bs-target="#newPostModal" onclick="changeModal('post', null)">New Post</a></li>
 										<li><a class="dropdown-item" href="/viewallpost">View All Post</a></li>
 									</ul>
 								</div>
@@ -625,6 +629,13 @@
 	    	
 	    });
 	});
+	
+	// 게시글 열람 모달 닫기(버튼 및 외부 클릭)시, 조회수 증가 및 비동기 처리로 내용 갱신
+	function handleModalClose() {
+		changeMainBoard('allpost', null);
+	}
+	var modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+	modal._element.addEventListener('hidden.bs.modal', handleModalClose);
   </script>
 </body>
 

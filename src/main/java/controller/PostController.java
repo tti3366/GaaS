@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
+import model.ClubUsers;
 import model.Post;
 import model.User;
 import service.ClubService;
@@ -44,56 +47,52 @@ public class PostController {
 //	}
 	
 	@RequestMapping("/post")
-	public ModelAndView post(@RequestParam("boardId") String boardId) {//게시글 작성 페이지로
+	public ModelAndView post(@RequestParam("id") String boardId, HttpSession session) {//게시글 작성 페이지로
 		ModelAndView mav = new ModelAndView();
 		
+		User userInfo = (User) session.getAttribute("SESSION");
+		
+		mav.addObject("userInfo", userInfo);
 		mav.addObject("boardId", boardId);
 		mav.setViewName("post");
 		return mav;
 	}
 	
-	//작성한 내용을 처리
+	// 게시글 작성 처리
+	@ResponseBody
 	@PostMapping("/process")
     public String processForm(@ModelAttribute("Post") Post post, @RequestParam(value="image",required=false) MultipartFile file, HttpSession session) {
-		
-		
-		
-		if (!file.isEmpty()) {//파일 첨부했으면
-			System.out.println("파일 있음");
+		if (!file.isEmpty()) {	//파일 첨부 시
             try {
-                // 파일 저장 경로 설정 (서버 경로로 변경)
+                // 파일 저장 경로 설정
+            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"
+                String fileName = file.getOriginalFilename();	//파일명
                 
-            	String path ="/Users/Jun/Image/";
-            	//String path ="C:/GaaSimg/";//이건 제 로컬 경로 입니다.
-                String fileName = file.getOriginalFilename();//파일명
-                
-                //파일명이 겹칠 수 있으므로 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해서 넣는걸로
+                //파일명이 겹칠 수 있으므로, 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해야 함
                 File uploadFile = new File(path+fileName);
                 
-                // 서버에(로컬에) 파일 저장
+                // 파일 저장 경로에 파일 저장
                 file.transferTo(uploadFile);
-
-                post.setFileName(fileName);//첨부된 파일 이름
-
+                post.setFileName(fileName);						//첨부된 파일 이름
             } catch (Exception e) {
                 // 파일 처리 실패 시 예외 처리
                 e.printStackTrace();
             }
         }
 		
-		User userInfo= (User) session.getAttribute("SESSION");
-		post.setWriterId(Integer.parseInt(userInfo.getUserId()));//작성자 id
-		
-		//동아리코드하고 게시판 코드는 어디서 따와서 합시더~
-        post.setClubId(post.getBoardId().substring(0, 5));//동아리 코드
-        // 게시판 코드는 post.jsp에서 hidden 값으로 전달되면서 자동으로 Post에 매핑
+		User userInfo = (User) session.getAttribute("SESSION");
+		post.setWriterId(Integer.parseInt(userInfo.getUserId()));	//작성자 id
+        post.setClubId(post.getBoardId().substring(0, 5));			//동아리 코드 | 게시판 코드는 post.jsp에서 <input type="hidden"> 값으로 전달되어 Post 커맨드 객체에 매핑
         post.setPostDate(new Timestamp(System.currentTimeMillis()));//날짜
-        post.setStatusCode(0);//상태코드
+        post.setStatusCode(0);										//상태코드
 
-        int result=postService.insertPost(post);
-        System.out.println(result);
-		
-        return "redirect:/home"; // 결과 페이지로 리다이렉트 또는 포워드
+        int result = postService.insertPost(post);
+        
+        if(result > 0) {
+	        System.out.println("[" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + post.getBoardId() + " 게시판에 글을 작성했습니다.");
+	        return "success";
+        } else 
+        	return "failure";
     }
 	
 	@RequestMapping("/viewallpost")
@@ -118,7 +117,6 @@ public class PostController {
 		
 		else {	
 			List<Post> posts = postService.selectAllPostByBoardId(boardId);
-			
 			Collections.sort(posts, (a, b) -> a.getPostId() - b.getPostId());
 			
 			mav.addObject("club", club);
