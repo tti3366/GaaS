@@ -62,9 +62,9 @@ public class PostDao {
 		
 	}
 	
-	public List<Post> selectAllPostByBoardId(String boardId) {
+	public List<Post> selectAllPostByBoardId(String boardId) {	// status_code = (0 초기, 1 수정, 2 삭제)
 		String sql = "SELECT p.*, u.user_name as \"writer_name\" FROM POST2 p, USERS u " 
-					+ "WHERE p.writer_id = u.user_id and board_id LIKE ?";
+					+ "WHERE p.writer_id = u.user_id and status_code in (0, 1) and board_id LIKE ?";
 		
 		List<Post> result = jdbcTemplate.query(sql,
 				(ResultSet rs,int rowNum)->{
