@@ -142,13 +142,12 @@ public class ClubController {
 		ModelAndView mav = new ModelAndView();
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
 		
-		System.out.println(userInfo.getUserId());
-		
 		if(clubUsersService.checkMajorSigned(userInfo.getUserId()) == null) {
 			clubs = clubService.getAllowedClubNames();
 		}
 		else {
-			clubs = clubService.getCommonClubNames();
+			clubs = clubService.getCommonClubNames(userInfo.getUserId());	// 본인이 가입된 일반 동아리를 제외한 목록
+			//clubs = clubService.getCommonClubNames();
 		}
 		
 		mav.addObject("clubs", clubs);
@@ -160,10 +159,9 @@ public class ClubController {
 	@PostMapping("/enterclub")
 	public ModelAndView enterclub(@ModelAttribute("clubUser") ClubUsers clubUser, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		ModelAndView mav = new ModelAndView();
+		
 		String clubName = clubUser.getClubName();
-		String clubId = clubService.getClubIdByName(clubName);
-		System.out.println(clubName);
-		System.out.println(clubId);
+		String clubId = clubService.getClubIdByName(clubName);		
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
 		
 		//선택한 동아리가 전공 동아리일 경우
