@@ -249,6 +249,7 @@
     <section class="section dashboard">
   	 		<!-- Modal을 이용한 동아리 가입 신청 페이지 -->
 			<div class="modal fade" id="signInClubModal" tabindex="-1">
+				<c:if test="${!empty alert}">${alert}</c:if>
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">

@@ -14,6 +14,8 @@ public interface ClubService {
 	
 	public List<Club> getCommonClubNames();
 	
+	public List<Club> getCommonClubNames(String userId);
+	
 	public Club getClubNamesByNum(String clubId);
 	
 	public String getClubIdByName(String clubName);

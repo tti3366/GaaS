@@ -41,7 +41,7 @@ public class IndexController {
 			clubsForSignIn = clubService.getAllowedClubNames();
 		}
 		else {
-			clubsForSignIn = clubService.getCommonClubNames();
+			clubsForSignIn = clubService.getCommonClubNames(userInfo.getUserId());	// 본인이 가입된 일반 동아리를 제외한 목록
 		}
 		
 		List<Dept> depts = deptService.getAllDeparts();

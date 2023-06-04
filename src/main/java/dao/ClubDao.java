@@ -40,13 +40,22 @@ public class ClubDao {
 		return jdbcTemplate.query(sql, rowMapper, 1);
 	}
 	
-	//교양 동아리명 전체 조회
+	//일반 동아리명 전체 조회
 	public List<Club> getCommonClubNames() {
 		String sql = "SELECT * FROM club WHERE division LIKE ? AND club_state LIKE ?";
 		
 		return jdbcTemplate.query(sql, rowMapper, "일반", 1);
 	}
 	
+	//일반 동아리명 본인이 가입된 것 이외 조회
+	public List<Club> getCommonClubNames(String userId) {
+		String sql = "SELECT * FROM club WHERE division LIKE ? AND club_state LIKE ? "
+					+ "AND club_id not in (select club_id from club_users where user_id = ?) "
+					+ "ORDER BY club_id";
+		
+		return jdbcTemplate.query(sql, rowMapper, "일반", 1, userId);
+	}
+		
 	public String getAllClubByCreatingClub(String clubName) {
 		String sql = "SELECT COUNT(*) FROM club WHERE LOWER(club_name) = LOWER(?)";
 		
