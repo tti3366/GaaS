@@ -1,5 +1,6 @@
 package serviceImpl;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dao.ClubDao;
+import dao.ClubUsersDao;
 import dao.DeptDao;
 import dao.UserDao;
 import model.Club;
+import model.ClubUsers;
 import model.Dept;
 import model.User;
 import service.AdminService;
@@ -25,6 +28,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	ClubDao clubDao;
+	
+	@Autowired
+	ClubUsersDao clubUsersDao;
 	
 	public Map<String, Object> getAllTables() {
 		Map<String, Object> map = new HashMap<>();
@@ -44,11 +50,24 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	public int modifyClub(Club club) {
-		// 동아리가 승인되었을 때 게시판 생성
+		// 동아리가 승인되었을 때 게시판 생성 및 동아리장 정보 등록
 		if(club.getClubState() == 1) {	
 			// 동아리 게시판 존재 유무 (게시판이 존재하지 않을 때 생성)
 			if(!clubDao.existsClubBoard(club.getClubId()))
 				clubDao.createClubBoard(club.getClubId());
+
+			// CLUB_USERS 테이블에 동아리장 정보 등록
+			if(clubUsersDao.checkSignedById(club.getClubId(), club.getManagerId()) == null) {
+				ClubUsers cu_manager = new ClubUsers();
+				cu_manager.setUserId(Integer.parseInt(club.getManagerId()));
+				cu_manager.setClubId(club.getClubId());
+				cu_manager.setJoinDate(LocalDateTime.now());
+				cu_manager.setAllowState(1);
+				cu_manager.setIntroduce(club.getClubName() + " 동아리장 입니다.");
+				cu_manager.setClubName(club.getClubName());
+				
+				clubUsersDao.insertClub(cu_manager);
+			}
 		}
 		
 		// 동아리 정보 수정
