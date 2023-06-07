@@ -10,6 +10,7 @@ public class Club {
 	private String deptNameEn;
 	private int clubState;
 	private String clubInformation;
+	private String clubImage;
 	
 	public String getClubId() {
 		return clubId;
@@ -59,6 +60,12 @@ public class Club {
 	public void setClubInformation(String clubInformation) {
 		this.clubInformation = clubInformation;
 	}
+	public String getClubImage() {
+		return clubImage;
+	}
+	public void setClubImage(String clubImage) {
+		this.clubImage = clubImage;
+	}
 	
 	@Override
 	public String toString() {
@@ -66,4 +73,5 @@ public class Club {
 				+ division + ", deptNameKr=" + deptNameKr + ", deptNameEn=" + deptNameEn + ", clubState=" + clubState
 				+ ", clubInformation=" + clubInformation + "]";
 	}
+	
 }
