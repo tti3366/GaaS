@@ -13,7 +13,11 @@
 	<h1 class="card-title">[${club.division}] ${club.clubName}</h1>
 	${club.clubInformation}<br>
 	
-	동아리장 : ${club.managerId} 
+	동아리장 : ${club.managerId}<br>
+	<c:if test="${!empty club.clubImage}">
+		<img src="/upload/club/${club.clubImage}" style="max-width: 100%; height: auto;"/><br><br>
+	</c:if>
+	
 	
 	<script>
 		<c:if test="${!empty alert}">

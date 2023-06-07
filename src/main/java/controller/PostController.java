@@ -2,7 +2,8 @@ package controller;
 
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.Collections;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,19 +35,19 @@ public class PostController {
 	private ClubService clubService;
 	@Autowired
 	private ClubUsersService clubUsersService;
+
+	static String IMAGE_PATH = "/Users/Jun/Image/post/";		// "C:/GaaSimg/post/"	// "/home/ubuntu/Project/Image/post/"
 	
-//	@RequestMapping("/viewpost")
-//	public ModelAndView viewpost(@RequestParam("id") String postId) {
-//		ModelAndView mav = new ModelAndView();  
-//
-//		mav.addObject("postObj", postId);
-//
-//		mav.setViewName("post");
-//		return mav;
-//	}
+	// 파일 이름을 고유하게 만들기 위한 메소드
+	private String generateUniqueFileName(String fileName) {
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    String uniqueFileName = timeStamp + "_" + fileName;
+	    return uniqueFileName;
+	}
 	
+	// ----------------------------------------------------------------------------------------------------- //
 	@RequestMapping("/post")
-	public ModelAndView post(@RequestParam("id") String boardId, HttpSession session) {//게시글 작성 페이지로
+	public ModelAndView post(@RequestParam("id") String boardId, HttpSession session) {	//게시글 작성 페이지로
 		ModelAndView mav = new ModelAndView();
 		
 		User userInfo = (User) session.getAttribute("SESSION");
@@ -57,6 +58,7 @@ public class PostController {
 		return mav;
 	}
 	
+	
 	// 게시글 작성 처리
 	@ResponseBody
 	@PostMapping("/process")
@@ -64,15 +66,14 @@ public class PostController {
 		if (!file.isEmpty()) {	//파일 첨부 시
             try {
                 // 파일 저장 경로 설정
-            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"	// "/home/ubuntu/Project/Image/"
-                String fileName = file.getOriginalFilename();	//파일명
+                String fileName = file.getOriginalFilename();				// 원본 파일명
+                String uniqueFileName = generateUniqueFileName(fileName);	// 고유한 파일 이름 생성
                 
-                //파일명이 겹칠 수 있으므로, 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해야 함
-                File uploadFile = new File(path+fileName);
+                File uploadFile = new File(IMAGE_PATH + uniqueFileName);
                 
                 // 파일 저장 경로에 파일 저장
                 file.transferTo(uploadFile);
-                post.setFileName(fileName);						//첨부된 파일 이름
+                post.setFileName(uniqueFileName);						//첨부된 파일 이름
             } catch (Exception e) {
                 // 파일 처리 실패 시 예외 처리
                 e.printStackTrace();
@@ -92,7 +93,7 @@ public class PostController {
 	        return "success";
         } else 
         	return "failure";
-    }
+    }	
 	
 	@RequestMapping("/viewallpost")
 	public ModelAndView viewAllPost(@RequestParam("id") String boardId, HttpSession session) {
@@ -163,7 +164,6 @@ public class PostController {
 	public String deletePostView(@ModelAttribute("writerId") int writerId, @ModelAttribute("postId") int postId, @ModelAttribute("boardId") String boardId, HttpSession session) {		
 		User userInfo = (User) session.getAttribute("SESSION");
 
-		System.out.println(writerId + "/" + postId + "/" + boardId);
 		if(Integer.parseInt(userInfo.getUserId()) != writerId)
 			return "auth failure";
 		
@@ -188,15 +188,14 @@ public class PostController {
 		if (!file.isEmpty()) {	//파일 첨부 시
             try {
                 // 파일 저장 경로 설정
-            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"	// "/home/ubuntu/Project/Image/"
-                String fileName = file.getOriginalFilename();	//파일명
+                String fileName = file.getOriginalFilename();				// 원본 파일명
+                String uniqueFileName = generateUniqueFileName(fileName);	// 고유한 파일 이름 생성
                 
-                //파일명이 겹칠 수 있으므로, 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해야 함
-                File uploadFile = new File(path+fileName);
+                File uploadFile = new File(IMAGE_PATH + uniqueFileName);
                 
                 // 파일 저장 경로에 파일 저장
                 file.transferTo(uploadFile);
-                modifyPost.setFileName(fileName);						//첨부된 파일 이름
+                modifyPost.setFileName(uniqueFileName);						//첨부된 파일 이름
             } catch (Exception e) {
                 // 파일 처리 실패 시 예외 처리
                 e.printStackTrace();

@@ -81,7 +81,7 @@
 			<br>
 			<div>
 				<c:if test="${!empty postObj.fileName}">
-					<img src="/upload/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br><br>
+					<img src="/upload/post/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br><br>
 				</c:if>
 				<label for="image">Modify Image</label> 
 				<input class="form-control" type="file" id="image" name="image">
