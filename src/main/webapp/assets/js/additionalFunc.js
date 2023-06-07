@@ -1,3 +1,4 @@
+// ----------------------------------------------------------------------------- //
 var changeMainBoard = function(path, paramId){
 	// home.jsp의 boardId는 초기값이 없음
 	// 동아리를 선택하면 해당 동아리의 clubId 값만 설정되어 있음
@@ -52,7 +53,7 @@ var changeModal = function(path, paramId){
 		}
 		reqType = "post";
 		
-		modalShow();		// 게시판 선택안함 예외처리를 위해 JSP data-bs-toggle="modal" 속성이 비활성화 되어있음
+		postModalShow();		// 게시판 선택안함 예외처리를 위해 JSP data-bs-toggle="modal" 속성이 비활성화 되어있음
 	}
 	// 글보기 모달
 	else if(path == 'viewpost') {
@@ -103,6 +104,7 @@ $(document).on('submit', '.modalForms', function(event) {
 	});
 })
 
+// 수정
 $(document).on('submit', '.modifyForms', function(event) {
 	event.preventDefault();
 	
@@ -118,7 +120,7 @@ $(document).on('submit', '.modifyForms', function(event) {
 		processData : false,
 		success : function(result) {
 			if(result == "modify success") {
-				modalShow();
+				postModalShow();
 				changeModal('viewpost', data.get("postId"));
 			}
 			else if(result == "modify failure") {
@@ -133,6 +135,36 @@ $(document).on('submit', '.modifyForms', function(event) {
 		}
 	});
 })
+
+// 삭제
+var deletePost = function(data){
+	var obj = JSON.parse(data);		// HTML 코드에서 전달된 문자열을 JSON 형식으로 파싱
+
+	$.ajax({
+		url : "/deletepost",
+		type : "post",
+		data: {postId : obj.postId, writerId : obj.writerId, boardId : obj.boardId},
+	    traditional : true,
+		success : function(result) {
+			if(result == "delete success") {
+				alert("삭제 성공");
+				postModalHide();
+				changeMainBoard('allpost', obj.boardId.split('_')[2]);
+			}
+			else if(result == "delete failure") {
+				alert("삭제 실패");
+				postModalHide();
+			}
+			else if(result == "auth failure") {
+				alert("삭제 권한이 없습니다");
+				postModalHide();
+			}
+		},
+		error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+		}
+	});
+}
 // ----------------------------------------------------------------------------- //
 // <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 
@@ -329,7 +361,17 @@ var deleteTarget = function(targetId, target) {
 		});
 }
 
-var modalShow = function() {
+var postModalShow = function() {
 	var postModal = new bootstrap.Modal(document.getElementById('postModal'));
 	postModal.show();
+}
+var postModalHide = function() {
+	var modal = document.getElementById('postModal');
+	modal.classList.remove('show');
+	modal.style.display = 'none';
+	
+	var backdrop = document.querySelector('.modal-backdrop');	// backdrop : 모달 배경
+	if (backdrop) {
+		backdrop.parentNode.removeChild(backdrop);
+	}
 }

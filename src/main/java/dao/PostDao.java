@@ -128,6 +128,16 @@ public class PostDao {
 		return result;
 	}
 	
+	public int deletePost(int postId) {
+		
+		String sql = "UPDATE POST2 SET STATUS_CODE = 2 WHERE POST_ID = ?";
+		int result = 0;
+		
+		result = jdbcTemplate.update(sql, postId);
+
+		return result;
+	}
+	
 	public int increaseViews(int postId) {
 		String sql = "UPDATE post2 SET views = views + 1 where post_id = ?";
 		

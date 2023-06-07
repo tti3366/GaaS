@@ -18,4 +18,5 @@ public interface PostService {
 	
 	public int modifyPost(Post post);
 	
+	public int deletePost(int postId);
 }

@@ -158,6 +158,24 @@ public class PostController {
 	}
 	
 	@ResponseBody
+	@PostMapping("/deletepost")
+	public String deletePostView(@ModelAttribute("writerId") int writerId, @ModelAttribute("postId") int postId, @ModelAttribute("boardId") String boardId, HttpSession session) {		
+		User userInfo = (User) session.getAttribute("SESSION");
+
+		System.out.println(writerId + "/" + postId + "/" + boardId);
+		if(Integer.parseInt(userInfo.getUserId()) != writerId)
+			return "auth failure";
+		
+		int result = postService.deletePost(postId);
+        
+        if(result > 0) {
+	        System.out.println("[" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + boardId + " 게시판의 " + postId + "번 글을 삭제했습니다.");
+	        return "delete success";
+        } else 
+        	return "delete failure";
+	}
+	
+	@ResponseBody
 	@PostMapping("/modifypost")
 	public String modifyPostUpdate(@ModelAttribute("Post") Post post, @RequestParam(value="image",required=false) MultipartFile file, HttpSession session) {
 		User userInfo = (User) session.getAttribute("SESSION");

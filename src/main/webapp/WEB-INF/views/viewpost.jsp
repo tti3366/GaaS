@@ -35,6 +35,7 @@
 		
 		<c:if test="${userInfo.userId eq postObj.writerId}">
 			<a href="#" onclick="changeModal('modifypost', '${postObj.postId}')">수정하러 가자</a>
+			<a href="#" onclick="deletePost('{&quot;writerId&quot;: &quot;${postObj.writerId}&quot;, &quot;postId&quot;: &quot;${postObj.postId}&quot;, &quot;boardId&quot;: &quot;${postObj.boardId}&quot;}')">삭제하러 가자</a>
 		</c:if>
 	</div>
 	<div class="modal-footer">
