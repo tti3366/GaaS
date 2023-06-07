@@ -19,10 +19,10 @@ public class ClubDao {
 	private Club club;
 	
 	public int intsertClub(Club club) {		
-		String sql = "INSERT INTO club VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO club VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		int result = jdbcTemplate.update(sql,club.getClubId(),club.getManagerId(),club.getClubName(),club.getDivision(),
-				club.getDeptNameKr(),club.getDeptNameEn(),club.getClubState(),club.getClubInformation());
+				club.getDeptNameKr(),club.getDeptNameEn(),club.getClubState(),club.getClubInformation(),club.getClubImage());
 		
 		return result;
 	}

@@ -528,7 +528,8 @@
 	        <c:if test="${club.clubState == 1}">			<!-- 생성 승인된 동아리만 출력 가능 -->
 			<div class="block">
 				<a href="#" onclick="changeMainBoard('club', '${club.clubId}')">
-					<img class="sliderImg" src="/assets/img/clubs/${club.clubId}.jpg"><br>
+					<img class="sliderImg" src="/upload/club/${club.clubImage}"><br>
+					<!--  <img class="sliderImg" src="/assets/img/clubs/${club.clubId}.jpg"><br> -->
 				</a>
 				<center><span><b>[${club.deptNameEn}]<br>${club.clubName}</b></span></center>
 			</div>

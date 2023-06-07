@@ -319,7 +319,7 @@
 							                    </div>
 							                    <c:choose>
 							                    	<c:when test = "${userInfo.authority eq 'user'}">
-							                    		<form:form modelAttribute="createClub" action="/enrollclub" method="post">
+							                    		<form:form modelAttribute="createClub" enctype="multipart/form-data" action="/enrollclub" method="post">
 									                    <div class="modal-body">
 													      	<div class="row mb-3">
 													          <label class="col-sm-2 col-form-label">Proposer</label>
@@ -345,7 +345,7 @@
 													        <div class="row mb-3">
 													          <label for="clubImage" class="col-sm-2 col-form-label">Club Image</label>
 													          <div class="col-sm-10">
-													            <input type="file" class="form-control" id="clubImage" name="clubImage" required>
+													            <input type="file" class="form-control" id="image" name="image" required>
 													          </div>
 													        </div>
 													        
