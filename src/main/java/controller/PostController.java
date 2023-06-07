@@ -2,7 +2,6 @@ package controller;
 
 import java.io.File;
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
-import model.ClubUsers;
 import model.Post;
 import model.User;
 import service.ClubService;
@@ -127,19 +126,76 @@ public class PostController {
 		}
 	}
 	
-	
 	@RequestMapping("/viewpost")
-	public ModelAndView viewPost(@RequestParam("id") int postId) {
+	public ModelAndView viewPost(@RequestParam("id") int postId, HttpSession session) {
 		ModelAndView mav = new ModelAndView();  
 		
+		User userInfo = (User) session.getAttribute("SESSION");
 		Post post = postService.selectPost(postId);
 		
 		// 조회수 증가
 		postService.increaseViews(postId);
 		
-		mav.addObject("postObj",post);
+		mav.addObject("userInfo", userInfo);
+		mav.addObject("postObj", post);
 		mav.setViewName("viewpost");
 
 		return mav;
+	}
+	
+	@GetMapping("/modifypost")
+	public ModelAndView modifyPostView(@RequestParam("id") int postId, HttpSession session) {
+		ModelAndView mav = new ModelAndView();  
+		
+		User userInfo = (User) session.getAttribute("SESSION");
+		Post post = postService.selectPost(postId);
+		
+		mav.addObject("userInfo", userInfo);
+		mav.addObject("postObj", post);
+		mav.setViewName("post");
+
+		return mav;
+	}
+	
+	@ResponseBody
+	@PostMapping("/modifypost")
+	public String modifyPostUpdate(@ModelAttribute("Post") Post post, @RequestParam(value="image",required=false) MultipartFile file, HttpSession session) {
+		User userInfo = (User) session.getAttribute("SESSION");
+		Post modifyPost = new Post();
+		
+		if(Integer.parseInt(userInfo.getUserId()) != post.getWriterId())
+			return "auth failure";
+		
+		if (!file.isEmpty()) {	//파일 첨부 시
+            try {
+                // 파일 저장 경로 설정
+            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"	// "/home/ubuntu/Project/Image/"
+                String fileName = file.getOriginalFilename();	//파일명
+                
+                //파일명이 겹칠 수 있으므로, 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해야 함
+                File uploadFile = new File(path+fileName);
+                
+                // 파일 저장 경로에 파일 저장
+                file.transferTo(uploadFile);
+                modifyPost.setFileName(fileName);						//첨부된 파일 이름
+            } catch (Exception e) {
+                // 파일 처리 실패 시 예외 처리
+                e.printStackTrace();
+            }
+        }
+		
+		modifyPost.setPostId(post.getPostId());
+		modifyPost.setTitle(post.getTitle());
+		modifyPost.setContents(post.getContents());
+		modifyPost.setPostDate(new Timestamp(System.currentTimeMillis()));	// 수정된 시간
+        modifyPost.setStatusCode(1);										// 상태 코드
+
+        int result = postService.modifyPost(modifyPost);
+        
+        if(result > 0) {
+	        System.out.println("[" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + post.getBoardId() + " 게시판의 " + post.getPostId() + "번 글을 수정했습니다.");
+	        return "modify success";
+        } else 
+        	return "modify failure";
 	}
 }

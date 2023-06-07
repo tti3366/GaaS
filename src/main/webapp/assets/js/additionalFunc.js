@@ -39,24 +39,36 @@ var changeMainBoard = function(path, paramId){
 }
 // ----------------------------------------------------------------------------- //
 var changeModal = function(path, paramId){		
-	var targetModal;
+	var targetModal = "#postModalBody";
+	var reqType;
 	
 	// 글쓰기 모달
 	if(path == 'post') {
 		paramId = document.getElementById("boardId").value;
-		targetModal = "#newPostModalBody";
+		
+		if(paramId == "") {
+			alert("게시판을 선택해주세요");
+			return;
+		}
+		reqType = "post";
+		
+		modalShow();		// 게시판 선택안함 예외처리를 위해 JSP data-bs-toggle="modal" 속성이 비활성화 되어있음
 	}
 	// 글보기 모달
-	else if(path =='viewpost') {
-		targetModal = "#viewPostModalBody";
+	else if(path == 'viewpost') {
+		reqType = "post";
+	}
+	// 글수정 모달
+	else if(path == 'modifypost') {
+		reqType = "get";	
 	}
 	
 	$.ajax({
 		url : "/" + path,
-		type : "post",
+		type : reqType,
 		data : {id : paramId},
 		traditional : true,
-		success : function(result) {
+		success : function(result) {				
 			$(targetModal).html(result);
 		},
 		error : function(jqXHR, testStatus, errorThrown) {
@@ -83,6 +95,37 @@ $(document).on('submit', '.modalForms', function(event) {
 			if(result == "success") {
 				// alert(data.get("boardId") + " / " + data.get("boardId").split('_')[2]);
 				changeMainBoard('allpost', data.get("boardId").split('_')[2]);
+			}
+		},
+		error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+		}
+	});
+})
+
+$(document).on('submit', '.modifyForms', function(event) {
+	event.preventDefault();
+	
+	var form = event.target;
+	var data = new FormData(form);
+	
+	$.ajax({
+		url : "/modifypost",
+		type : "post",
+		enctype: 'multipart/form-data',
+	    data: data,
+		contentType: false,
+		processData : false,
+		success : function(result) {
+			if(result == "modify success") {
+				modalShow();
+				changeModal('viewpost', data.get("postId"));
+			}
+			else if(result == "modify failure") {
+				alert("수정 실패");
+			}
+			else if(result == "auth failure") {
+				alert("수정 권한이 없습니다");
 			}
 		},
 		error : function(jqXHR, testStatus, errorThrown) {
@@ -284,4 +327,9 @@ var deleteTarget = function(targetId, target) {
 		    error: function(xhr, status, error) {	// 에러 시 처리할 내용
 		    }
 		});
+}
+
+var modalShow = function() {
+	var postModal = new bootstrap.Modal(document.getElementById('postModal'));
+	postModal.show();
 }

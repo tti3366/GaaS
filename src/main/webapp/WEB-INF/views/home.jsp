@@ -319,86 +319,37 @@
 				</div>
 			</div>
 
-			<!-- 게시글 작성 모달 -->
-			<div class="modal fade" id="newPostModal" tabindex="-1">
+			<!-- 게시글 모달 -->
+			<div class="modal fade closeModalAndincreaseViewCount" id="postModal" tabindex="-1">
 				<div class="modal-dialog modal-lg">
-					<div class="modal-content" id="newPostModalBody">
-						<!-- 
-						<div class="modal-header">
-							<h5 class="modal-title">Write New Post</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<form method="POST" action="/process" enctype="multipart/form-data">
-							<div class="modal-body">
-								<div class="row mb-3">
-									<label class="col-sm-2 col-form-label">Writer</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control"
-											value="${userInfo.userName}" disabled>
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="title">Title</label> <input type="text"
-										class="form-control" id="title" name="title" required>
-								</div>
-								<br>
-								<div class="form-group">
-									<label for="content">Contents</label>
-									<textarea class="form-control" id="content" name="contents"
-										rows="5" required></textarea>
-								</div>
-								<br>
-								<div>
-									<label for="image">Add Image</label> <input class="form-control" type="file" id="image" name="image">
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Close</button>
-								<button type="submit" class="btn btn-primary">Add Post</button>
-							</div>
-						</form>
-						 -->
+					<div class="modal-content" id="postModalBody">
+						<!-- 모달 내용 -->
 					</div>
 				</div>
 			</div>
 			
-			<!-- 게시글 상세 내용 출력 모달 -->
+			<!-- 게시글 상세 내용 출력 모달 
 			<div class="modal fade closeModalAndincreaseViewCount" id="viewPostModal" tabindex="-1">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
+						
 						<div class="modal-header">
 							<h5 class="modal-title">Post Detail</h5>
 							<button type="button" class="btn-close" 
 								data-bs-dismiss="modal"	aria-label="Close"></button>
 						</div>
-							<div class="modal-body" id="viewPostModalBody">
-							<!-- 
-								${postObj.postId }<br>
-								${postObj.writerId }<br>
-								${postObj.clubId }<br>
-								${postObj.boardId }<br>
-								${postObj.title }<br>
-								${postObj.contents }<br>
-								${postObj.postDate }<br>
-								${postObj.statusCode }<br>
-								${postObj.views }<br>
-								${postObj.fileName }<br>
-								
-								<c:if test="${!empty postObj.fileName}">
-									<img src="/upload/${postObj.fileName}"/>
-									<a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a>
-								</c:if>
-							--->
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">Close</button>
-							</div>
+						<div class="modal-body" id="viewPostModalBody">
+							모달 내용
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+						</div>
+						
 					</div>
 				</div>
 			</div>
+			-->
 
 			<div class="row">
         <!-- Left side columns -->
@@ -465,8 +416,8 @@
 										</li>
 
 										<!-- add 누르면 게시글 작성페이지로 이동(임시) -->
-										<li><a class="dropdown-item" data-bs-toggle="modal"
-											data-bs-target="#newPostModal" onclick="changeModal('post', null)">New Post</a></li>
+										<li><a class="dropdown-item" 
+											data-bs-target="#postModal" onclick="changeModal('post', null)">New Post</a></li>	<!-- data-bs-toggle="modal" -->
 										<li><a class="dropdown-item" href="/viewallpost">View All Post</a></li>
 									</ul>
 								</div>
@@ -635,7 +586,7 @@
 	function handleModalClose() {
 		changeMainBoard('allpost', null);
 	}
-	var modal = new bootstrap.Modal(document.getElementById('viewPostModal'));
+	var modal = new bootstrap.Modal(document.getElementById('postModal'));
 	modal._element.addEventListener('hidden.bs.modal', handleModalClose);
   </script>
 </body>

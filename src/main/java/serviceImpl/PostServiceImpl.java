@@ -34,4 +34,9 @@ public class PostServiceImpl implements PostService {
 	public int increaseViews(int postId) {
 		return postDao.increaseViews(postId);
 	}
+	@Override
+	public int modifyPost(Post post) {
+		return postDao.modifyPost(post);
+		
+	}
 }

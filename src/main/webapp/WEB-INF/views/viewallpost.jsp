@@ -28,7 +28,7 @@
 				<tr>
 					<th scope="row" style="text-align: center">${status.count}</th>
 					<td>
-						<a href="#" class="text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#viewPostModal" onclick="changeModal('viewpost', '${post.postId}')">${post.title} </a>
+						<a href="#" class="text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#postModal" onclick="changeModal('viewpost', '${post.postId}')">${post.title} </a>
 						<c:if test="${!empty post.fileName}">
 							<i class = "bi bi-file-earmark"></i>
 						</c:if>
