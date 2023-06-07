@@ -1,8 +1,7 @@
 package controller;
 
-import java.time.LocalDate;
+import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -69,7 +69,7 @@ public class ClubController {
 	}
 	
 	@PostMapping("/enrollclub")
-	public ModelAndView enrollclub(@ModelAttribute("createClub") Club club, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) {
+	public ModelAndView enrollclub(@ModelAttribute("createClub") Club club, @RequestParam(value="clubImage",required=false) MultipartFile file, HttpServletRequest request, HttpSession session, RedirectAttributes redirectAttributes) {
 		ModelAndView mav = new ModelAndView();
 		User userInfo = (User) request.getSession().getAttribute("SESSION");
 		
@@ -90,6 +90,24 @@ public class ClubController {
 				club.setDeptNameEn("Common");
 				club.setDeptNameKr("일반");
 			}
+			
+			if (!file.isEmpty()) {	//파일 첨부 시
+	            try {
+	                // 파일 저장 경로 설정
+	            	String path ="/Users/Jun/Image/";				// "C:/GaaSimg/"	// "/home/ubuntu/Project/Image/"
+	                String fileName = club.getClubId()+".png";	//파일명
+	                
+	                //파일명이 겹칠 수 있으므로, 파일명 앞이나 뒤에 시간 or 랜덤 숫자를 추가해야 함
+	                File uploadFile = new File(path+fileName);
+	                
+	                // 파일 저장 경로에 파일 저장
+	                file.transferTo(uploadFile);
+	                club.setClubImage(fileName);						//첨부된 파일 이름
+	            } catch (Exception e) {
+	                // 파일 처리 실패 시 예외 처리
+	                e.printStackTrace();
+	            }
+	        }
 			
 			System.out.println(club.toString());
 			int result=clubService.insertClub(club);

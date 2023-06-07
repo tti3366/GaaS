@@ -342,6 +342,13 @@
 													          </div>
 													        </div>
 													        
+													        <div class="row mb-3">
+													          <label for="clubImage" class="col-sm-2 col-form-label">Club Image</label>
+													          <div class="col-sm-10">
+													            <input type="file" class="form-control" id="clubImage" name="clubImage" required>
+													          </div>
+													        </div>
+													        
 													        <fieldset class="row mb-3">
 													          <legend class="col-form-label col-sm-2 pt-0">Major/Common</legend>
 													          <div class="col-sm-10">
