@@ -38,10 +38,10 @@ public class IndexController {
 		User userInfo = (User)request.getSession().getAttribute("SESSION");
 		
 		if(clubUsersService.checkMajorSigned(userInfo.getUserId()) == null) {
-			clubsForSignIn = clubService.getAllowedClubNames();
+			clubsForSignIn = clubService.getMajorClubNames(userInfo.getUserId());	// 전공 동아리 가입된 것이 없을 때, 가입할 수 있는 모든 목록 조회 (전공 코드가 사용자의 전공 코드 / 일반 코드여야 함)
 		}
 		else {
-			clubsForSignIn = clubService.getCommonClubNames(userInfo.getUserId());	// 본인이 가입된 일반 동아리를 제외한 목록
+			clubsForSignIn = clubService.getCommonClubNames(userInfo.getUserId());	// 전공 동아리가 하나 존재할 때, 가입 가능한 일반 동아리 목록만 조회
 		}
 		
 		List<Dept> depts = deptService.getAllDeparts();

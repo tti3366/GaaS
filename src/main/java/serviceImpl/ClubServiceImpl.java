@@ -33,8 +33,16 @@ public class ClubServiceImpl implements ClubService{
 		return clubDao.getCommonClubNames(userId);
 	}
 	
+	public List<Club> getMajorClubNames(String userId) {
+		return clubDao.getMajorClubNames(userId);
+	}
+	
 	public Club getClubNamesByNum(String clubId) {
 		return clubDao.getClubNamesByNum(clubId);
+	}
+	
+	public Club getClubByManagerId(String managerId) {
+		return clubDao.getClubByManagerId(managerId);
 	}
 	
 	public String getClubIdByName(String clubName) {

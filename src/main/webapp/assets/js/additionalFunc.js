@@ -375,3 +375,8 @@ var postModalHide = function() {
 		backdrop.parentNode.removeChild(backdrop);
 	}
 }
+
+var signInClubModalShow = function() {
+	var postModal = new bootstrap.Modal(document.getElementById('signInClubModal'));
+	postModal.show();
+}

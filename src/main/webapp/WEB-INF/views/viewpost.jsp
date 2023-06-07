@@ -22,22 +22,17 @@
       <h1>${postObj.title}</h1>
       <nav class="d-flex justify-content-end">
         <ol class = "breadcrumb">
-          <li class="breadcrumb-item">작성자 : ${postObj.writerId}</li>
+          <li class="breadcrumb-item">작성자 : ${postObj.writerName}(${postObj.writerId})</li>
           <li class="breadcrumb-item">작성일 : ${fn:substring(postObj.postDate.toString(), 0, 19)}</li>
           <li class="breadcrumb-item">조회수 : ${postObj.views}</li>
         </ol>
       </nav>
-
-      <c:if test="${userInfo.userId eq postObj.writerId}">
-        <a href="#" onclick="changeModal('modifypost', '${postObj.postId}')">수정</a>
-        <a href="#" onclick="deletePost('{&quot;writerId&quot;: &quot;${postObj.writerId}&quot;, &quot;postId&quot;: &quot;${postObj.postId}&quot;, &quot;boardId&quot;: &quot;${postObj.boardId}&quot;}')">삭제</a>
-      </c:if>
       
       <hr class="divider">
 
       <c:if test="${!empty postObj.fileName}">
-        <img src="/upload/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br> <!-- "/home/ubuntu/Project/Image/" -->
-        <!-- 파일 저장 : <a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a><br>	 -->
+        <img src="/upload/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br><br>
+        <!-- 파일 저장 : <a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a><br>	 -->  <!-- "/home/ubuntu/Project/Image/" -->
       </c:if>
       ${postObj.contents}
 
@@ -46,9 +41,20 @@
       
     </div>
   	<div class="modal-footer">
-      
-      <button type="button" class="btn btn-secondary"
-        data-bs-dismiss="modal">Close</button>
+    <c:if test="${userInfo.userId eq postObj.writerId}">
+      	
+		<button type="button" class="btn btn-primary" 
+			onclick="changeModal('modifypost', '${postObj.postId}')">
+			Modify Post
+		</button>
+		<button type="button" class="btn btn-primary" data-bs-dismiss="modal" 
+			onclick="deletePost('{&quot;writerId&quot;: &quot;${postObj.writerId}&quot;, &quot;postId&quot;: &quot;${postObj.postId}&quot;, &quot;boardId&quot;: &quot;${postObj.boardId}&quot;}')">
+			Delete Post
+		</button>
+	</c:if>
+      	<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        	Close
+       	</button>
       
   	</div>
 </body>

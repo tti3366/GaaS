@@ -66,7 +66,7 @@
 				<label class="col-sm-2 col-form-label">Writer</label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" 
-						value="${userInfo.userName}" disabled>
+						value="${userInfo.userName}(${userInfo.userId})" disabled>
 				</div>
 			</div>
 			<div class="form-group">
@@ -95,10 +95,10 @@
 	   	<input type="hidden" name="boardId" value="${postObj.boardId}"/>
 	   	
 		<div class="modal-footer">
-			<button type="button" class="btn btn-secondary"
-				data-bs-dismiss="modal">Close</button>
 			<button type="submit" class="btn btn-primary"
 				data-bs-dismiss="modal">Modify Post</button>
+			<button type="button" class="btn btn-secondary"
+				data-bs-dismiss="modal">Close</button>
 		</div>
 	</form>
 		
