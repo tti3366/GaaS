@@ -32,7 +32,7 @@ public class DatabaseConfig {
 		DataSource ds = new DataSource();
 		
 		ds.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		ds.setUrl("jdbc:oracle:thin:@61.255.235.171:1521:xe");
+		ds.setUrl("jdbc:oracle:thin:@61.255.235.170:1521:xe");
 		//ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=C:/Wallet_gaasDB");
 		//ds.setUrl("jdbc:oracle:thin:@gaasdb_medium?TNS_ADMIN=/home/ubuntu/Wallet_gaasDB");
 		

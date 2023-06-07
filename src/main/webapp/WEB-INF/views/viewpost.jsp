@@ -10,21 +10,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	작성자 : ${postObj.writerId }<br>
-	제목 : ${postObj.title }<br>
-	내용 : ${postObj.contents }<br>
-	작성일자 : ${fn:substring(postObj.postDate.toString(), 0, 19)}<br>
-	조회수 : ${postObj.views }<br>
-	게시글 상태 : ${postObj.statusCode }<br>
-	--------------------------------------------------<br>
-	게시글 번호 : ${postObj.postId }<br>
-	동아리 코드 : ${postObj.clubId }<br>
-	게시판 코드 : ${postObj.boardId }<br>
-	
-	<c:if test="${!empty postObj.fileName}">
-		파일 이름 : ${postObj.fileName}<br>
-		<img src="/upload/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br>
-		파일 저장 : <a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a><br>	 <!-- "/home/ubuntu/Project/Image/" -->
-	</c:if>
+	<div class = "pagetitle">
+		<h1>${postObj.title}</h1>
+		<nav class="d-flex justify-content-end">
+			<ol class = "breadcrumb">
+				<li class="breadcrumb-item">작성자 : ${postObj.writerId}</li>
+				<li class="breadcrumb-item">작성일 : ${fn:substring(postObj.postDate.toString(), 0, 19)}</li>
+				<li class="breadcrumb-item">조회수 : ${postObj.views}</li>
+			</ol>
+		</nav>
+		
+		<hr class="divider">
+		
+		<c:if test="${!empty postObj.fileName}">
+			<img src="/upload/${postObj.fileName}" style="max-width: 100%; height: auto;"/><br>
+		</c:if>
+		${postObj.contents}
+		
+		<hr class="divider">
+		여기에 댓글 폼 추가
+	</div>
 </body>
 </html>
