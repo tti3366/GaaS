@@ -47,7 +47,17 @@ public class ClubDao {
 		return jdbcTemplate.query(sql, rowMapper, "일반", 1);
 	}
 	
-	//일반 동아리명 본인이 가입된 것 이외 조회
+	// 전공 동아리 가입된 것이 없을 때, 가입할 수 있는 모든 목록 조회 (전공 코드가 사용자의 전공 코드 / 일반 코드여야 함)
+	public List<Club> getMajorClubNames(String userId) {
+		String sql = "SELECT * FROM club WHERE club_state LIKE ? "
+					+ "AND substr(club_id, 0, 2) in (substr(?, 4, 2), 99)"
+					+ "AND club_id not in (select club_id from club_users where user_id = ?) "
+					+ "ORDER BY club_id ASC";
+		
+		return jdbcTemplate.query(sql, rowMapper, 1, userId, userId);
+	}
+	
+	// 전공 동아리가 하나 존재할 때, 가입 가능한 일반 동아리 목록만 조회
 	public List<Club> getCommonClubNames(String userId) {
 		String sql = "SELECT * FROM club WHERE division LIKE ? AND club_state LIKE ? "
 					+ "AND club_id not in (select club_id from club_users where user_id = ?) "
@@ -70,6 +80,18 @@ public class ClubDao {
 			String sql = "SELECT * FROM CLUB WHERE club_id LIKE ?";
 			
 			club = jdbcTemplate.queryForObject(sql, rowMapper, clubId);
+		} catch (NullPointerException e) {
+			System.out.println("[동아리] 일치하는 데이터가 없습니다.");
+		}
+		return club;
+	}
+	
+	// 동아리장 ID로 동아리 정보 조회
+	public Club getClubByManagerId(String managerId) {
+		try {
+			String sql = "SELECT * FROM CLUB WHERE manager_id LIKE ?";
+			
+			club = jdbcTemplate.queryForObject(sql, rowMapper, managerId);
 		} catch (NullPointerException e) {
 			System.out.println("[동아리] 일치하는 데이터가 없습니다.");
 		}

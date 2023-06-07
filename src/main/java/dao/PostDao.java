@@ -42,7 +42,9 @@ public class PostDao {
 	}
 	
 	public Post selectPost(int postId) {
-		String sql="SELECT * FROM POST2 WHERE POST_ID LIKE ?";
+		String sql = "SELECT p.*, u.user_name as \"writer_name\" FROM POST2 p, USERS u WHERE p.writer_id = u.user_id and POST_ID = ?";
+		// String sql = "SELECT * FROM POST2 WHERE POST_ID LIKE ?";
+		
 		return jdbcTemplate.queryForObject(sql,
 				(ResultSet rs, int rowNum)->{
 					Post p=new Post();
@@ -56,6 +58,7 @@ public class PostDao {
 					p.setStatusCode(rs.getInt("STATUS_CODE"));
 					p.setViews(rs.getInt("VIEWS"));
 					p.setFileName(rs.getString("FILE_NAME"));
+					p.setWriterName(rs.getString("WRITER_NAME"));
 					
 					return p;
 				},postId);
@@ -64,7 +67,8 @@ public class PostDao {
 	
 	public List<Post> selectAllPostByBoardId(String boardId) {	// status_code = (0 초기, 1 수정, 2 삭제)
 		String sql = "SELECT p.*, u.user_name as \"writer_name\" FROM POST2 p, USERS u " 
-					+ "WHERE p.writer_id = u.user_id and status_code in (0, 1) and board_id LIKE ?";
+					+ "WHERE p.writer_id = u.user_id and status_code in (0, 1) and board_id LIKE ? "
+					+ "ORDER BY POST_DATE DESC";
 		
 		List<Post> result = jdbcTemplate.query(sql,
 				(ResultSet rs,int rowNum)->{

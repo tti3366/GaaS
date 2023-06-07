@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import model.Club;
 import model.ClubUsers;
 import model.User;
+import service.ClubService;
 import service.ManagerService;
 
 @Controller
 @RequestMapping("/manager")
 public class ManagerController {
+	
+	@Autowired
+	ClubService clubService;
 	
 	@Autowired
 	ManagerService managerService;
@@ -40,6 +45,7 @@ public class ManagerController {
 			if(user.getAuthority().equals("manager")) { // 동아리장 판단
 				String managerId = user.getUserId();
 				
+				Club c = clubService.getClubByManagerId(managerId);
 				List<ClubUsers> cu_list = managerService.getClubUsersByManagerId(managerId);
 				
 				// 날짜 형식 변환
@@ -50,6 +56,7 @@ public class ManagerController {
 					);
 				}
 				
+				model.addAttribute("club", c);
 				model.addAttribute("clubUsers", cu_list);
 				
 				return "managerClubUsers";

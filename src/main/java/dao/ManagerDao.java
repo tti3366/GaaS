@@ -20,7 +20,8 @@ public class ManagerDao {
 	public List<ClubUsers> getAllClubUsers() {
 		String sql = "SELECT cu.*, u.user_name, u.user_phone_number, d.name_kr as \"dept_name_kr\" " 
 					+ "FROM club_users cu, users u, dept d " 
-					+ "WHERE cu.user_id = u.user_id AND d.dept_id = substr(u.user_id, 4, 2)";
+					+ "WHERE cu.user_id = u.user_id AND d.dept_id = substr(u.user_id, 4, 2) "
+					+ "ORDER BY JOIN_DATE ASC";
 		
 		return jdbcTemplate.query(sql, rowMapper);
 	}
@@ -29,7 +30,8 @@ public class ManagerDao {
 		String sql = "SELECT cu.*, u.user_name, u.user_phone_number, d.name_kr as \"dept_name_kr\" " 
 					+ "FROM club_users cu, users u, dept d " 
 					+ "WHERE cu.club_id = (select club_id from club where manager_id = ?) "
-					+ "AND cu.user_id = u.user_id AND d.dept_id = substr(u.user_id, 4, 2)";
+					+ "AND cu.user_id = u.user_id AND d.dept_id = substr(u.user_id, 4, 2) "
+					+ "ORDER BY JOIN_DATE ASC";
 		
 		return jdbcTemplate.query(sql, rowMapper, managerId);
 	}

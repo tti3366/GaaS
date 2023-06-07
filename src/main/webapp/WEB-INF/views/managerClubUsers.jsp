@@ -88,12 +88,10 @@
 	<main id="main" class="main">
 
 		<div class="pagetitle">
-			<h1>Profile</h1>
+			<h1>${club.clubName}</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="/home">Home</a></li>
-					<li class="breadcrumb-item">Manager</li>
-					<li class="breadcrumb-item active">ClubUsers</li>
+					<li class="breadcrumb-item">${club.clubInformation}</li>
 				</ol>
 			</nav>
 		</div>
@@ -111,7 +109,7 @@
 
 								<li class="nav-item">
 									<button class="nav-link active" data-bs-toggle="tab"
-										data-bs-target="#clubUsers">Club Users</button>
+										data-bs-target="#clubUsers">Users</button>
 								</li>
 
 							</ul>

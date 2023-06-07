@@ -109,6 +109,7 @@ public class PostController {
 		if(!clubUsersService.checkClubAuth(userId, clubId) && boardType.equals("pri")) {	
 			mav.addObject("club", club);
 			mav.addObject("alert", "동아리원이 아니면 접근할 수 없습니다!");
+			mav.addObject("script", "signInClubModalShow()");
 			mav.setViewName("club");
 			
 			return mav;
@@ -116,7 +117,7 @@ public class PostController {
 		
 		else {	
 			List<Post> posts = postService.selectAllPostByBoardId(boardId);
-			Collections.sort(posts, (a, b) -> a.getPostId() - b.getPostId());
+			//Collections.sort(posts, (a, b) -> a.getPostId() - b.getPostId());
 			
 			mav.addObject("club", club);
 			mav.addObject("posts", posts);
