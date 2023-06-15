@@ -10,7 +10,8 @@ public class Reply {
 	private String contents;
 	private Timestamp replyDate;
 	private int statusCode;
-	
+	// JOIN
+	private String writerName;
 	
 	public int getReplyId() {
 		return replyId;
@@ -48,5 +49,15 @@ public class Reply {
 	public void setStatusCode(int statusCode) {
 		this.statusCode = statusCode;
 	}
-
+	public String getWriterName() {
+		return writerName;
+	}
+	public void setWriterName(String writerName) {
+		this.writerName = writerName;
+	}
+	@Override
+	public String toString() {
+		return "Reply [replyId=" + replyId + ", writerId=" + writerId + ", postId=" + postId + ", contents=" + contents
+				+ ", replyDate=" + replyDate + ", statusCode=" + statusCode + ", writerName=" + writerName + "]";
+	}
 }

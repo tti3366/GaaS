@@ -27,7 +27,7 @@ public class ReplyDao {
 	}
 	
 	public List<Reply> selectReply(int postId){
-		String sql="SELECT * FROM REPLY WHERE POST_ID=?";
+		String sql="SELECT r.*, u.user_name as \"writer_name\" FROM REPLY r, USERS u WHERE POST_ID = ? and r.writer_id = u.user_id ORDER BY REPLY_ID";
 
 		List<Reply> result=jdbcTemplate.query(sql,
 							(ResultSet rs,int rowNum)->{
@@ -38,22 +38,23 @@ public class ReplyDao {
 								r.setContents(rs.getString("contents"));
 								r.setReplyDate(rs.getTimestamp("reply_date"));
 								r.setStatusCode(rs.getInt("status_code"));
+								r.setWriterName(rs.getString("writer_name"));
 								return r;
-							},postId); 
+							}, postId); 
 		return result;
 		
 	}
 	
 	public int updateReply(int replyId,String content) {
-		String sql="UPDATE REPLY SET CONTENTS=? WHERE REPLY_ID=?";
+		String sql = "UPDATE REPLY SET CONTENTS = ?, REPLY_DATE = sysdate, STATUS_CODE = ? WHERE REPLY_ID=?";
 		
-		return jdbcTemplate.update(sql,content,replyId);
+		return jdbcTemplate.update(sql, content, 1, replyId);
 	
 	}
 	
 	public int deleteReply(int replyId) {
-		String sql="DELETE FROM REPLY WHERE REPLY_ID=?";
+		String sql = "UPDATE REPLY SET STATUS_CODE = ? WHERE REPLY_ID=?";
 		
-		return jdbcTemplate.update(sql,replyId);
+		return jdbcTemplate.update(sql, 2, replyId);
 	}
 }

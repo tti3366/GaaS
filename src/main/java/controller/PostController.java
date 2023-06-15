@@ -40,6 +40,9 @@ public class PostController {
 	@Autowired
 	private ReplyService replyService;
 	
+	SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Date date = new Date(System.currentTimeMillis());
+	
 	static String IMAGE_PATH = "/Users/Jun/Image/post/";		// "C:/GaaSimg/post/"	// "/home/ubuntu/Project/Image/post/"
 	
 	// 파일 이름을 고유하게 만들기 위한 메소드
@@ -93,7 +96,7 @@ public class PostController {
         int result = postService.insertPost(post);
         
         if(result > 0) {
-	        System.out.println("[" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + post.getBoardId() + " 게시판에 글을 작성했습니다.");
+	        System.out.println(formatter.format(date) + " [" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + post.getBoardId() + " 게시판에 글을 작성했습니다.");
 	        return "success";
         } else 
         	return "failure";
@@ -182,7 +185,7 @@ public class PostController {
 		int result = postService.deletePost(postId);
         
         if(result > 0) {
-	        System.out.println("[" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + boardId + " 게시판의 " + postId + "번 글을 삭제했습니다.");
+	        System.out.println(formatter.format(date) + " [" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + boardId + " 게시판의 " + postId + "번 글을 삭제했습니다.");
 	        return "delete success";
         } else 
         	return "delete failure";
@@ -223,7 +226,7 @@ public class PostController {
         int result = postService.modifyPost(modifyPost);
         
         if(result > 0) {
-	        System.out.println("[" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + post.getBoardId() + " 게시판의 " + post.getPostId() + "번 글을 수정했습니다.");
+	        System.out.println(formatter.format(date) + " [" + userInfo.getUserName() + "(" + userInfo.getUserId() + ")]님이 " + post.getBoardId() + " 게시판의 " + post.getPostId() + "번 글을 수정했습니다.");
 	        return "modify success";
         } else 
         	return "modify failure";
