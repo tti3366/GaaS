@@ -8,12 +8,14 @@ import dao.ClubUsersDao;
 import dao.DeptDao;
 import dao.ManagerDao;
 import dao.PostDao;
+import dao.ReplyDao;
 import dao.UserDao;
 import model.ChangePwd;
 import model.Club;
 import model.ClubUsers;
 import model.Dept;
 import model.Post;
+import model.Reply;
 import model.User;
 import service.AdminService;
 import service.ClubService;
@@ -22,6 +24,7 @@ import service.DeptService;
 import service.LoginService;
 import service.ManagerService;
 import service.PostService;
+import service.ReplyService;
 import service.UserCRUDService;
 import serviceImpl.AdminServiceImpl;
 import serviceImpl.ClubServiceImpl;
@@ -30,6 +33,7 @@ import serviceImpl.DeptServiceImpl;
 import serviceImpl.LoginServiceImpl;
 import serviceImpl.ManagerServiceImpl;
 import serviceImpl.PostServiceImpl;
+import serviceImpl.ReplyServiceImpl;
 import serviceImpl.UserCRUDSeviceImpl;
 
 //모델 설정 클래스
@@ -64,6 +68,11 @@ public class ModelConfig {
 	@Bean
 	public ChangePwd changePwd() {
 		return new ChangePwd();
+	}
+	
+	@Bean
+	public Reply reply() {
+		return new Reply();
 	}
 	
 	@Bean
@@ -134,4 +143,15 @@ public class ModelConfig {
 	public ClubUsersService clubUserServiceImpl() {
 		return new ClubUsersServiceImpl();
 	}
+	
+	@Bean
+	public ReplyDao replyDao() {
+		return new ReplyDao();
+	}
+	
+	@Bean
+	public ReplyService ReplyServiceImpl() {
+		return new ReplyServiceImpl();
+	}
+	 
 }

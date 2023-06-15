@@ -48,7 +48,7 @@ public class ClubController {
 	
 	private List<Club> clubs;
 	
-	static String IMAGE_PATH = "/Users/Jun/Image/post/";		// "C:/GaaSimg/post/"	// "/home/ubuntu/Project/Image/post/"
+	static String IMAGE_PATH = "/Users/Jun/Image/club/";		// "C:/GaaSimg/club/"	// "/home/ubuntu/Project/Image/club/"
 	
 	@RequestMapping("/createclub")
 	public ModelAndView createClub(HttpServletRequest request, RedirectAttributes redirectAttributes) {

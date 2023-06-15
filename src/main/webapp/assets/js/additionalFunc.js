@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------------- //
+// 성준 ----------------------------------------------------------------------------- //
 var changeMainBoard = function(path, paramId){
 	// home.jsp의 boardId는 초기값이 없음
 	// 동아리를 선택하면 해당 동아리의 clubId 값만 설정되어 있음
@@ -39,44 +39,7 @@ var changeMainBoard = function(path, paramId){
 	});
 }
 // ----------------------------------------------------------------------------- //
-var changeModal = function(path, paramId){		
-	var targetModal = "#postModalBody";
-	var reqType;
-	
-	// 글쓰기 모달
-	if(path == 'post') {
-		paramId = document.getElementById("boardId").value;
-		
-		if(paramId == "") {
-			alert("게시판을 선택해주세요");
-			return;
-		}
-		reqType = "post";
-		
-		postModalShow();		// 게시판 선택안함 예외처리를 위해 JSP data-bs-toggle="modal" 속성이 비활성화 되어있음
-	}
-	// 글보기 모달
-	else if(path == 'viewpost') {
-		reqType = "post";
-	}
-	// 글수정 모달
-	else if(path == 'modifypost') {
-		reqType = "get";	
-	}
-	
-	$.ajax({
-		url : "/" + path,
-		type : reqType,
-		data : {id : paramId},
-		traditional : true,
-		success : function(result) {				
-			$(targetModal).html(result);
-		},
-		error : function(jqXHR, testStatus, errorThrown) {
-			alert("오류가 발생했습니다");
-		}
-	});
-}
+// 게시글 관련 기능
 
 // 모달(글쓰기)의 submit을 가로채어, 컨트롤러 처리 후 뷰를 새로 로드하지 않고 해당 게시판을 다시 로딩  
 $(document).on('submit', '.modalForms', function(event) {
@@ -104,7 +67,7 @@ $(document).on('submit', '.modalForms', function(event) {
 	});
 })
 
-// 수정
+// 게시글 수정
 $(document).on('submit', '.modifyForms', function(event) {
 	event.preventDefault();
 	
@@ -136,7 +99,7 @@ $(document).on('submit', '.modifyForms', function(event) {
 	});
 })
 
-// 삭제
+// 게시글 삭제
 var deletePost = function(data){
 	var obj = JSON.parse(data);		// HTML 코드에서 전달된 문자열을 JSON 형식으로 파싱
 
@@ -166,7 +129,7 @@ var deletePost = function(data){
 	});
 }
 // ----------------------------------------------------------------------------- //
-// <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+// 관리자(admin) / 동아리장(manager) 기능
 
 // 여러 개의 폼 중 class 값으로 forms가 주어진 폼의 submit 처리  	
 $(document).on('submit', '.forms', function(event) {
@@ -361,6 +324,48 @@ var deleteTarget = function(targetId, target) {
 		});
 }
 
+// --------------------------------------------------------------------------------- //
+// 모달 관련 기능
+
+var changeModal = function(path, paramId){		
+	var targetModal = "#postModalBody";
+	var reqType;
+	
+	// 글쓰기 모달
+	if(path == 'post') {
+		paramId = document.getElementById("boardId").value;
+		
+		if(paramId == "") {
+			alert("게시판을 선택해주세요");
+			return;
+		}
+		reqType = "post";
+		
+		postModalShow();		// 게시판 선택안함 예외처리를 위해 JSP data-bs-toggle="modal" 속성이 비활성화 되어있음
+	}
+	// 글보기 모달
+	else if(path == 'viewpost') {
+		reqType = "post";
+	}
+	// 글수정 모달
+	else if(path == 'modifypost') {
+		reqType = "get";	
+	}
+	
+	$.ajax({
+		url : "/" + path,
+		type : reqType,
+		data : {id : paramId},
+		traditional : true,
+		success : function(result) {				
+			$(targetModal).html(result);
+		},
+		error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+		}
+	});
+}
+
 var postModalShow = function() {
 	var postModal = new bootstrap.Modal(document.getElementById('postModal'));
 	postModal.show();
@@ -379,4 +384,91 @@ var postModalHide = function() {
 var signInClubModalShow = function() {
 	var postModal = new bootstrap.Modal(document.getElementById('signInClubModal'));
 	postModal.show();
+}
+// --------------------------------------------------------------------------------- //
+
+
+// 가령 ----------------------------------------------------------------------------- //
+// 댓글 관련 기능
+
+$(document).on('submit','#commentSubmit',function(event){
+	event.preventDefault();
+	
+	var form=event.target;
+	var data=new FormData(form);
+	
+	console.log(data);
+	$.ajax({
+      url : "/comments",
+      type : "post",
+      data: data,
+      contentType: false,
+      processData : false,
+      success : function(result) {
+			changeModal('viewpost', data.get("postId"));
+	  },
+	  error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+	  }
+   });
+   
+   return false;
+	
+})
+
+function changeComment(type, postId, replyId) {
+	var originalComment;
+	var reply = $("#" + replyId);
+	var modifybtn = $("#modifybtn" + replyId);
+	var deletebtn = $("#deletebtn" + replyId);
+	
+	// 원본 댓글 내용 (댓글 수정을 취소할 때)
+	originalComment = $("#"+replyId).val();
+	
+	if(type == 'modify') {
+		if(modifybtn.val() == '수정'){
+			modifybtn.val('수정완료');
+			deletebtn.val('취소');
+			reply.attr("disabled", false);
+		} 
+		else if(modifybtn.val() == '수정완료'){
+			modifybtn.val('수정');
+			deletebtn.val('삭제');
+			reply.attr("disabled", true);
+			
+			// 댓글 수정
+			$.ajax({
+				url : "/updatereply",
+				type : "post",
+				data : {id : replyId, content : reply.val()},
+				traditional : true
+				
+			});
+			// 게시글 화면 갱신
+			changeModal('viewpost', postId);
+		}
+	}
+	else if(type == 'delete') {
+		if(deletebtn.val() == '취소'){
+			// 원래 댓글로 복원
+			reply.val(originalComment);
+			
+			modifybtn.val('수정');
+			deletebtn.val('삭제');
+			reply.attr("disabled", true);
+
+		}
+		else {
+			// 댓글 삭제
+			$.ajax({
+				url : "/deletereply",
+				type : "post",
+				data : {id : replyId, content : reply.val()},
+				traditional : true
+				
+			});
+			// 게시글 화면 갱신
+			changeModal('viewpost', postId);
+		}
+	}
 }

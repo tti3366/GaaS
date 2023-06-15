@@ -1,5 +1,8 @@
 package config;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +22,9 @@ public class MvcConfig implements WebMvcConfigurer{
 
 	public static final String SESSION_KEY = "SESSION";
 	public static final String IMAGE_PATH = "/Users/Jun/Image/";	// "/home/ubuntu/Project/Image/"
+	
+	SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Date date = new Date(System.currentTimeMillis());
 	
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -51,7 +57,7 @@ public class MvcConfig implements WebMvcConfigurer{
 		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 			Object session = request.getSession().getAttribute(SESSION_KEY);
 			if(session == null) {
-				System.out.println("[SESSION] NULL");
+				System.out.println(formatter.format(date) + " [SESSION] NULL");
 				response.sendRedirect("/login"); // 세션 정보가 없을 경우, 로그인 필요
 				return false;
 			}

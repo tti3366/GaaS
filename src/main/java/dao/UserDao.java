@@ -1,6 +1,8 @@
 package dao;
 
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,10 @@ import model.Post;
 import model.User;
 
 public class UserDao {
+	
+	SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Date date = new Date(System.currentTimeMillis());
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	private RowMapper<User> rowMapper = BeanPropertyRowMapper.newInstance(User.class);
@@ -29,8 +35,6 @@ public class UserDao {
 	
 	// 회원 가입
 	public int insertUser(User user) {
-		System.out.println("[SIGNUP] UserDao insertUser ▶ " + user.toString());
-		
 		String sql = "INSERT INTO USERS (user_id, user_pw, user_name, user_email, user_phone_number) VALUES (?, ?, ?, ?, ?)";
 		
 		int result = jdbcTemplate.update(sql, Integer.parseInt(user.getUserId()), user.getUserPw(), user.getUserName(), user.getUserEmail(), user.getUserPhoneNumber());
@@ -40,8 +44,6 @@ public class UserDao {
 	
 	// 로그인 
 	public User selectUser(User user) throws Exception{
-		System.out.println("[LOGIN] UserDao selectUser ▶ " + user.getUserId() + " / " + user.getUserPw());
-		
 		String sql = "SELECT * FROM USERS where user_id = ? AND user_pw = ?";
     
 		user = jdbcTemplate.queryForObject(sql, rowMapper, Integer.parseInt(user.getUserId()), user.getUserPw());
