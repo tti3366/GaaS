@@ -216,8 +216,8 @@
       
       <!-- 학과 배열 선언 -->
       <c:forEach items="${depts}" var="dept">
-      	
-      	<!-- <script>console.log('${dept.nameEn}');</script> -->
+      
+      	<c:if test="${!dept.nameEn.contains('Advanced') || !dept.nameKr.contains('심화')}">	<!-- 심화 과정이 포함된 학과는 하나만 출력하기 위함 -->
       	
         <li class="nav-item">
           <a class="nav-link collapsed" data-bs-toggle="collapse" href="#${dept.nameKr}">
@@ -239,6 +239,9 @@
             </c:forEach>
           </ul>
         </li>
+        
+        </c:if>
+        
       </c:forEach>
 
     </ul>

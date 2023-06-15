@@ -1,6 +1,8 @@
 package config;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @Configuration
 public class DatabaseConfig {
+	
+	SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	Date date = new Date(System.currentTimeMillis());
 	
 	//mysql 설정
 	public DataSource dataSource_mysql() {
@@ -52,13 +57,13 @@ public class DatabaseConfig {
 		ds.setNumTestsPerEvictionRun(4);
 		ds.setMinEvictableIdleTimeMillis(-1);
     		
-		System.out.println("[DB] CONNECT ORACLE");
+		System.out.println(formatter.format(date) + " [DB] CONNECT ORACLE");
 		return ds;
 	}
 	
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
-		System.out.println("[DB] DATASOURCE");
+		System.out.println(formatter.format(date) + " [DB] DATASOURCE");
 		return new JdbcTemplate(dataSource_oracle());
 	}
 }
