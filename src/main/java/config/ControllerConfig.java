@@ -13,6 +13,7 @@ import controller.LoginController;
 import controller.ManagerController;
 import controller.MyPageController;
 import controller.PostController;
+import controller.ReplyController;
 
 //컨트롤러 설정 클래스
 @Configuration
@@ -51,6 +52,10 @@ public class ControllerConfig {
 	
 	@Bean ManagerController managerController() {
 		return new ManagerController();
+	}
+	
+	@Bean ReplyController replyController() {
+		return new ReplyController();
 	}
   
 	//이미지 첨부를 위한 설정

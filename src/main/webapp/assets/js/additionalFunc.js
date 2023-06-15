@@ -1,4 +1,4 @@
-// ----------------------------------------------------------------------------- //
+// 성준 ----------------------------------------------------------------------------- //
 var changeMainBoard = function(path, paramId){
 	// home.jsp의 boardId는 초기값이 없음
 	// 동아리를 선택하면 해당 동아리의 clubId 값만 설정되어 있음
@@ -380,3 +380,31 @@ var signInClubModalShow = function() {
 	var postModal = new bootstrap.Modal(document.getElementById('signInClubModal'));
 	postModal.show();
 }
+
+
+
+// 가령 ----------------------------------------------------------------------------- //
+$(document).on('submit','#commentSubmit',function(event){
+	event.preventDefault();
+	
+	var form=event.target;
+	var data=new FormData(form);
+	
+	console.log(data);
+	$.ajax({
+      url : "/comments",
+      type : "post",
+      data: data,
+      contentType: false,
+      processData : false,
+      success : function(result) {
+			$(targetModal).html(result);
+	  },
+	  error : function(jqXHR, testStatus, errorThrown) {
+			alert("오류가 발생했습니다");
+	  }
+   });
+   
+   return false;
+	
+})

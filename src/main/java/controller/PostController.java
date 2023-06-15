@@ -21,10 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import model.Club;
 import model.Post;
+import model.Reply;
 import model.User;
 import service.ClubService;
 import service.ClubUsersService;
 import service.PostService;
+import service.ReplyService;
 
 @Controller
 public class PostController {
@@ -35,7 +37,9 @@ public class PostController {
 	private ClubService clubService;
 	@Autowired
 	private ClubUsersService clubUsersService;
-
+	@Autowired
+	private ReplyService replyService;
+	
 	static String IMAGE_PATH = "/Users/Jun/Image/post/";		// "C:/GaaSimg/post/"	// "/home/ubuntu/Project/Image/post/"
 	
 	// 파일 이름을 고유하게 만들기 위한 메소드
@@ -128,18 +132,26 @@ public class PostController {
 		}
 	}
 	
+	
 	@RequestMapping("/viewpost")
 	public ModelAndView viewPost(@RequestParam("id") int postId, HttpSession session) {
 		ModelAndView mav = new ModelAndView();  
 		
-		User userInfo = (User) session.getAttribute("SESSION");
 		Post post = postService.selectPost(postId);
 		
 		// 조회수 증가
 		postService.increaseViews(postId);
 		
-		mav.addObject("userInfo", userInfo);
-		mav.addObject("postObj", post);
+		//해당 게시물에 대한 댓글 보기
+		List<Reply> replies=replyService.selectReply(postId);
+		
+		//유저 정보
+		User userInfo=(User) session.getAttribute("SESSION");
+		
+		mav.addObject("postObj",post);
+		mav.addObject("replies", replies);
+		mav.addObject("userInfo",userInfo);
+		
 		mav.setViewName("viewpost");
 
 		return mav;
