@@ -397,7 +397,6 @@ $(document).on('submit','#commentSubmit',function(event){
 	var form=event.target;
 	var data=new FormData(form);
 	
-	console.log(data);
 	$.ajax({
       url : "/comments",
       type : "post",
@@ -416,16 +415,16 @@ $(document).on('submit','#commentSubmit',function(event){
 	
 })
 
+var originalComment;
 function changeComment(type, postId, replyId) {
-	var originalComment;
 	var reply = $("#" + replyId);
 	var modifybtn = $("#modifybtn" + replyId);
 	var deletebtn = $("#deletebtn" + replyId);
 	
-	// 원본 댓글 내용 (댓글 수정을 취소할 때)
-	originalComment = $("#"+replyId).val();
-	
 	if(type == 'modify') {
+		// 원본 댓글 내용 (댓글 수정을 취소할 때)
+		originalComment = $("#" + replyId).val();
+		
 		if(modifybtn.val() == '수정'){
 			modifybtn.val('수정완료');
 			deletebtn.val('취소');
