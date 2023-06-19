@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -57,7 +58,7 @@ public class UserDao {
 		try {
 			user = jdbcTemplate.queryForObject(sql, rowMapper, userId);
 			return user;					
-		} catch (NullPointerException e) {
+		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
 	}

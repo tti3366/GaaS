@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -148,5 +149,15 @@ public class PostDao {
 		int result = jdbcTemplate.update(sql, postId);
 
 		return result;
+	}
+	
+	public String getUserId(int postId) {
+		String sql = "SELECT * FROM POST2 where post_id = ?";
+		
+		try {
+			return Integer.toString(jdbcTemplate.queryForObject(sql, rowMapper, postId).getWriterId());				
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 }

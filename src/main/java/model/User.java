@@ -1,6 +1,11 @@
 package model;
 
-public class User {
+import pattern.Observer;
+import pattern.RegularUserState;
+import pattern.UserState;
+import service.EmailSender;
+
+public class User implements Observer {
 	
 	private String userId;
 	private String userPw;
@@ -9,7 +14,22 @@ public class User {
 	private String userPhoneNumber;
 	private String authority;
 	private String about;
+	private UserState state;
 	
+	public User() {
+		state = new RegularUserState();
+	}
+	
+	@Override
+	public void update(Reply reply) {
+		new EmailSender().emailSend(this, reply);
+	}
+    public String welcomeMessage() {
+        return state.getWelcomeMessage();
+    }
+	public void setState(UserState state) {
+		this.state = state;
+	}
 	public String getUserId() {
 		return userId;
 	}

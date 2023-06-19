@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -572,6 +573,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/assets/js/jquery.marquee.js"></script>
   <script>
+    
 	$(function() {
 		$('.marquee_text').marquee({
 	    	speed: 60,//속도
@@ -592,7 +594,14 @@
 	}
 	var modal = new bootstrap.Modal(document.getElementById('postModal'));
 	modal._element.addEventListener('hidden.bs.modal', handleModalClose);
+
   </script>
+  <script>
+    if("${message}" != "") {
+    	alert("${message}");
+    }
+  </script>
+  
 </body>
 
 </html>

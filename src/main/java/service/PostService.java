@@ -19,4 +19,6 @@ public interface PostService {
 	public int modifyPost(Post post);
 	
 	public int deletePost(int postId);
+	
+	public String getUserId(int postId);
 }

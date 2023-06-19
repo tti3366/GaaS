@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.effectException;
 import model.User;
+import pattern.ManagerState;
 import service.ClubService;
 import service.DeptService;
 import service.LoginService;
@@ -97,9 +98,10 @@ public class LoginController {
 		
 		try {
 			User userInfo = loginService.selectUser(user);
-			System.out.println(formatter.format(date) + " [LOGIN] TRY ► " + user.getUserId() + " / " + user.getUserPw());
 			
+			System.out.println(formatter.format(date) + " [LOGIN] TRY ► " + user.getUserId() + " / " + user.getUserPw());
 			session.setAttribute("SESSION", userInfo);	// 로그인 유저 Session 등록
+			session.setAttribute("First", "true");
 			
 			System.out.println(formatter.format(date) + " [LOGIN] SUCCESS ► " + userInfo.getUserName() + "(" + userInfo.getUserId()+ ")");
 			mav.setViewName("redirect:/home");

@@ -1,9 +1,15 @@
 package model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Reply {
+import pattern.Observer;
+import pattern.Subject;
+
+public class Reply implements Subject {
 	
+	private List<Observer> observers;
 	private int replyId;
 	private int writerId;
 	private int postId;
@@ -13,6 +19,27 @@ public class Reply {
 	// JOIN
 	private String writerName;
 	
+	public Reply() {
+		this.observers = new ArrayList<>();
+	}
+	
+	@Override
+	public void addObserver(Observer observer) {
+		observers.add(observer);
+	}
+	
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+    
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : observers) {
+            observer.update(this);
+        }
+    }
+    
 	public int getReplyId() {
 		return replyId;
 	}
@@ -24,6 +51,7 @@ public class Reply {
 	}
 	public void setWriterId(int writerId) {
 		this.writerId = writerId;
+		notifyObservers();
 	}
 	public int getPostId() {
 		return postId;
@@ -54,6 +82,12 @@ public class Reply {
 	}
 	public void setWriterName(String writerName) {
 		this.writerName = writerName;
+	}
+	public List<Observer> getObservers() {
+		return observers;
+	}
+	public void setObservers(List<Observer> observers) {
+		this.observers = observers;
 	}
 	@Override
 	public String toString() {
