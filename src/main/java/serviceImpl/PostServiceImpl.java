@@ -44,4 +44,8 @@ public class PostServiceImpl implements PostService {
 		return postDao.deletePost(postId);
 		
 	}
+	@Override
+	public String getUserId(int postId) {
+		return postDao.getUserId(postId);
+	}
 }

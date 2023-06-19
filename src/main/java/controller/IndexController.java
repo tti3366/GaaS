@@ -15,7 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import model.Club;
 import model.Dept;
 import model.User;
-
+import pattern.AdminState;
+import pattern.ManagerState;
 import service.ClubService;
 import service.ClubUsersService;
 import service.DeptService;
@@ -37,6 +38,17 @@ public class IndexController {
 		
 		User userInfo = (User)request.getSession().getAttribute("SESSION");
 		
+		//권한에 따라 상태 변경
+		if(userInfo.getAuthority().equals("manager")) {
+			userInfo.setState(new ManagerState());
+		}
+		else if(userInfo.getAuthority().equals("admin")) {
+			userInfo.setState(new AdminState());
+		}
+		
+		//상태에 맞는 메서드 호출
+		String message = userInfo.welcomeMessage();
+		
 		if(clubUsersService.checkMajorSigned(userInfo.getUserId()) == null) {
 			clubsForSignIn = clubService.getMajorClubNames(userInfo.getUserId());	// 전공 동아리 가입된 것이 없을 때, 가입할 수 있는 모든 목록 조회 (전공 코드가 사용자의 전공 코드 / 일반 코드여야 함)
 		}
@@ -46,6 +58,12 @@ public class IndexController {
 		
 		List<Dept> depts = deptService.getAllDeparts();
 		List<Club> clubs = clubService.getAllClubs();
+		
+		//로그인 경우에만 환영 메세지 add
+		if(request.getSession().getAttribute("First") == "true") {
+			mav.addObject("message", message);
+			request.getSession().setAttribute("First", "false");
+		}
 		
 		mav.addObject("depts", depts);
 		mav.addObject("clubs", clubs);
