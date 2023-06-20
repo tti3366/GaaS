@@ -18,7 +18,9 @@ public class EmailSender {
         // 이메일 송신 설정
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
-        //props.put("mail.smtp.ssl.enable", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+
         //props.put("mail.smtp.ssl.trust", "stmp.naver.com");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.port", port);
