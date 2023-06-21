@@ -12,6 +12,7 @@ public interface LoginService {
 	
 	public List<String> selectClub(String userId);
 	public User selectUser(User user) throws Exception;
+	public User selectUserByPhone(String userPhoneNumber, String userPw) throws Exception;
 	public User selectUserByUserId(String userId);
 	
 	public List<User> getAllUsers();

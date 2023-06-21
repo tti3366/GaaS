@@ -25,6 +25,10 @@ public class LoginServiceImpl implements LoginService{
 		return userDao.selectUser(user);
 	}
 	
+	public User selectUserByPhone(String userPhoneNumber, String userPw) throws Exception {
+		return userDao.selectUserByPhone(userPhoneNumber, userPw);
+	}
+	
 	public List<String> selectClub(String userId) {
 		return userDao.selectClub(userId);
 	}

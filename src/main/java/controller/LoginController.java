@@ -16,7 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import exception.effectException;
 import model.User;
+import pattern.InputValidator;
+import pattern.LoginManager;
 import pattern.ManagerState;
+import pattern.PhoneNumberLoginStrategy;
+import pattern.StudentIdLoginStrategy;
 import service.ClubService;
 import service.DeptService;
 import service.LoginService;
@@ -30,6 +34,12 @@ public class LoginController {
 	private ClubService clubService;
 	@Autowired
 	private DeptService deptService;
+	@Autowired
+	private PhoneNumberLoginStrategy phoneNumberLoginStrategy;
+	@Autowired
+	private StudentIdLoginStrategy studentIdLoginStrategy;
+	@Autowired
+	private LoginManager loginManager;
 	
 	SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	Date date = new Date(System.currentTimeMillis());
@@ -93,8 +103,8 @@ public class LoginController {
 
 	//사용자가 입력한 아이디와 비밀번호를 받아 커맨드 객체로 생성
 	@PostMapping(value = "/loginProc")
-	public ModelAndView loginProc(@ModelAttribute("loginData") User user, HttpSession session, HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView loginProc(@ModelAttribute("loginData") User user, int idFlag, HttpSession session, HttpServletRequest request) {
+		/*ModelAndView mav = new ModelAndView();
 		
 		try {
 			User userInfo = loginService.selectUser(user);
@@ -117,6 +127,17 @@ public class LoginController {
 			mav.setViewName("login");
 			return mav;
 		}
+	}*/   
+		System.out.println(idFlag);
+		System.out.println(user);
+        if(InputValidator.validateStudentId(user.getUserId())) {
+        	loginManager.setLoginStrategy(studentIdLoginStrategy);
+        }
+        else if(InputValidator.validatePhoneNumber(user.getUserId())) {
+        	loginManager.setLoginStrategy(phoneNumberLoginStrategy);
+        }
+        
+        return loginManager.login(user, session, request, loginService);
 	}
 	
 	@RequestMapping("/logoutProc")

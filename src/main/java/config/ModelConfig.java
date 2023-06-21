@@ -17,6 +17,11 @@ import model.Dept;
 import model.Post;
 import model.Reply;
 import model.User;
+import pattern.InputValidator;
+import pattern.LoginManager;
+import pattern.LoginStrategy;
+import pattern.PhoneNumberLoginStrategy;
+import pattern.StudentIdLoginStrategy;
 import service.AdminService;
 import service.ClubService;
 import service.ClubUsersService;
@@ -153,5 +158,20 @@ public class ModelConfig {
 	public ReplyService ReplyServiceImpl() {
 		return new ReplyServiceImpl();
 	}
-	 
+	
+	@Bean 
+	public LoginManager loginManager() {
+		return new LoginManager();
+	}
+	
+	@Bean
+	public StudentIdLoginStrategy studentIdLoginStrategy() {
+	    return new StudentIdLoginStrategy();
+	}
+
+	@Bean
+	public PhoneNumberLoginStrategy phoneNumberLoginStrategy() {
+	    return new PhoneNumberLoginStrategy();
+	}
+
 }
