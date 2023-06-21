@@ -52,6 +52,14 @@ public class UserDao {
 		return user;
 	}
 	
+	public User selectUserByPhone(String userPhoneNumber, String userPw) throws Exception{
+		String sql = "SELECT * FROM USERS where user_phone_number = ? AND user_pw = ?";
+    
+		user = jdbcTemplate.queryForObject(sql, rowMapper, userPhoneNumber, Integer.parseInt(userPw));
+    
+		return user;
+	}
+	
 	public User selectUserByUserId(String userId) {
 		String sql = "SELECT * FROM USERS where user_id = ?";
 		
