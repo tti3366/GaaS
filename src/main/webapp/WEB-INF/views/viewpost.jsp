@@ -36,7 +36,25 @@
 		<hr class="divider">
 	
 		<c:if test="${!empty postObj.fileName}">
-			<img src="/upload/post/${postObj.fileName}" style="max-width: 100%; height: auto;" />
+			<c:set var="fileName" value="${postObj.fileName}" />		<!-- 파일의 확장자 확인 -->
+			<c:set var="idx" value="${fileName.lastIndexOf('.')}" />
+			<c:set var="len" value="${fn:length(fileName)}" />
+			<c:set var="extension" value="${fn:substring(fileName, idx + 1, len)}" />
+			
+			<c:choose>
+				<c:when test="${extension eq 'jpeg' || extension eq 'png'}">
+					<img src="/upload/post/${postObj.fileName}" style="max-width: 100%; height: auto;" />
+				</c:when>
+				<c:when test="${extension eq 'mp4' || extension eq 'mov'}">
+					<video width="100%" height="auto" src="/upload/post/${postObj.fileName}" controls autoplay></video>
+				</c:when>			
+				<c:otherwise>
+					<b>[출력할 수 없는 파일]</b><br>
+					${fileName}
+				</c:otherwise>
+			</c:choose>
+			
+
 			<br><br>
 			<!-- 파일 저장 : <a class="btn" href="/Users/Jun/Image/" download="${postObj.fileName}">${postObj.fileName}</a><br>	 -->
 			<!-- "/home/ubuntu/Project/Image/" -->
