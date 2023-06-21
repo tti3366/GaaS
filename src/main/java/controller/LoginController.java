@@ -103,7 +103,7 @@ public class LoginController {
 
 	//사용자가 입력한 아이디와 비밀번호를 받아 커맨드 객체로 생성
 	@PostMapping(value = "/loginProc")
-	public ModelAndView loginProc(@ModelAttribute("loginData") User user, int idFlag, HttpSession session, HttpServletRequest request) {
+	public ModelAndView loginProc(@ModelAttribute("loginData") User user, HttpSession session, HttpServletRequest request) {
 		/*ModelAndView mav = new ModelAndView();
 		
 		try {
@@ -128,8 +128,6 @@ public class LoginController {
 			return mav;
 		}
 	}*/   
-		System.out.println(idFlag);
-		System.out.println(user);
         if(InputValidator.validateStudentId(user.getUserId())) {
         	loginManager.setLoginStrategy(studentIdLoginStrategy);
         }

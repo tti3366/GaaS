@@ -426,7 +426,9 @@
 									</ul>
 								</div>
 								<div class="card-body" style="height: 500px">
-									<div id="mainBoard"></div>	<!-- 게시판 뷰 -->
+									<div id="mainBoard">	<!-- 게시판 뷰 -->
+										<jsp:include page="viewAccordion.jsp"/>
+									</div>
 								</div>
 							</div>
 						</div>
