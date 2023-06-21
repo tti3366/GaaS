@@ -442,13 +442,13 @@
           <div class="card-body" style="height:50px; margin-bottom:0;">
           	<h1>Chat</h1>
           </div>
-          <div class="card" style="height : 200px; margin-bottom:0;" id="chatTable">
+          <div class="card" style="height : 450px; margin-bottom:0;" id="chatTable">
             <!-- 채팅 페이지 include -->
             <jsp:include page="chat.jsp"/>	
             
             
             <!-- 추후 랭킹 페이지 -->
-            <div class="card" style="height : 200px;">
+<!--            <div class="card" style="height : 200px;">
             	<div class="filter">
               		<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
               		<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -515,7 +515,7 @@
               </script>
             </div>
           </div>
-          
+           -->
           
         </div><!-- End Right side columns -->
       </div>

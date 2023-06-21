@@ -53,20 +53,27 @@
 						<hr class="divider">
 					</c:if>
 					
-					${replyCnt} | <input type="text" id="${reply.replyId }" value="${reply.contents }" disabled /> | ${reply.writerName}(${reply.writerId}) | ${fn:substring(reply.replyDate.toString(), 0, 19)} |  
+					<div class="ms-3 d-flex justify-content-between">
+						<div>
+							<input type="text" id="${reply.replyId }" value="${reply.contents }" style="width: 270px" disabled />
+							<c:if test="${reply.statusCode == 1}"> [수정됨]</c:if>
+						</div>
+						<div class="d-flex">${reply.writerName}(${reply.writerId}) | ${fn:substring(reply.replyDate.toString(), 0, 19)}
+							<c:set var="replyCnt" value="${replyCnt + 1}" /><!-- 댓글 번호 증가 -->
+							<c:set var="userId" value="${userInfo.userId}" />
+							<c:set var="writerId" value="${reply.writerId}" />
+							
+							<c:if test="${userId eq writerId }">
+								&nbsp
+								<input id="modifybtn${reply.replyId }" type="button" class="btn btn-primary" value="수정"
+									onclick="changeComment('modify', ${postObj.postId}, ${reply.replyId})" />
+								<input id="deletebtn${reply.replyId }" type="button" class="btn btn-danger" value="삭제"
+									onclick="changeComment('delete', ${postObj.postId}, ${reply.replyId})" />
+							</c:if>
+						</div>
+					</div>
 					
-					<c:set var="replyCnt" value="${replyCnt + 1}" /><!-- 댓글 번호 증가 -->
-					<c:set var="userId" value="${userInfo.userId}" />
-					<c:set var="writerId" value="${reply.writerId}" />
-		
-					<c:if test="${userId eq writerId }">
-						<input id="modifybtn${reply.replyId }" type="button" value="수정"
-							onclick="changeComment('modify', ${postObj.postId}, ${reply.replyId})" />
-						<input id="deletebtn${reply.replyId }" type="button" value="삭제"
-							onclick="changeComment('delete', ${postObj.postId}, ${reply.replyId})" />
-					</c:if>
-		
-					<c:if test="${reply.statusCode == 1}"> [수정됨]</c:if>
+					
 					<br>
 				</c:if>
 			</c:forEach>
